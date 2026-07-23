@@ -1,543 +1,1061 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding Invitation</title>
-    
-    <!-- Google Fonts for Premium Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Mukta+Malar:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* =========================================
-           CSS VARIABLES & GLOBAL STYLES
-           ========================================= */
-        :root {
-            --maroon: #5b0e15;
-            --gold: #d4af37;
-            --light-gold: #f9f1d8;
-            --dark-gold: #aa7c11;
-            --cream: #fffdf5;
-            --font-heading: 'Cinzel', serif;
-            --font-script: 'Great Vibes', cursive;
-            --font-body: 'Mukta Malar', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2b0d0d">
+<meta name="description" content="A premium interactive Tamil Hindu Engagement & Wedding Invitation">
+<title>Our Sacred Beginning | Engagement & Wedding Invitation</title>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: var(--font-body);
-            background-color: var(--cream);
-            color: var(--maroon);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+<!--
+  ============================================================
+  PREMIUM TAMIL HINDU WEDDING INVITATION
+  Single-file GitHub Pages website
+  ------------------------------------------------------------
+  OPTIONAL ASSET FOLDERS:
+    images/murugan.jpg
+    images/couple.jpg
+    images/groom.png
+    images/bride.png
+    music/wedding-song.mp3
 
-        /* Subtle Kolam Background Pattern */
-        body::before {
-            content: '';
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(var(--gold) 1px, transparent 1px);
-            background-size: 40px 40px;
-            opacity: 0.15;
-            z-index: -1;
-        }
+  The site still works if these files are missing:
+  - Murugan section uses an elegant placeholder.
+  - Garland section uses CSS illustrated characters.
+  - Music simply remains unavailable until you add the MP3.
+  ============================================================
+-->
 
-        /* =========================================
-           1. OPENING DOORS (3D TEMPLE DOORS)
-           ========================================= */
-        #door-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            z-index: 9999; display: flex; perspective: 1200px;
-            background: var(--maroon);
-            transition: visibility 2s;
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@400;500;600&family=Noto+Serif+Tamil:wght@400;500;600;700&display=swap');
 
-        .door {
-            width: 50%; height: 100%;
-            background: linear-gradient(135deg, #4a0b11, #2d0407);
-            border: 5px solid var(--gold);
-            position: relative;
-            transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1);
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
-        }
+:root{
+  --maroon:#4b1517;
+  --deep:#21090b;
+  --wine:#691f24;
+  --gold:#d9ae5a;
+  --gold-light:#f4d98b;
+  --cream:#fff6df;
+  --muted:#d9c8a4;
+  --green:#173c2c;
+  --shadow:0 25px 80px rgba(0,0,0,.35);
+  --radius:28px;
+}
 
-        .door.left { transform-origin: left; border-right: 2px solid var(--gold); }
-        .door.right { transform-origin: right; border-left: 2px solid var(--gold); }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--deep);
+  color:var(--cream);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+}
+body.locked{overflow:hidden}
+button{font:inherit}
+a{color:inherit;text-decoration:none}
 
-        .door.open.left { transform: rotateY(-105deg); }
-        .door.open.right { transform: rotateY(105deg); }
+#preloader{
+  position:fixed;inset:0;z-index:99999;
+  display:grid;place-items:center;
+  background:radial-gradient(circle at center,#6e2729 0,#2b0d0d 45%,#120406 100%);
+  transition:opacity .8s ease,visibility .8s ease;
+}
+#preloader.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loader-lamp{font-size:3rem;animation:float 2s ease-in-out infinite}
+.loader-text{
+  margin-top:12px;text-align:center;
+  letter-spacing:.18em;text-transform:uppercase;
+  font-size:.75rem;color:var(--gold-light)
+}
 
-        /* Door Decals / Temple Studs */
-        .studs {
-            position: absolute; width: 100%; height: 100%;
-            background-image: radial-gradient(circle, var(--gold) 10%, transparent 15%);
-            background-size: 50px 50px; opacity: 0.2;
-        }
+#door-screen{
+  position:fixed;inset:0;z-index:9000;
+  background:#160607;
+  overflow:hidden;
+  transition:opacity 1.2s ease,visibility 1.2s ease;
+}
+#door-screen.opened{opacity:0;visibility:hidden;pointer-events:none}
 
-        /* Center Lock / Initials */
-        #door-lock {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 250px; height: 250px;
-            background: var(--gold);
-            border-radius: 50%; z-index: 10000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6), inset 0 0 15px rgba(0,0,0,0.3);
-            border: 4px solid var(--cream);
-            cursor: pointer; transition: 0.5s;
-            animation: pulse 2s infinite;
-        }
-        #door-lock:hover { transform: translate(-50%, -50%) scale(1.05); }
-        #door-lock.hidden { opacity: 0; pointer-events: none; }
+.temple-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 50% 30%,rgba(239,190,91,.22),transparent 25%),
+    linear-gradient(180deg,rgba(28,5,6,.1),rgba(12,2,3,.75)),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 2px,transparent 2px 18px);
+}
+.temple-arch{
+  position:absolute;left:50%;top:4%;
+  width:min(900px,94vw);height:92%;
+  transform:translateX(-50%);
+  border:3px solid rgba(217,174,90,.6);
+  border-bottom:0;border-radius:48% 48% 0 0;
+  box-shadow:0 0 0 10px rgba(217,174,90,.08),0 0 80px rgba(217,174,90,.12);
+}
+.temple-arch:before,.temple-arch:after{
+  content:"";position:absolute;top:5%;bottom:0;width:8px;
+  background:linear-gradient(var(--gold),#704514,var(--gold));
+}
+.temple-arch:before{left:7%}.temple-arch:after{right:7%}
 
-        .lock-initials { font-family: var(--font-heading); font-size: 50px; color: var(--maroon); font-weight: bold; }
-        .lock-heart { font-size: 30px; color: var(--maroon); margin: 5px 0; }
-        .lock-text { font-family: var(--font-body); font-size: 14px; font-weight: bold; color: var(--maroon); margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; }
+.door-stage{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  perspective:1600px;
+}
+.door{
+  position:absolute;top:8%;bottom:8%;width:50%;
+  background:
+    radial-gradient(circle at 50% 20%,rgba(255,221,132,.12),transparent 28%),
+    linear-gradient(145deg,#6e2b25,#3c1517 45%,#22090b);
+  border:3px solid #c99846;
+  box-shadow:inset 0 0 0 9px rgba(217,174,90,.13),inset 0 0 50px rgba(0,0,0,.5),0 25px 80px rgba(0,0,0,.55);
+  z-index:3;
+  transition:transform 1.8s cubic-bezier(.7,0,.15,1);
+  transform-style:preserve-3d;
+  overflow:hidden;
+}
+.door.left{left:0;transform-origin:left center;border-radius:0 14px 14px 0}
+.door.right{right:0;transform-origin:right center;border-radius:14px 0 0 14px}
+.door-screen.is-open .door.left{transform:rotateY(-105deg)}
+.door-screen.is-open .door.right{transform:rotateY(105deg)}
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
-            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.8); }
-            100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
-        }
+.door:before{
+  content:"";position:absolute;inset:7%;
+  border:2px solid rgba(244,217,139,.55);
+  border-radius:8px;
+  background:
+    linear-gradient(45deg,transparent 48%,rgba(244,217,139,.12) 49% 51%,transparent 52%),
+    linear-gradient(-45deg,transparent 48%,rgba(244,217,139,.12) 49% 51%,transparent 52%);
+}
+.door-panel{
+  position:absolute;inset:18% 18%;
+  border:2px solid rgba(244,217,139,.55);
+  border-radius:50% 50% 8px 8px;
+}
+.door-handle{
+  position:absolute;top:50%;width:28px;height:28px;
+  border-radius:50%;background:var(--gold);
+  box-shadow:0 0 0 8px rgba(217,174,90,.12),0 5px 15px #000;
+}
+.left .door-handle{right:8%}.right .door-handle{left:8%}
 
-        /* =========================================
-           2. AUDIO BUTTON
-           ========================================= */
-        #audio-btn {
-            position: fixed; bottom: 30px; right: 30px; z-index: 1000;
-            width: 50px; height: 50px; border-radius: 50%;
-            background: var(--gold); border: 2px solid var(--maroon);
-            color: var(--maroon); font-size: 20px;
-            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            display: none; /* Hidden until door opens */
-            align-items: center; justify-content: center;
-        }
+.door-copy{
+  position:absolute;z-index:5;text-align:center;
+  left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(540px,88vw);pointer-events:none;
+  transition:opacity .6s ease;
+}
+.door-screen.is-open .door-copy{opacity:0}
+.eyebrow{
+  font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold-light);margin-bottom:18px;
+}
+.initials{
+  font-family:Cinzel,serif;font-size:clamp(3.5rem,11vw,7rem);
+  letter-spacing:.08em;color:var(--gold-light);
+  text-shadow:0 4px 30px rgba(0,0,0,.7);
+}
+.heart{color:#e58a7d;display:inline-block;animation:heartbeat 1.6s infinite}
+.door-garland{
+  font-size:clamp(2rem,6vw,4rem);letter-spacing:.3em;
+  margin:18px 0;filter:drop-shadow(0 8px 8px rgba(0,0,0,.4))
+}
+.open-btn,.gold-btn{
+  border:1px solid rgba(244,217,139,.7);
+  color:var(--cream);background:rgba(62,14,16,.72);
+  padding:14px 24px;border-radius:999px;
+  cursor:pointer;transition:.3s;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+.open-btn:hover,.gold-btn:hover{background:var(--gold);color:#2b0d0d;transform:translateY(-2px)}
+.tap-note{font-size:.72rem;color:var(--muted);margin-top:12px}
 
-        /* =========================================
-           3. MAIN CONTENT SECTIONS
-           ========================================= */
-        #main-content { display: none; opacity: 0; transition: opacity 2s ease; }
-        
-        section {
-            min-height: 100vh; padding: 80px 20px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; position: relative;
-        }
+#site{opacity:0;transition:opacity 1.2s ease}
+#site.visible{opacity:1}
 
-        h1, h2 { font-family: var(--font-heading); color: var(--maroon); }
-        h1 { font-size: 40px; margin-bottom: 20px; }
-        h2 { font-size: 30px; margin-bottom: 15px; }
-        .cursive { font-family: var(--font-script); font-size: 45px; color: var(--dark-gold); margin: 10px 0; }
+.nav{
+  position:fixed;z-index:1000;left:50%;top:18px;transform:translateX(-50%);
+  width:min(1050px,calc(100% - 24px));
+  padding:10px 14px;border:1px solid rgba(244,217,139,.18);
+  background:rgba(31,8,10,.72);backdrop-filter:blur(18px);
+  border-radius:999px;display:flex;align-items:center;gap:8px;
+  box-shadow:0 10px 35px rgba(0,0,0,.25);
+}
+.nav-brand{font-family:Cinzel,serif;color:var(--gold-light);font-size:.82rem;white-space:nowrap;padding:0 10px}
+.nav-links{display:flex;gap:2px;justify-content:flex-end;flex:1;overflow:auto}
+.nav-links a{font-size:.7rem;padding:9px 10px;color:#ead9b6;white-space:nowrap;border-radius:999px}
+.nav-links a:hover{background:rgba(244,217,139,.1);color:#fff}
+.music-btn{
+  flex:none;border:1px solid rgba(244,217,139,.35);
+  width:42px;height:42px;border-radius:50%;
+  background:#3b1114;color:var(--gold-light);cursor:pointer;
+}
+.music-btn.playing .music-bars{animation:bars .8s infinite alternate}
+.music-bars{display:inline-flex;gap:2px;align-items:flex-end;height:15px}
+.music-bars i{display:block;width:2px;background:currentColor;height:8px}
+.music-bars i:nth-child(2){height:14px}.music-bars i:nth-child(3){height:10px}
 
-        /* Scroll Animation Class */
-        .fade-in { opacity: 0; transform: translateY(40px); transition: 1s all ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+section{position:relative;padding:110px 20px;overflow:hidden}
+.container{width:min(1100px,100%);margin:auto}
+.section-kicker{
+  color:var(--gold-light);letter-spacing:.28em;text-transform:uppercase;
+  font-size:.7rem;text-align:center;margin-bottom:14px;
+}
+.section-title{
+  font-family:Cinzel,serif;text-align:center;
+  font-size:clamp(2rem,5vw,4rem);margin:0 auto 18px;
+  color:#fff3cf;
+}
+.section-intro{max-width:650px;margin:0 auto 45px;text-align:center;color:var(--muted);line-height:1.8}
+.divider{width:100px;height:1px;background:var(--gold);margin:24px auto 35px;position:relative}
+.divider:after{content:"✦";position:absolute;left:50%;top:-12px;transform:translateX(-50%);color:var(--gold);background:var(--deep);padding:0 9px}
 
-        /* =========================================
-           DIVINE BLESSINGS (MURUGAN)
-           ========================================= */
-        #blessing-section { background: linear-gradient(to bottom, var(--cream), var(--light-gold)); }
-        .murugan-img { width: 300px; height: auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 3px solid var(--gold); margin-bottom: 20px; }
-        .lamps { font-size: 40px; letter-spacing: 20px; margin: 20px 0; }
+#hero{
+  min-height:100vh;display:grid;place-items:center;text-align:center;
+  background:
+    radial-gradient(circle at 50% 38%,rgba(217,174,90,.22),transparent 23%),
+    radial-gradient(circle at 20% 80%,rgba(104,31,36,.45),transparent 30%),
+    linear-gradient(180deg,#25090b,#4b1517 50%,#21090b);
+}
+#hero:before{
+  content:"";position:absolute;inset:0;opacity:.13;
+  background-image:radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px);
+  background-size:55px 55px;animation:drift 25s linear infinite;
+}
+.hero-content{position:relative;z-index:2;max-width:850px}
+.temple-line{font-size:2rem;color:var(--gold-light);margin-bottom:20px}
+.hero-names{font-family:Cinzel,serif;font-size:clamp(3rem,9vw,7.5rem);line-height:.95;margin:15px 0;color:#fff4d5}
+.hero-names span{display:block}
+.hero-sub{font-family:"Noto Serif Tamil",serif;font-size:clamp(1rem,2vw,1.4rem);color:var(--gold-light);margin:25px auto}
+.scroll-cue{margin-top:50px;color:var(--muted);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase}
+.scroll-cue span{display:block;font-size:1.5rem;margin-top:8px;animation:float 2s infinite}
 
-        /* =========================================
-           COUPLE INTRODUCTION
-           ========================================= */
-        .couple-names { font-size: 55px; color: var(--maroon); font-family: var(--font-heading); font-weight: bold; line-height: 1.3;}
-        .and-symbol { font-family: var(--font-script); font-size: 50px; color: var(--dark-gold); }
+#divine{background:linear-gradient(180deg,#21090b,#14281d)}
+.divine-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}
+.divine-visual{
+  min-height:540px;border-radius:var(--radius);
+  position:relative;overflow:hidden;
+  border:1px solid rgba(244,217,139,.3);
+  background:
+    radial-gradient(circle at 50% 35%,rgba(244,217,139,.35),transparent 20%),
+    linear-gradient(160deg,#163d2d,#2b0d0d);
+  box-shadow:var(--shadow);
+}
+.divine-visual img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.88}
+.placeholder-divine{
+  position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:40px;
+}
+.murugan-symbol{font-size:8rem;filter:drop-shadow(0 15px 25px rgba(0,0,0,.4))}
+.vel{font-size:2rem;color:var(--gold-light);margin-top:15px}
+.divine-copy h3{font-family:Cinzel,serif;font-size:2.2rem;color:var(--gold-light)}
+.divine-copy p{line-height:1.9;color:var(--muted)}
+.blessing{
+  padding:24px;border-left:2px solid var(--gold);
+  background:rgba(255,255,255,.04);font-family:"Noto Serif Tamil",serif;
+  line-height:1.9;color:#fff0ca;
+}
 
-        /* =========================================
-           ROMANTIC QUOTES
-           ========================================= */
-        #quotes-container { max-width: 800px; margin: 40px auto; }
-        .quote { font-family: var(--font-script); font-size: 35px; color: var(--maroon); margin-bottom: 30px; opacity: 0; transform: scale(0.9); transition: 1s; }
-        .quote.visible { opacity: 1; transform: scale(1); }
+#story{background:#fff4dc;color:#4b1517}
+#story .section-title{color:#4b1517}
+#story .section-intro{color:#765a43}
+#story .divider:after{background:#fff4dc}
+.couple-card{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:35px;
+  max-width:900px;margin:auto;text-align:center;
+}
+.person{padding:30px;border:1px solid rgba(75,21,23,.16);border-radius:var(--radius);background:rgba(255,255,255,.35)}
+.person .avatar{width:130px;height:130px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;background:linear-gradient(145deg,#d9ae5a,#8b4c25);font-size:3.3rem;box-shadow:0 15px 30px rgba(75,21,23,.15)}
+.person h3{font-family:Cinzel,serif;margin:10px 0;font-size:1.5rem}
+.person small{color:#8b684e}
+.couple-heart{font-size:3rem;animation:heartbeat 1.7s infinite}
 
-        /* =========================================
-           GARLAND EXCHANGE ANIMATION
-           ========================================= */
-        #garland-section { background: var(--maroon); color: var(--cream); overflow: hidden;}
-        #garland-section h1 { color: var(--gold); }
-        
-        .stage {
-            display: flex; justify-content: center; align-items: flex-end;
-            width: 100%; max-width: 600px; margin: 40px auto; position: relative; height: 350px;
-        }
+#quotes{background:linear-gradient(180deg,#21090b,#3a1114)}
+.quote-stage{
+  min-height:260px;display:grid;place-items:center;
+  max-width:850px;margin:auto;text-align:center;
+  padding:45px;border:1px solid rgba(244,217,139,.2);
+  border-radius:var(--radius);background:rgba(255,255,255,.035);
+}
+.quote-text{font-family:"Noto Serif Tamil",serif;font-size:clamp(1.5rem,3vw,2.5rem);line-height:1.6;color:#fff1ce;transition:opacity .5s}
+.quote-mark{font-family:Georgia,serif;font-size:5rem;color:var(--gold);line-height:.4}
+.quote-dots{display:flex;justify-content:center;gap:8px;margin-top:25px}
+.quote-dot{width:7px;height:7px;border-radius:50%;background:#8a6560;cursor:pointer}
+.quote-dot.active{background:var(--gold);transform:scale(1.5)}
 
-        .cartoon-person { width: 150px; height: 300px; object-fit: contain; position: relative; z-index: 2; transition: 1s; }
-        #groom-cartoon { margin-right: 50px; }
-        #bride-cartoon { margin-left: 50px; }
+#garland{background:linear-gradient(180deg,#3a1114,#6a2627)}
+.garland-stage{
+  position:relative;height:540px;max-width:1000px;margin:auto;
+  overflow:hidden;border-radius:var(--radius);
+  border:1px solid rgba(244,217,139,.3);
+  background:
+    radial-gradient(circle at 50% 50%,rgba(244,217,139,.2),transparent 30%),
+    linear-gradient(180deg,#173c2c,#4b1517);
+  box-shadow:var(--shadow);
+}
+.garland-stage:before{
+  content:"";position:absolute;inset:0;opacity:.18;
+  background-image:radial-gradient(circle at 20% 30%,#fff 0 2px,transparent 3px),radial-gradient(circle at 80% 20%,#fff 0 2px,transparent 3px);
+  background-size:120px 120px,170px 170px;animation:drift 15s linear infinite;
+}
+.cartoon{
+  position:absolute;bottom:50px;width:230px;text-align:center;z-index:3;
+  transition:transform 2s cubic-bezier(.2,.8,.2,1);
+}
+.cartoon.groom{left:10%}.cartoon.bride{right:10%}
+.garland-stage.celebrate .groom{transform:translateX(105px)}
+.garland-stage.celebrate .bride{transform:translateX(-105px)}
+.character-head{
+  width:100px;height:100px;border-radius:50%;margin:auto;
+  background:#c9855c;border:4px solid #f1c59d;position:relative;
+  box-shadow:0 10px 25px rgba(0,0,0,.25)
+}
+.character-head:before{
+  content:"";position:absolute;left:10px;right:10px;top:-12px;height:35px;
+  border-radius:50% 50% 30% 30%;background:#211313;
+}
+.bride .character-head:before{height:42px;top:-16px;background:#19110f}
+.character-body{width:150px;height:180px;margin:-2px auto 0;border-radius:50px 50px 20px 20px;position:relative}
+.groom .character-body{background:linear-gradient(90deg,#f8e9c7 0 35%,#fff 35% 65%,#f8e9c7 65%)}
+.groom .character-body:after{content:"";position:absolute;left:0;right:0;bottom:0;height:65px;background:#fff;border-top:6px solid #d9ae5a}
+.bride .character-body{background:linear-gradient(90deg,#8d1e2b,#d9ae5a,#8d1e2b);border-radius:60px 60px 25px 25px}
+.garland{
+  position:absolute;width:115px;height:100px;border:9px solid #f5df9c;
+  border-top:0;border-radius:0 0 60px 60px;filter:drop-shadow(0 5px 5px rgba(0,0,0,.25));
+  z-index:5;top:140px;transition:all 2s cubic-bezier(.2,.8,.2,1)
+}
+.garland:before{content:"🌼🌸🌼";position:absolute;left:50%;transform:translateX(-50%);bottom:-16px;font-size:1.1rem;white-space:nowrap}
+.groom .garland{right:-20px;transform:rotate(-12deg)}
+.bride .garland{left:-20px;transform:rotate(12deg)}
+.garland-stage.celebrate .groom .garland{right:10px;top:110px;transform:rotate(0deg)}
+.garland-stage.celebrate .bride .garland{left:10px;top:110px;transform:rotate(0deg)}
+.garland-label{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);color:var(--gold-light);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;z-index:6}
+.celebrate-btn{position:absolute;z-index:10;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--gold);color:#2b0d0d;border:0;font-weight:700}
+.garland-stage.celebrate .celebrate-btn{opacity:0;pointer-events:none}
+.petal{position:absolute;z-index:8;top:-30px;font-size:1.4rem;animation:fall 4s linear forwards}
 
-        /* The Garlands */
-        .garland {
-            width: 80px; height: auto; position: absolute; z-index: 3;
-            opacity: 0; transition: all 2s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        #groom-garland { bottom: 150px; left: 15%; transform: scale(0.5); }
-        #bride-garland { bottom: 150px; right: 15%; transform: scale(0.5); }
+#events{background:#fff4dc;color:#4b1517}
+#events .section-title{color:#4b1517}
+#events .section-intro{color:#765a43}
+.events-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;max-width:1000px;margin:auto}
+.event-card{
+  padding:40px;border-radius:var(--radius);
+  background:#fffaf0;border:1px solid rgba(75,21,23,.12);
+  box-shadow:0 20px 50px rgba(75,21,23,.1);text-align:center;
+}
+.event-icon{font-size:2.7rem}
+.event-card h3{font-family:Cinzel,serif;color:#691f24;font-size:1.7rem}
+.event-date{color:#8b684e;line-height:1.8}
+.event-venue{margin-top:20px;padding-top:20px;border-top:1px solid #eadbc1}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:25px}
+.time-box{background:#4b1517;color:#fff1ce;padding:16px 5px;border-radius:14px}
+.time-box strong{display:block;font-family:Cinzel,serif;font-size:1.7rem;color:var(--gold-light)}
+.time-box span{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#dfc9a2}
+.event-complete{display:none;margin-top:22px;font-family:"Noto Serif Tamil",serif;color:#8d1e2b;font-weight:600}
+.event-card.complete .countdown{display:none}
+.event-card.complete .event-complete{display:block}
 
-        /* Active Animation State triggered on scroll */
-        .stage.action #groom-cartoon { transform: translateX(30px); }
-        .stage.action #bride-cartoon { transform: translateX(-30px); }
-        
-        .stage.action #groom-garland {
-            opacity: 1; left: 62%; bottom: 180px; transform: scale(1) rotate(15deg);
-        }
-        .stage.action #bride-garland {
-            opacity: 1; right: 62%; bottom: 180px; transform: scale(1) rotate(-15deg);
-        }
+#venue{background:linear-gradient(180deg,#21090b,#14281d)}
+.venue-card{max-width:850px;margin:auto;text-align:center;padding:55px;border-radius:var(--radius);background:rgba(255,255,255,.04);border:1px solid rgba(244,217,139,.2)}
+.venue-card h3{font-family:Cinzel,serif;color:var(--gold-light);font-size:2rem}
+.venue-card p{color:var(--muted);line-height:1.8}
+.map-placeholder{height:180px;border-radius:20px;margin:25px 0;background:repeating-linear-gradient(45deg,rgba(244,217,139,.06) 0 10px,transparent 10px 20px);display:grid;place-items:center;color:#d6bf95}
 
-        /* Falling Flowers */
-        .flower { position: absolute; top: -50px; font-size: 20px; animation: fall linear infinite; z-index: 1;}
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(360deg); }
-        }
+#final{
+  min-height:100vh;display:grid;place-items:center;text-align:center;
+  background:
+    radial-gradient(circle at 50% 40%,rgba(217,174,90,.2),transparent 25%),
+    linear-gradient(180deg,#14281d,#21090b);
+}
+.final-card{max-width:850px}
+.final-message{font-family:"Noto Serif Tamil",serif;font-size:clamp(1.2rem,2.5vw,1.8rem);line-height:2;color:#fff0ca}
+.final-names{font-family:Cinzel,serif;font-size:clamp(2rem,6vw,4.5rem);color:var(--gold-light);margin:25px 0}
+.sparkles{position:absolute;inset:0;pointer-events:none}
+.spark{position:absolute;width:4px;height:4px;background:#f4d98b;border-radius:50%;animation:twinkle 2s infinite}
 
-        /* =========================================
-           COUNTDOWNS
-           ========================================= */
-        .countdown-container { display: flex; gap: 15px; justify-content: center; margin: 30px 0; }
-        .time-box {
-            background: var(--gold); color: var(--maroon);
-            width: 80px; height: 80px; border-radius: 10px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .time-box span { font-size: 28px; font-weight: bold; font-family: var(--font-heading); }
-        .time-box label { font-size: 12px; text-transform: uppercase; }
-        .venue-details { font-size: 18px; margin-top: 20px; line-height: 1.6; }
-        .complete-msg { font-family: var(--font-script); font-size: 40px; color: var(--maroon); display: none; margin-top: 20px; }
+footer{padding:25px;text-align:center;background:#120406;color:#927b65;font-size:.7rem;letter-spacing:.08em}
 
-        /* =========================================
-           FINAL INVITATION
-           ========================================= */
-        #final-section { background: linear-gradient(to top, var(--cream), var(--light-gold)); border-top: 5px solid var(--gold); }
-        .final-msg { font-size: 22px; max-width: 700px; line-height: 1.8; margin-bottom: 40px; }
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s ease}
+.reveal.show{opacity:1;transform:none}
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            h1 { font-size: 30px; }
-            .couple-names { font-size: 35px; }
-            .countdown-container { gap: 10px; }
-            .time-box { width: 70px; height: 70px; }
-            .time-box span { font-size: 22px; }
-            .stage { height: 250px; }
-            .cartoon-person { width: 100px; height: 200px; }
-            #groom-garland { left: 5%; bottom: 100px; }
-            #bride-garland { right: 5%; bottom: 100px; }
-            .stage.action #groom-garland { left: 58%; bottom: 120px; }
-            .stage.action #bride-garland { right: 58%; bottom: 120px; }
-        }
-    </style>
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes drift{from{transform:translateY(0)}to{transform:translateY(-55px)}}
+@keyframes bars{from{transform:scaleY(.5)}to{transform:scaleY(1.15)}}
+@keyframes fall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(620px) rotate(540deg);opacity:0}}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1.5)}}
+
+@media(max-width:800px){
+  .nav{top:8px}.nav-brand{display:none}.nav-links{justify-content:flex-start}
+  .divine-grid,.events-grid{grid-template-columns:1fr}
+  .divine-visual{min-height:420px}
+  .couple-card{grid-template-columns:1fr;gap:12px}
+  .couple-heart{order:2}.person{padding:20px}
+  .garland-stage{height:580px}
+  .cartoon{width:170px}.cartoon.groom{left:2%}.cartoon.bride{right:2%}
+  .garland-stage.celebrate .groom{transform:translateX(65px)}
+  .garland-stage.celebrate .bride{transform:translateX(-65px)}
+  .garland{width:90px;height:80px}
+}
+@media(max-width:500px){
+  section{padding:90px 15px}
+  .door{top:14%;bottom:14%}
+  .door-copy{width:94vw}
+  .initials{font-size:3.2rem}
+  .door-garland{font-size:1.8rem}
+  .countdown{grid-template-columns:repeat(2,1fr)}
+  .garland-stage{height:520px}
+  .character-head{width:75px;height:75px}
+  .character-body{width:105px;height:135px}
+  .cartoon{width:135px;bottom:55px}
+  .garland-stage.celebrate .groom{transform:translateX(40px)}
+  .garland-stage.celebrate .bride{transform:translateX(-40px)}
+  .garland{top:110px;width:72px;height:65px;border-width:6px}
+  .nav-links a{font-size:.62rem;padding:8px 7px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
+}
+</style>
 </head>
-<body>
 
-    <!-- AUDIO ELEMENT -->
-    <audio id="bg-music" loop>
-        <source id="audio-source" src="" type="audio/mpeg">
-    </audio>
+<body class="locked">
 
-    <button id="audio-btn" onclick="toggleAudio()">🎵</button>
+<div id="preloader">
+  <div>
+    <div class="loader-lamp">🪔</div>
+    <div class="loader-text">Preparing Your Sacred Invitation</div>
+  </div>
+</div>
 
-    <!-- 1. OPENING DOORS -->
-    <div id="door-overlay">
-        <div class="door left" id="left-door"><div class="studs"></div></div>
-        
-        <div id="door-lock" onclick="openDoors()">
-            <div class="lock-initials"><span id="door-groom-initial">G</span> & <span id="door-bride-initial">B</span></div>
-            <div class="lock-heart">❤️</div>
-            <div class="lock-text">Tap to Open</div>
+<!-- ==================== OPENING DOUBLE DOOR ==================== -->
+<div id="door-screen" role="dialog" aria-label="Open wedding invitation">
+  <div class="temple-bg"></div>
+  <div class="temple-arch"></div>
+
+  <div class="door-copy">
+    <div class="eyebrow">A Sacred Beginning • A Beautiful Forever</div>
+    <div class="initials"><span id="doorGroomInitial">A</span> <span class="heart">♥</span> <span id="doorBrideInitial">S</span></div>
+    <div class="door-garland">🌿 🌼 🌸 🌼 🌿</div>
+    <button class="open-btn" id="openDoorBtn">Open the Door to Begin Our Story</button>
+    <div class="tap-note">Tap or click the doors to enter</div>
+  </div>
+
+  <div class="door-stage" id="doorStage" aria-hidden="true">
+    <div class="door left">
+      <div class="door-panel"></div><div class="door-handle"></div>
+    </div>
+    <div class="door right">
+      <div class="door-panel"></div><div class="door-handle"></div>
+    </div>
+  </div>
+</div>
+
+<div id="site">
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-brand">A ♥ S</div>
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#divine">Blessings</a>
+      <a href="#story">Our Story</a>
+      <a href="#quotes">Quotes</a>
+      <a href="#garland">Garland</a>
+      <a href="#events">Events</a>
+      <a href="#venue">Venue</a>
+      <a href="#final">Invite</a>
+    </div>
+    <button class="music-btn" id="musicBtn" aria-label="Toggle music" title="Music On / Off">
+      <span class="music-bars"><i></i><i></i><i></i></span>
+    </button>
+  </nav>
+
+  <audio id="weddingAudio" loop preload="none"></audio>
+
+  <!-- ==================== HERO ==================== -->
+  <section id="hero">
+    <div class="hero-content reveal">
+      <div class="temple-line">🪔 ✦ ॐ ✦ 🪔</div>
+      <div class="section-kicker">With Divine Blessings & The Love of Our Families</div>
+      <div class="hero-names">
+        <span id="heroGroom">Groom Name</span>
+        <span class="heart">♥</span>
+        <span id="heroBride">Bride Name</span>
+      </div>
+      <p class="hero-sub">Engagement & Marriage Celebration</p>
+      <div class="divider"></div>
+      <p class="scroll-cue">Our story begins here <span>⌄</span></p>
+    </div>
+  </section>
+
+  <!-- ==================== DIVINE BLESSINGS ==================== -->
+  <section id="divine">
+    <div class="container">
+      <div class="section-kicker reveal">Divine Blessings</div>
+      <h2 class="section-title reveal">With the Blessings of Lord Murugan</h2>
+      <div class="divider"></div>
+
+      <div class="divine-grid">
+        <div class="divine-visual reveal">
+          <!-- If you add images/murugan.jpg, it will automatically appear here. -->
+          <img id="muruganImage" alt="Lord Murugan" style="display:none">
+          <div class="placeholder-divine" id="muruganPlaceholder">
+            <div>
+              <div class="murugan-symbol">🛕</div>
+              <div class="vel">🔱 Vel • வேல்</div>
+              <p style="color:#d9c8a4">Add your own Lord Murugan image at<br><b>images/murugan.jpg</b></p>
+            </div>
+          </div>
         </div>
 
-        <div class="door right" id="right-door"><div class="studs"></div></div>
+        <div class="divine-copy reveal">
+          <h3>Vel Muruga Haro Hara</h3>
+          <p>
+            With the divine blessings of Lord Murugan, we invite you to
+            celebrate the beginning of our beautiful journey together.
+            May His grace guide our hearts, bless our families, and illuminate
+            every step of the life we are about to begin.
+          </p>
+          <div class="blessing">
+            "அன்பும் அருளும் நிறைந்த இந்த இனிய தருணத்தில்,
+            எங்கள் புதிய வாழ்க்கைப் பயணத்திற்கு உங்கள் அன்பும்
+            ஆசீர்வாதமும் என்றும் துணையாக இருக்க வேண்டுகிறோம்."
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- MAIN WEBSITE CONTENT -->
-    <div id="main-content">
-        
-        <!-- 2. DIVINE BLESSINGS -->
-        <section id="blessing-section" class="fade-in">
-            <div class="lamps">🪔 🪔</div>
-            <!-- Murugan Image Placeholder -->
-            <img id="murugan-img" src="" alt="Lord Murugan" class="murugan-img">
-            <h1>Om Muruga</h1>
-            <p class="cursive" style="max-width: 600px;">With the divine blessings of Lord Murugan, we invite you to celebrate the beginning of our beautiful journey together.</p>
-        </section>
+  <!-- ==================== COUPLE INTRO ==================== -->
+  <section id="story">
+    <div class="container">
+      <div class="section-kicker reveal">Our Story</div>
+      <h2 class="section-title reveal">Two Hearts, One Beautiful Journey</h2>
+      <p class="section-intro reveal">
+        Two lives, two families, and one beautiful promise — to walk together,
+        laugh together, and create a lifetime of memories.
+      </p>
 
-        <!-- 3. COUPLE INTRODUCTION -->
-        <section id="couple-section" class="fade-in">
-            <div style="font-size: 40px; margin-bottom: 20px;">🌿 🌸 🌿</div>
-            <h2>The Bride & Groom</h2>
-            <div class="couple-names">
-                <span id="display-groom-name">Groom Name</span><br>
-                <span class="and-symbol">&</span><br>
-                <span id="display-bride-name">Bride Name</span>
-            </div>
-            <div style="font-size: 40px; margin-top: 20px;">🌿 🌸 🌿</div>
-        </section>
-
-        <!-- 4. ROMANTIC QUOTES -->
-        <section id="quotes-section">
-            <div id="quotes-container"></div>
-        </section>
-
-        <!-- 5. GARLAND EXCHANGE ANIMATION -->
-        <section id="garland-section">
-            <h1 style="color: var(--gold);">Maalai Maatruthal</h1>
-            <p class="cursive" style="color: var(--cream);">The sacred exchange of hearts...</p>
-            
-            <div class="stage" id="garland-stage">
-                <!-- Groom & Bride Cartoon Placeholders -->
-                <img id="groom-cartoon" class="cartoon-person" src="" alt="Groom">
-                
-                <!-- Garlands -->
-                <img id="groom-garland" class="garland" src="https://cdn-icons-png.flaticon.com/512/8205/8205164.png" alt="Garland">
-                <img id="bride-garland" class="garland" src="https://cdn-icons-png.flaticon.com/512/8205/8205164.png" alt="Garland">
-                
-                <img id="bride-cartoon" class="cartoon-person" src="" alt="Bride">
-            </div>
-        </section>
-
-        <!-- 6. ENGAGEMENT COUNTDOWN -->
-        <section id="engagement-section" class="fade-in">
-            <h2>Our Engagement</h2>
-            <p class="cursive">Nitchayathartham</p>
-            
-            <div class="countdown-container" id="eng-countdown">
-                <div class="time-box"><span id="eng-d">00</span><label>Days</label></div>
-                <div class="time-box"><span id="eng-h">00</span><label>Hours</label></div>
-                <div class="time-box"><span id="eng-m">00</span><label>Mins</label></div>
-                <div class="time-box"><span id="eng-s">00</span><label>Secs</label></div>
-            </div>
-            <div id="eng-complete" class="complete-msg">The Wait Is Over! Today We Celebrate Our Engagement ❤️</div>
-
-            <div class="venue-details">
-                <strong>Date:</strong> <span id="display-eng-date"></span><br>
-                <strong>Time:</strong> <span id="display-eng-time"></span><br>
-                <strong>Venue:</strong> <span id="display-eng-venue"></span>
-            </div>
-        </section>
-
-        <!-- 7. MARRIAGE COUNTDOWN -->
-        <section id="wedding-section" class="fade-in">
-            <h2>Our Wedding Day</h2>
-            <p class="cursive">Muhurtham</p>
-            
-            <div class="countdown-container" id="wed-countdown">
-                <div class="time-box"><span id="wed-d">00</span><label>Days</label></div>
-                <div class="time-box"><span id="wed-h">00</span><label>Hours</label></div>
-                <div class="time-box"><span id="wed-m">00</span><label>Mins</label></div>
-                <div class="time-box"><span id="wed-s">00</span><label>Secs</label></div>
-            </div>
-            <div id="wed-complete" class="complete-msg">Today, Two Hearts Become One ❤️</div>
-
-            <div class="venue-details">
-                <strong>Date:</strong> <span id="display-wed-date"></span><br>
-                <strong>Time:</strong> <span id="display-wed-time"></span><br>
-                <strong>Venue:</strong> <span id="display-wed-venue"></span>
-            </div>
-        </section>
-
-        <!-- 8. FINAL INVITATION -->
-        <section id="final-section" class="fade-in">
-            <div class="lamps" style="color: var(--dark-gold);">🪔 ✨ 🪔</div>
-            <p class="final-msg">With the blessings of the Almighty and the love of our families, we joyfully invite you to celebrate our Engagement & Wedding and bless us as we begin this beautiful journey together.</p>
-            <p class="cursive" style="margin-bottom: 10px;">With Love,</p>
-            <h2><span id="final-groom"></span> ❤️ <span id="final-bride"></span></h2>
-        </section>
+      <div class="couple-card">
+        <div class="person reveal">
+          <div class="avatar">🤵</div>
+          <small>THE GROOM</small>
+          <h3 id="storyGroom">Groom Name</h3>
+          <div>♥</div>
+        </div>
+        <div class="couple-heart">♥</div>
+        <div class="person reveal">
+          <div class="avatar">👰</div>
+          <small>THE BRIDE</small>
+          <h3 id="storyBride">Bride Name</h3>
+          <div>♥</div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- =========================================
-         JAVASCRIPT LOGIC 
-         ========================================= -->
-    <script>
-        /* =====================================================================
-           CUSTOMIZATION SECTION - EDIT YOUR WEDDING DETAILS HERE
-           ===================================================================== */
-        const CONFIG = {
-            // Names & Initials
-            groomName: "Karthik",
-            brideName: "Divya",
-            groomInitial: "K",
-            brideInitial: "D",
+  <!-- ==================== QUOTES ==================== -->
+  <section id="quotes">
+    <div class="container">
+      <div class="section-kicker reveal">A Few Words From The Heart</div>
+      <h2 class="section-title reveal">Our Love Story in Words</h2>
+      <div class="divider"></div>
 
-            // Engagement Details 
-            // Format: "YYYY-MM-DDTHH:MM:SS" (e.g., "2026-08-15T10:30:00")
-            engagementDateTime: "2026-08-15T10:00:00",
-            engagementDateDisplay: "15th August 2026",
-            engagementTimeDisplay: "10:00 AM onwards",
-            engagementVenue: "Sri Krishna Mahal, Chennai",
+      <div class="quote-stage reveal">
+        <div>
+          <div class="quote-mark">“</div>
+          <div class="quote-text" id="quoteText"></div>
+          <div class="quote-mark">”</div>
+          <div class="quote-dots" id="quoteDots"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            // Marriage Details
-            marriageDateTime: "2026-10-20T09:15:00",
-            marriageDateDisplay: "20th October 2026",
-            marriageTimeDisplay: "09:15 AM - 10:30 AM",
-            marriageVenue: "Grand Chola Temple Hall, Chennai",
+  <!-- ==================== GARLAND CEREMONY ==================== -->
+  <section id="garland">
+    <div class="container">
+      <div class="section-kicker reveal">The Garland Ceremony</div>
+      <h2 class="section-title reveal">A Promise, Woven in Flowers</h2>
+      <p class="section-intro reveal">
+        In a joyful celebration of love, two hearts come together —
+        one garland, one promise, one beautiful forever.
+      </p>
 
-            // Images (Place your image filenames here. e.g., "images/murugan.jpg")
-            muruganImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Raja_Ravi_Varma_-_Subramanya.jpg/400px-Raja_Ravi_Varma_-_Subramanya.jpg", 
-            groomCartoon: "https://cdn-icons-png.flaticon.com/512/4140/4140788.png", // Replace with your groom cartoon
-            brideCartoon: "https://cdn-icons-png.flaticon.com/512/4140/4140794.png", // Replace with your bride cartoon
+      <div class="garland-stage reveal" id="garlandStage">
+        <div class="cartoon groom">
+          <div class="character-head"></div>
+          <div class="character-body"></div>
+          <div class="garland"></div>
+        </div>
 
-            // Background Music (Place your music filename here. e.g., "music/wedding-song.mp3")
-            musicFile: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        <div class="cartoon bride">
+          <div class="character-head"></div>
+          <div class="character-body"></div>
+          <div class="garland"></div>
+        </div>
 
-            // Romantic Quotes
-            quotes: [
-                "Two hearts, two souls, one beautiful journey.",
-                "Together is a beautiful place to be.",
-                "And so our adventure begins...",
-                "Love is not about looking at each other, but looking in the same direction.",
-                "Every love story is beautiful, but ours is my favorite."
-            ]
-        };
-        /* =====================================================================
-           END OF CUSTOMIZATION SECTION
-           ===================================================================== */
+        <button class="gold-btn celebrate-btn" id="garlandBtn">Exchange Garlands ✿</button>
+        <div class="garland-label">May love blossom forever</div>
+      </div>
+    </div>
+  </section>
 
-        // 1. INJECT CONFIG DATA INTO HTML
-        document.getElementById('door-groom-initial').innerText = CONFIG.groomInitial;
-        document.getElementById('door-bride-initial').innerText = CONFIG.brideInitial;
-        
-        document.getElementById('display-groom-name').innerText = CONFIG.groomName;
-        document.getElementById('display-bride-name').innerText = CONFIG.brideName;
-        document.getElementById('final-groom').innerText = CONFIG.groomName;
-        document.getElementById('final-bride').innerText = CONFIG.brideName;
+  <!-- ==================== EVENTS & COUNTDOWNS ==================== -->
+  <section id="events">
+    <div class="container">
+      <div class="section-kicker reveal">Save Our Dates</div>
+      <h2 class="section-title reveal">The Celebrations</h2>
+      <p class="section-intro reveal">
+        We would be honoured to have you with us as we celebrate
+        these precious milestones together.
+      </p>
 
-        document.getElementById('display-eng-date').innerText = CONFIG.engagementDateDisplay;
-        document.getElementById('display-eng-time').innerText = CONFIG.engagementTimeDisplay;
-        document.getElementById('display-eng-venue').innerText = CONFIG.engagementVenue;
+      <div class="events-grid">
+        <article class="event-card reveal" id="engagementCard">
+          <div class="event-icon">💍</div>
+          <div class="section-kicker">Engagement Ceremony</div>
+          <h3 id="engagementTitle">Our Engagement</h3>
+          <div class="event-date">
+            <div id="engagementDate">01 January 2027</div>
+            <div id="engagementTime">10:00 AM</div>
+          </div>
+          <div class="event-venue">
+            <strong>Venue</strong>
+            <div id="engagementVenue">Engagement Venue</div>
+          </div>
+          <div class="countdown" id="engagementCountdown">
+            <div class="time-box"><strong id="engDays">00</strong><span>Days</span></div>
+            <div class="time-box"><strong id="engHours">00</strong><span>Hours</span></div>
+            <div class="time-box"><strong id="engMinutes">00</strong><span>Minutes</span></div>
+            <div class="time-box"><strong id="engSeconds">00</strong><span>Seconds</span></div>
+          </div>
+          <div class="event-complete">The Wait Is Over! Today We Celebrate Our Engagement ❤️</div>
+        </article>
 
-        document.getElementById('display-wed-date').innerText = CONFIG.marriageDateDisplay;
-        document.getElementById('display-wed-time').innerText = CONFIG.marriageTimeDisplay;
-        document.getElementById('display-wed-venue').innerText = CONFIG.marriageVenue;
+        <article class="event-card reveal" id="weddingCard">
+          <div class="event-icon">🪔</div>
+          <div class="section-kicker">Our Wedding Day</div>
+          <h3 id="weddingTitle">Our Wedding</h3>
+          <div class="event-date">
+            <div id="weddingDate">15 January 2027</div>
+            <div id="weddingTime">09:30 AM</div>
+          </div>
+          <div class="event-venue">
+            <strong>Venue</strong>
+            <div id="weddingVenue">Wedding Venue</div>
+          </div>
+          <div class="countdown" id="weddingCountdown">
+            <div class="time-box"><strong id="wedDays">00</strong><span>Days</span></div>
+            <div class="time-box"><strong id="wedHours">00</strong><span>Hours</span></div>
+            <div class="time-box"><strong id="wedMinutes">00</strong><span>Minutes</span></div>
+            <div class="time-box"><strong id="wedSeconds">00</strong><span>Seconds</span></div>
+          </div>
+          <div class="event-complete">Today, Two Hearts Become One ❤️</div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-        document.getElementById('murugan-img').src = CONFIG.muruganImage;
-        document.getElementById('groom-cartoon').src = CONFIG.groomCartoon;
-        document.getElementById('bride-cartoon').src = CONFIG.brideCartoon;
-        document.getElementById('audio-source').src = CONFIG.musicFile;
+  <!-- ==================== VENUE ==================== -->
+  <section id="venue">
+    <div class="container">
+      <div class="section-kicker reveal">Come Celebrate With Us</div>
+      <h2 class="section-title reveal">The Venue</h2>
+      <div class="divider"></div>
 
-        // Render Quotes
-        const quotesContainer = document.getElementById('quotes-container');
-        CONFIG.quotes.forEach(q => {
-            let p = document.createElement('p');
-            p.className = 'quote fade-in';
-            p.innerText = `"${q}"`;
-            quotesContainer.appendChild(p);
-        });
+      <div class="venue-card reveal">
+        <div style="font-size:3rem">🛕</div>
+        <h3 id="venueName">Our Celebration Venue</h3>
+        <p id="venueText">
+          We look forward to welcoming you and celebrating together.
+          Please update the venue details in the CUSTOMIZATION SECTION.
+        </p>
+        <div class="map-placeholder">📍 Add your Google Maps link to the button below</div>
+        <a class="gold-btn" id="mapLink" href="#" target="_blank" rel="noopener">Open Location Map</a>
+      </div>
+    </div>
+  </section>
 
-        // 2. AUDIO LOGIC
-        const audio = document.getElementById('bg-music');
-        const audioBtn = document.getElementById('audio-btn');
-        let isPlaying = false;
+  <!-- ==================== FINAL INVITATION ==================== -->
+  <section id="final">
+    <div class="sparkles" id="sparkles"></div>
+    <div class="container final-card">
+      <div class="section-kicker reveal">Our Hearts Are Full</div>
+      <h2 class="section-title reveal">You Are Invited</h2>
+      <div class="divider"></div>
+      <p class="final-message reveal" id="finalMessage">
+        With the blessings of the Almighty and the love of our families,
+        we joyfully invite you to celebrate our Engagement & Wedding
+        and bless us as we begin this beautiful journey together.
+      </p>
+      <div class="final-names reveal">
+        <div style="font-size:1rem;color:#d9c8a4;letter-spacing:.2em">WITH LOVE</div>
+        <span id="finalGroom">Groom Name</span>
+        <span class="heart">♥</span>
+        <span id="finalBride">Bride Name</span>
+      </div>
+      <div style="font-size:2rem">🪔 ✦ 🌸 ✦ 🪔</div>
+    </div>
+  </section>
 
-        function toggleAudio() {
-            if (isPlaying) {
-                audio.pause();
-                audioBtn.innerText = "🔇";
-            } else {
-                audio.play();
-                audioBtn.innerText = "🎵";
-            }
-            isPlaying = !isPlaying;
-        }
+  <footer>
+    Crafted with love • A Sacred Beginning • Engagement & Wedding Invitation
+  </footer>
+</div>
 
-        // 3. DOOR OPENING LOGIC
-        function openDoors() {
-            // Play audio
-            audio.load();
-            audio.play().then(() => {
-                isPlaying = true;
-                audioBtn.innerText = "🎵";
-            }).catch(e => console.log("Audio autoplay blocked by browser until further interaction."));
-            
-            audioBtn.style.display = "flex";
+<script>
+/*
+============================================================
+===== EDIT YOUR WEDDING DETAILS HERE ======================
+============================================================
 
-            // Hide Lock
-            document.getElementById('door-lock').classList.add('hidden');
-            
-            // Open Doors
-            document.getElementById('left-door').classList.add('open');
-            document.getElementById('right-door').classList.add('open');
+IMPORTANT:
+1. Dates use: YYYY-MM-DD
+2. Times use 24-hour format: HH:MM
+3. The browser uses the visitor's local timezone.
+   For an India-based invitation, visitors in India will see IST.
+4. For maximum accuracy, use a date like:
+   "2027-01-01T10:00:00+05:30"
 
-            // Show Main Content & Hide Overlay
-            setTimeout(() => {
-                document.getElementById('main-content').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('main-content').style.opacity = '1';
-                }, 100);
-            }, 1000);
+ASSET PATHS:
+- Murugan image: images/murugan.jpg
+- Cartoon couple image (optional): images/couple.jpg
+- Groom image (optional): images/groom.png
+- Bride image (optional): images/bride.png
+- Music: music/wedding-song.mp3
 
-            setTimeout(() => {
-                document.getElementById('door-overlay').style.display = 'none';
-            }, 2000);
-        }
+If you use a different filename, change it below.
+============================================================
+*/
 
-        // 4. SCROLL ANIMATIONS (Intersection Observer)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    
-                    // Trigger Garland Exchange when stage is visible
-                    if(entry.target.id === 'garland-stage') {
-                        setTimeout(() => {
-                            entry.target.classList.add('action');
-                        }, 500);
-                    }
-                }
-            });
-        }, { threshold: 0.2 });
+const WEDDING_CONFIG = {
+  // ===== COUPLE NAMES =====
+  groomName: "Groom Name",
+  brideName: "Bride Name",
 
-        // Observe elements after doors open
-        setTimeout(() => {
-            document.querySelectorAll('.fade-in, .quote, #garland-stage').forEach(el => observer.observe(el));
-        }, 2000);
+  // ===== INITIALS ON THE OPENING DOOR =====
+  groomInitial: "A",
+  brideInitial: "S",
 
-        // 5. COUNTDOWN TIMER LOGIC
-        function startCountdown(targetDateStr, prefix) {
-            const targetDate = new Date(targetDateStr).getTime();
+  // ===== ENGAGEMENT DETAILS =====
+  engagementDate: "2027-01-01",
+  engagementTime: "10:00",
+  engagementVenue: "Engagement Venue",
 
-            const timer = setInterval(() => {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
+  // ===== MARRIAGE DETAILS =====
+  marriageDate: "2027-01-15",
+  marriageTime: "09:30",
+  marriageVenue: "Wedding Venue",
 
-                if (distance <= 0) {
-                    clearInterval(timer);
-                    document.getElementById(`${prefix}-countdown`).style.display = 'none';
-                    document.getElementById(`${prefix}-complete`).style.display = 'block';
-                    return;
-                }
+  // ===== BACKGROUND MUSIC =====
+  // Change only the filename if your MP3 has another name.
+  musicFile: "music/wedding-song.mp3",
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  // ===== LORD MURUGAN IMAGE =====
+  // Example: "images/murugan.jpg"
+  muruganImage: "images/murugan.jpg",
 
-                document.getElementById(`${prefix}-d`).innerText = days.toString().padStart(2, '0');
-                document.getElementById(`${prefix}-h`).innerText = hours.toString().padStart(2, '0');
-                document.getElementById(`${prefix}-m`).innerText = minutes.toString().padStart(2, '0');
-                document.getElementById(`${prefix}-s`).innerText = seconds.toString().padStart(2, '0');
-            }, 1000);
-        }
+  // ===== OPTIONAL COUPLE / CARTOON IMAGES =====
+  // These are reserved for easy future customization.
+  coupleImage: "images/couple.jpg",
+  groomImage: "images/groom.png",
+  brideImage: "images/bride.png",
 
-        startCountdown(CONFIG.engagementDateTime, 'eng');
-        startCountdown(CONFIG.marriageDateTime, 'wed');
+  // ===== VENUE / MAP =====
+  mapLink: "#",
 
-        // 6. GENERATE FALLING FLOWERS
-        const garlandSection = document.getElementById('garland-section');
-        const emojis = ['🌸', '🌺', '✨', '🤍'];
-        for(let i=0; i<30; i++) {
-            let flower = document.createElement('div');
-            flower.className = 'flower';
-            flower.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            flower.style.left = Math.random() * 100 + 'vw';
-            flower.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            flower.style.animationDelay = (Math.random() * 5) + 's';
-            garlandSection.appendChild(flower);
-        }
-    </script>
+  // ===== FINAL INVITATION MESSAGE =====
+  finalMessage:
+    "With the blessings of the Almighty and the love of our families, we joyfully invite you to celebrate our Engagement & Wedding and bless us as we begin this beautiful journey together."
+};
+
+/* ==========================================================
+   END OF CUSTOMIZATION SECTION
+   You normally do not need to edit anything below this line.
+   ========================================================== */
+
+const $ = (id) => document.getElementById(id);
+
+function formatDate(dateString) {
+  const d = new Date(dateString + "T00:00:00");
+  return d.toLocaleDateString("en-IN", {
+    day: "2-digit", month: "long", year: "numeric"
+  });
+}
+
+function formatTime(timeString) {
+  const [h, m] = timeString.split(":").map(Number);
+  const d = new Date();
+  d.setHours(h, m, 0, 0);
+  return d.toLocaleTimeString("en-IN", {
+    hour: "2-digit", minute: "2-digit"
+  });
+}
+
+function eventISO(date, time) {
+  // Explicit IST offset makes the supplied wedding time unambiguous.
+  return `${date}T${time}:00+05:30`;
+}
+
+function applyConfig() {
+  // Initials
+  $("doorGroomInitial").textContent = WEDDING_CONFIG.groomInitial;
+  $("doorBrideInitial").textContent = WEDDING_CONFIG.brideInitial;
+
+  // Names
+  ["heroGroom","storyGroom","finalGroom"].forEach(id => $(id).textContent = WEDDING_CONFIG.groomName);
+  ["heroBride","storyBride","finalBride"].forEach(id => $(id).textContent = WEDDING_CONFIG.brideName);
+
+  // Events
+  $("engagementDate").textContent = formatDate(WEDDING_CONFIG.engagementDate);
+  $("engagementTime").textContent = formatTime(WEDDING_CONFIG.engagementTime);
+  $("engagementVenue").textContent = WEDDING_CONFIG.engagementVenue;
+
+  $("weddingDate").textContent = formatDate(WEDDING_CONFIG.marriageDate);
+  $("weddingTime").textContent = formatTime(WEDDING_CONFIG.marriageTime);
+  $("weddingVenue").textContent = WEDDING_CONFIG.marriageVenue;
+
+  // Final message
+  $("finalMessage").textContent = WEDDING_CONFIG.finalMessage;
+
+  // Venue
+  $("venueName").textContent = WEDDING_CONFIG.marriageVenue;
+  $("venueText").textContent =
+    `${WEDDING_CONFIG.marriageVenue} — We look forward to welcoming you and celebrating this beautiful day together.`;
+
+  if (WEDDING_CONFIG.mapLink && WEDDING_CONFIG.mapLink !== "#") {
+    $("mapLink").href = WEDDING_CONFIG.mapLink;
+  } else {
+    $("mapLink").addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("Add your Google Maps URL in WEDDING_CONFIG.mapLink.");
+    });
+  }
+
+  // Audio filename
+  $("weddingAudio").src = WEDDING_CONFIG.musicFile;
+
+  // Murugan image:
+  // If the file exists, show it. If not, keep the elegant placeholder.
+  if (WEDDING_CONFIG.muruganImage) {
+    const img = $("muruganImage");
+    img.src = WEDDING_CONFIG.muruganImage;
+    img.onload = () => {
+      img.style.display = "block";
+      $("muruganPlaceholder").style.display = "none";
+    };
+    img.onerror = () => {
+      img.style.display = "none";
+      $("muruganPlaceholder").style.display = "grid";
+    };
+  }
+}
+
+applyConfig();
+
+/* ==================== PRELOADER ==================== */
+window.addEventListener("load", () => {
+  setTimeout(() => $("preloader").classList.add("hide"), 500);
+});
+
+/* ==================== OPENING DOORS + MUSIC ==================== */
+let invitationOpened = false;
+
+function openInvitation() {
+  if (invitationOpened) return;
+  invitationOpened = true;
+
+  $("door-screen").classList.add("is-open");
+  document.body.classList.remove("locked");
+
+  // Browser autoplay policy:
+  // This user interaction is the ideal moment to start music.
+  startMusic();
+
+  setTimeout(() => {
+    $("site").classList.add("visible");
+  }, 650);
+
+  setTimeout(() => {
+    $("door-screen").classList.add("opened");
+    $("hero").scrollIntoView({ behavior: "smooth" });
+  }, 1900);
+}
+
+$("openDoorBtn").addEventListener("click", openInvitation);
+$("doorStage").addEventListener("click", openInvitation);
+$("door-screen").addEventListener("touchend", (e) => {
+  if (e.target.closest("button")) return;
+  openInvitation();
+}, {passive:true});
+
+/* ==================== MUSIC ==================== */
+const audio = $("weddingAudio");
+const musicBtn = $("musicBtn");
+
+function updateMusicUI() {
+  musicBtn.classList.toggle("playing", !audio.paused);
+  musicBtn.setAttribute("aria-label", audio.paused ? "Turn music on" : "Turn music off");
+}
+
+async function startMusic() {
+  try {
+    await audio.play();
+    localStorage.setItem("weddingMusic", "on");
+    updateMusicUI();
+  } catch (err) {
+    // Expected if the MP3 has not been uploaded yet.
+    updateMusicUI();
+  }
+}
+
+function toggleMusic() {
+  if (audio.paused) {
+    startMusic();
+  } else {
+    audio.pause();
+    localStorage.setItem("weddingMusic", "off");
+    updateMusicUI();
+  }
+}
+
+musicBtn.addEventListener("click", toggleMusic);
+audio.addEventListener("play", updateMusicUI);
+audio.addEventListener("pause", updateMusicUI);
+
+// Remember the user's preference.
+// Browsers may still require one interaction before playback.
+if (localStorage.getItem("weddingMusic") === "off") {
+  audio.pause();
+}
+
+/* ==================== QUOTE ROTATOR ==================== */
+const quotes = [
+  "Two hearts, two souls, one beautiful journey.",
+  "Together is a beautiful place to be.",
+  "And so our adventure begins...",
+  "May our love grow deeper with every sunrise and stronger with every sunset.",
+  "From this day forward, our stories become one.",
+  "Two families, one celebration, a lifetime of memories.",
+  "In your smile, I found my forever.",
+  "Wherever life takes us, we will always walk hand in hand."
+];
+
+let quoteIndex = 0;
+const quoteText = $("quoteText");
+const quoteDots = $("quoteDots");
+
+quotes.forEach((_, i) => {
+  const dot = document.createElement("span");
+  dot.className = "quote-dot" + (i === 0 ? " active" : "");
+  dot.addEventListener("click", () => showQuote(i));
+  quoteDots.appendChild(dot);
+});
+
+function showQuote(index) {
+  quoteIndex = index;
+  quoteText.style.opacity = "0";
+  setTimeout(() => {
+    quoteText.textContent = quotes[quoteIndex];
+    quoteText.style.opacity = "1";
+    [...quoteDots.children].forEach((dot, i) => dot.classList.toggle("active", i === quoteIndex));
+  }, 250);
+}
+showQuote(0);
+
+setInterval(() => showQuote((quoteIndex + 1) % quotes.length), 4500);
+
+/* ==================== GARLAND ANIMATION ==================== */
+$("garlandBtn").addEventListener("click", () => {
+  const stage = $("garlandStage");
+  if (stage.classList.contains("celebrate")) return;
+
+  stage.classList.add("celebrate");
+
+  const petals = ["🌸","🌼","🌺","🌹","✿"];
+  for (let i = 0; i < 34; i++) {
+    const petal = document.createElement("span");
+    petal.className = "petal";
+    petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+    petal.style.left = Math.random() * 100 + "%";
+    petal.style.animationDelay = Math.random() * 1.8 + "s";
+    petal.style.animationDuration = (3 + Math.random() * 2) + "s";
+    stage.appendChild(petal);
+    setTimeout(() => petal.remove(), 6000);
+  }
+});
+
+/* ==================== COUNTDOWN TIMERS ==================== */
+function runCountdown(config) {
+  const target = new Date(eventISO(config.date, config.time)).getTime();
+  const card = $(config.card);
+
+  function update() {
+    const now = Date.now();
+    const remaining = Math.max(0, target - now);
+
+    const days = Math.floor(remaining / 86400000);
+    const hours = Math.floor((remaining % 86400000) / 3600000);
+    const minutes = Math.floor((remaining % 3600000) / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
+
+    $(config.days).textContent = String(days).padStart(2, "0");
+    $(config.hours).textContent = String(hours).padStart(2, "0");
+    $(config.minutes).textContent = String(minutes).padStart(2, "0");
+    $(config.seconds).textContent = String(seconds).padStart(2, "0");
+
+    if (remaining <= 0) {
+      card.classList.add("complete");
+      clearInterval(timer);
+    }
+  }
+
+  update();
+  const timer = setInterval(update, 1000);
+}
+
+runCountdown({
+  date: WEDDING_CONFIG.engagementDate,
+  time: WEDDING_CONFIG.engagementTime,
+  card: "engagementCard",
+  days: "engDays",
+  hours: "engHours",
+  minutes: "engMinutes",
+  seconds: "engSeconds"
+});
+
+runCountdown({
+  date: WEDDING_CONFIG.marriageDate,
+  time: WEDDING_CONFIG.marriageTime,
+  card: "weddingCard",
+  days: "wedDays",
+  hours: "wedHours",
+  minutes: "wedMinutes",
+  seconds: "wedSeconds"
+});
+
+/* ==================== SCROLL REVEAL ==================== */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.12});
+
+document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+/* ==================== FINAL SPARKLES ==================== */
+const sparkles = $("sparkles");
+for (let i = 0; i < 55; i++) {
+  const spark = document.createElement("span");
+  spark.className = "spark";
+  spark.style.left = Math.random() * 100 + "%";
+  spark.style.top = Math.random() * 100 + "%";
+  spark.style.animationDelay = (Math.random() * 2.5) + "s";
+  sparkles.appendChild(spark);
+}
+</script>
 </body>
 </html>
