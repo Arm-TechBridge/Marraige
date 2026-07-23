@@ -3,209 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R & G | Our Wedding</title>
+    <title>R & G | An Endless Journey</title>
+    
+    <!-- Elegant Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Mukta+Malar:wght@400;700&family=Hind:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* BASE STYLES */
+        /* COLOR PALETTE & TRADITION */
+        :root {
+            --maroon: #4a0e17;
+            --gold: #d4af37;
+            --cream: #fff9e6;
+            --dark-gold: #b5952f;
+        }
+
         body, html {
-            margin: 0; padding: 0; height: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
-            color: #333;
-            overflow: hidden; /* Prevent scrolling while book is visible */
+            margin: 0; padding: 0; 
+            font-family: 'Cinzel', 'Mukta Malar', 'Hind', serif;
+            background-color: var(--maroon);
+            color: var(--cream);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* 3D BOOK CONTAINER */
-        #book-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            perspective: 1200px; /* Gives the 3D depth */
-            transition: opacity 1s ease;
+        /* SUBTLE KOLAM BACKGROUND */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(var(--gold) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.05;
+            z-index: -1;
         }
 
-        .book {
-            width: 300px;
-            height: 400px;
-            position: relative;
-            transform-style: preserve-3d;
-            transform: rotateX(10deg) rotateY(-10deg); /* Slight angle for 3D feel */
-            transition: transform 1s ease;
+        /* MULTILINGUAL TOGGLE */
+        .lang-nav {
+            position: fixed;
+            top: 20px; right: 20px;
+            z-index: 100;
+            display: flex; gap: 10px;
         }
-
-        .book:hover {
-            transform: rotateX(10deg) rotateY(0deg);
-        }
-
-        /* THE PAGES */
-        .page {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0; left: 0;
-            transform-origin: left center;
-            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-            transform-style: preserve-3d;
-            background-color: #fff9e6;
-            border-radius: 5px 15px 15px 5px;
-            box-shadow: inset 0px 0px 10px rgba(0,0,0,0.1);
-        }
-
-        /* FRONT COVER */
-        .cover {
-            background: linear-gradient(135deg, #d4af37, #aa7c11); /* Gold finish */
-            z-index: 2;
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 15px;
+            border-radius: 20px;
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            border: 2px solid #8c6200;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--gold);
+            color: var(--maroon);
         }
 
-        /* FINGERPRINT HEART STYLING */
-        .heart-motif {
-            font-size: 50px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        /* 3D BOOK ENTRANCE */
+        #entrance {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1500px;
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+        .book {
+            width: 280px; height: 380px;
+            transform-style: preserve-3d;
+            transform: rotateY(-15deg);
+            transition: 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
+        }
+        .book:hover { transform: rotateY(0deg); }
+        .book.open { transform: rotateY(-180deg) scale(1.5); opacity: 0; }
+        
+        .cover {
+            position: absolute; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--maroon), #2a080d);
+            border: 2px solid var(--gold);
+            border-radius: 5px 15px 15px 5px;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.2), 10px 10px 30px rgba(0,0,0,0.5);
+            text-align: center; padding: 20px; box-sizing: border-box;
+        }
+        .om-symbol { font-size: 40px; color: var(--gold); margin-bottom: 20px; }
+        .initials { font-size: 48px; color: var(--gold); margin: 10px 0; font-weight: bold; }
+        .tap-text { font-size: 14px; margin-top: 40px; opacity: 0.7; letter-spacing: 2px; }
+
+        /* THE JOURNEY TIMELINE */
+        #journey {
+            display: none; /* Hidden until book opens */
+            padding: 100px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
         }
         
-        .initials {
-            font-size: 36px;
-            font-weight: bold;
-            letter-spacing: 5px;
+        /* The Golden Thread */
+        #journey::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            width: 2px; height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+            transform: translateX(-50%);
         }
 
-        /* BACK OF THE COVER (INSIDE LEFT) */
-        .cover-back {
-            background-color: #fff9e6;
-            transform: rotateY(180deg) translateZ(1px); /* Flipped */
-        }
-
-        /* INSIDE PAGE (RIGHT SIDE) */
-        .inside-page {
-            z-index: 1;
+        .timeline-item {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-            background-image: url('data:image/svg+xml;utf8,<svg opacity="0.05" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="none"/></svg>');
-        }
-
-        /* ANIMATION CLASS */
-        .book.open .cover {
-            transform: rotateY(-140deg);
-        }
-
-        .enter-btn {
-            margin-top: 30px;
-            padding: 10px 20px;
-            background-color: #d4af37;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
+            justify-content: flex-end;
+            padding-right: 30px;
+            position: relative;
+            margin: 100px 0;
+            width: 50%;
             opacity: 0;
-            transition: opacity 1s ease 1s; /* Fades in after book opens */
+            transform: translateY(50px);
+            transition: all 1s ease;
         }
-
-        .book.open .enter-btn {
+        .timeline-item:nth-child(even) {
+            align-self: flex-end;
+            justify-content: flex-start;
+            padding-left: 30px;
+            padding-right: 0;
+            margin-left: 50%;
+        }
+        .timeline-item.visible {
             opacity: 1;
+            transform: translateY(0);
         }
 
-        /* MAIN WEBSITE CONTENT (HIDDEN INITIALLY) */
-        #main-site {
-            display: none;
-            background-color: #fff9e6;
-            min-height: 100vh;
-            padding: 50px;
-            text-align: center;
+        /* Timeline Nodes (The Dots) */
+        .timeline-item::after {
+            content: '❖';
+            position: absolute;
+            right: -12px;
+            top: 0;
+            color: var(--gold);
+            font-size: 20px;
+            background: var(--maroon);
+            padding: 5px;
+        }
+        .timeline-item:nth-child(even)::after {
+            right: auto;
+            left: -12px;
         }
 
-        .section {
-            margin-bottom: 60px;
+        .content {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             padding: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        .content h2 { color: var(--gold); margin-top: 0; font-size: 28px; }
+        .content p { line-height: 1.8; font-size: 16px; opacity: 0.9; }
+
+        .rsvp-btn {
+            display: block; width: 200px; margin: 80px auto;
+            padding: 15px; text-align: center;
+            background: var(--gold); color: var(--maroon);
+            text-decoration: none; font-size: 18px; font-weight: bold;
+            border-radius: 5px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <!-- 3D BOOK OPENING -->
-    <div id="book-container">
-        <div class="book" id="myBook">
-            <!-- INSIDE RIGHT PAGE -->
-            <div class="page inside-page">
-                <h2>Welcome to Our New Chapter</h2>
-                <p>We are thrilled to invite you to witness our union.</p>
-                <button class="enter-btn" onclick="enterWebsite()">Open Invitation</button>
-            </div>
-            
-            <!-- THE COVER (Front & Back) -->
-            <div class="page cover" onclick="openBook()">
-                <!-- Front Cover Content -->
-                <div class="heart-motif">🤍</div>
+    <!-- Language Toggle -->
+    <div class="lang-nav">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('ta')">தமிழ்</button>
+        <button class="lang-btn" onclick="setLang('hi')">हिंदी</button>
+    </div>
+
+    <!-- 3D BOOK ENTRANCE -->
+    <div id="entrance">
+        <div class="book" onclick="openJourney()">
+            <div class="cover">
+                <div class="om-symbol">🪔</div>
                 <div class="initials">R & G</div>
-                <p style="margin-top: 40px; font-size: 14px; opacity: 0.8;">Tap to Open</p>
-                
-                <!-- Back of Cover (Invisible until opened) -->
-                <div class="page cover-back"></div>
+                <div class="tap-text" data-i18n="bookTap">Tap to unveil our destiny</div>
             </div>
         </div>
     </div>
 
-    <!-- MAIN WEBSITE (Revealed after book) -->
-    <div id="main-site">
-        <h1>R & G are getting married!</h1>
-        
-        <div class="section" id="events">
-            <h2>The Celebrations</h2>
-            <p><strong>Muhurtham:</strong> Sunday, 9:00 AM - 10:30 AM</p>
-            <p><strong>Reception:</strong> Sunday, 7:00 PM Onwards</p>
+    <!-- THE GOLDEN THREAD TIMELINE -->
+    <div id="journey">
+        <div style="text-align: center; margin-bottom: 100px;">
+            <h1 style="color: var(--gold); font-size: 40px;" data-i18n="welcome">Two Souls, One Path</h1>
+            <p style="font-style: italic; opacity: 0.8;" data-i18n="quote">A beautiful journey grounded in sacred tradition.</p>
         </div>
 
-        <div class="section" id="venue">
-            <h2>The Venue</h2>
-            <p>Grand Palace Hall<br>123 Wedding Avenue, City</p>
-            <!-- You can embed a Google Map iFrame here -->
+        <!-- Act 1: Engagement -->
+        <div class="timeline-item">
+            <div class="content">
+                <h2 data-i18n="engTitle">The Promise (Nitchayathartham)</h2>
+                <p data-i18n="engDesc">Our journey began with a promise. We exchanged rings formed from our own merged fingerprints—pure metal, no stones required. A perfect reflection of our true selves coming together.</p>
+            </div>
         </div>
 
-        <div class="section" id="rsvp">
-            <h2>RSVP</h2>
-            <p>Please let us know if you will be joining us!</p>
-            <!-- You can embed a Google Form iFrame here -->
+        <!-- Act 2: Wedding -->
+        <div class="timeline-item">
+            <div class="content">
+                <h2 data-i18n="wedTitle">The Sacred Union (Muhurtham)</h2>
+                <p data-i18n="wedDesc">Witness the tying of the sacred yellow thread in the holy presence of Agni. Join us as we take our seven steps into a shared life, surrounded by the blessings of our elders and the echoing sounds of the Nadaswaram.</p>
+                <p style="color: var(--gold); font-weight: bold; margin-top: 15px;">Date: [Insert Date Here]</p>
+            </div>
         </div>
+
+        <!-- Act 3: The Future -->
+        <div class="timeline-item">
+            <div class="content">
+                <h2 data-i18n="futTitle">The Endless Journey</h2>
+                <p data-i18n="futDesc">Beyond the marriage day lies eternity. This is not the end of our story, but the beautiful, endless beginning of shared sunrises, quiet support, and a love that deepens with every passing moment.</p>
+            </div>
+        </div>
+
+        <a href="#" class="rsvp-btn" data-i18n="rsvp">Bless Our Journey</a>
     </div>
 
     <script>
-        // FUNCTION TO OPEN THE BOOK
-        function openBook() {
-            document.getElementById('myBook').classList.add('open');
+        // DICTIONARY FOR 3 LANGUAGES
+        const dict = {
+            en: {
+                bookTap: "Tap to unveil our destiny",
+                welcome: "Two Souls, One Path",
+                quote: "A beautiful journey grounded in sacred tradition.",
+                engTitle: "The Promise (Nitchayathartham)",
+                engDesc: "Our journey began with a promise. We exchanged rings formed from our own merged fingerprints—pure metal, no stones required. A perfect reflection of our true selves coming together.",
+                wedTitle: "The Sacred Union (Muhurtham)",
+                wedDesc: "Witness the tying of the sacred yellow thread in the holy presence of Agni. Join us as we take our seven steps into a shared life, surrounded by the blessings of our elders and the echoing sounds of the Nadaswaram.",
+                futTitle: "The Endless Journey",
+                futDesc: "Beyond the marriage day lies eternity. This is not the end of our story, but the beautiful, endless beginning of shared sunrises, quiet support, and a love that deepens with every passing moment.",
+                rsvp: "Bless Our Journey (RSVP)"
+            },
+            ta: {
+                bookTap: "எங்கள் பயணத்தை தொடங்க தட்டவும்",
+                welcome: "இரு மனங்கள், ஒரு பயணம்",
+                quote: "புனிதமான பாரம்பரியத்தில் வேரூன்றிய ஒரு அழகான பயணம்.",
+                engTitle: "வாக்குறுதி (நிச்சயதார்த்தம்)",
+                engDesc: "எங்கள் பயணம் ஒரு வாக்குறுதியுடன் தொடங்கியது. ஆடம்பர கற்கள் இன்றி, எங்கள் இருவரின் கைரேகைகள் மட்டுமே பதித்த மோதிரங்களை மாற்றி, எங்கள் காதலை உறுதி செய்தோம்.",
+                wedTitle: "புனித இணைப்பு (முகூர்த்தம்)",
+                wedDesc: "அக்னி சாட்சியாக, நாதஸ்வர ஓசைகள் முழங்க, பெரியோர்களின் ஆசிகளுடன் மாங்கல்யம் சூடும் மங்களகரமான தருணம். நாங்கள் எடுத்து வைக்கும் ஏழு அடிகளில் நீங்களும் இணைய வாருங்கள்.",
+                futTitle: "முடிவில்லா பயணம்",
+                futDesc: "திருமண நாளைத் தாண்டி ஒரு நித்தியம் காத்திருக்கிறது. இது எங்கள் கதையின் முடிவல்ல; பரஸ்பர ஆதரவோடும், நாளுக்கு நாள் வளரும் அன்போடும் தொடரும் ஒரு அழகான, முடிவில்லா தொடக்கம்.",
+                rsvp: "எங்களை வாழ்த்துக (RSVP)"
+            },
+            hi: {
+                bookTap: "हमारी नियति देखने के लिए टैप करें",
+                welcome: "दो आत्माएं, एक मार्ग",
+                quote: "पवित्र परंपरा पर आधारित एक खूबसूरत यात्रा।",
+                engTitle: "वादा (सगाई)",
+                engDesc: "हमारी यात्रा एक वादे के साथ शुरू हुई। बिना पत्थरों के, केवल हमारे फिंगरप्रिंट वाले कस्टम छल्ले बदलकर हमने अपनी प्रतिबद्धता पर मुहर लगाई।",
+                wedTitle: "पवित्र बंधन (मुहूर्तम)",
+                wedDesc: "अग्नि की उपस्थिति में पवित्र पीले धागे के बंधन के साक्षी बनें। नादस्वरम की गूँज और बड़ों के आशीर्वाद के बीच, हमारे साझा जीवन में सात कदम उठाने में हमारे साथ जुड़ें।",
+                futTitle: "अनंत यात्रा",
+                futDesc: "शादी के दिन से परे अनंत काल है। यह हमारी कहानी का अंत नहीं है, बल्कि साझा सूर्योदय, शांत समर्थन और हर पल के साथ गहरे होने वाले प्यार की एक सुंदर, अंतहीन शुरुआत है।",
+                rsvp: "हमें आशीर्वाद दें (RSVP)"
+            }
+        };
+
+        // LANGUAGE TRANSLATOR
+        function setLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(dict[lang][key]) el.innerText = dict[lang][key];
+            });
         }
 
-        // FUNCTION TO ENTER THE MAIN SITE
-        function enterWebsite() {
-            const bookContainer = document.getElementById('book-container');
-            const mainSite = document.getElementById('main-site');
+        // OPEN BOOK & REVEAL JOURNEY
+        function openJourney() {
+            const entrance = document.getElementById('entrance');
+            const book = document.querySelector('.book');
+            const journey = document.getElementById('journey');
 
-            // Fade out the book
-            bookContainer.style.opacity = '0';
-
-            // Wait for fade out, then hide book and show main site
+            book.classList.add('open');
+            
             setTimeout(() => {
-                bookContainer.style.display = 'none';
-                mainSite.style.display = 'block';
-                document.body.style.overflow = 'auto'; // Re-enable scrolling
-                document.body.style.backgroundColor = '#fff9e6'; // Change background to match site
-            }, 1000); // 1000ms matches the CSS transition time
+                entrance.style.display = 'none';
+                journey.style.display = 'block';
+                // Trigger intersection observer for the first elements
+                window.dispatchEvent(new Event('scroll'));
+            }, 1000);
         }
-    </script>
 
+        // SCROLL ANIMATION (Fades items in as you scroll down)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        // Apply observer once elements are rendered
+        setTimeout(() => {
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                observer.observe(item);
+            });
+        }, 100);
+    </script>
 </body>
 </html>
