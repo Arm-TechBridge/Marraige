@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Wedding Celebration</title>
+    
+    <!-- Import playful, cartoon-friendly fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Mukta+Malar:wght@400;700&family=Hind:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CARTOON UI STYLING */
+        :root {
+            --primary: #ff6b6b;
+            --background: #fff9e6;
+            --border-color: #2b2b2b;
+        }
+
+        body {
+            font-family: 'Fredoka One', 'Mukta Malar', 'Hind', sans-serif;
+            background-color: var(--background);
+            color: var(--border-color);
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Cartoonish Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border: 4px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 8px 8px 0px var(--border-color); /* Comic book drop shadow */
+        }
+
+        /* Language Toggle Buttons */
+        .lang-controls {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4ecdc4;
+            color: white;
+            border: 3px solid var(--border-color);
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 4px 4px 0px var(--border-color);
+            transition: all 0.1s ease;
+            margin: 0 5px;
+        }
+
+        button:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px var(--border-color);
+        }
+
+        .hero-img {
+            width: 100%;
+            max-width: 300px;
+            border: 3px solid var(--border-color);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        /* Fake RSVP Button for demonstration */
+        .rsvp-btn {
+            background-color: var(--primary);
+            font-size: 24px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Language Selection -->
+        <div class="lang-controls">
+            <button onclick="setLanguage('en')">English</button>
+            <button onclick="setLanguage('ta')">தமிழ்</button>
+            <button onclick="setLanguage('hi')">हिंदी</button>
+        </div>
+
+        <!-- Content (Notice the data-i18n attributes) -->
+        <h1 data-i18n="title">Welcome to Our Wedding!</h1>
+        
+        <!-- Replace src with an external URL to your cartoon caricature -->
+        <img src="https://via.placeholder.com/300x300.png?text=Cartoon+Caricature+Here" alt="Cartoon Couple" class="hero-img">
+
+        <h2 data-i18n="date">December 15, 2026</h2>
+        <p data-i18n="message">We can't wait to celebrate our special day with you. Get ready for food, fun, and lots of dancing!</p>
+        
+        <button class="rsvp-btn" data-i18n="rsvp">RSVP Now</button>
+    </div>
+
+    <script>
+        // MULTI-LANGUAGE DICTIONARY
+        const translations = {
+            en: {
+                title: "Welcome to Our Wedding!",
+                date: "December 15, 2026",
+                message: "We can't wait to celebrate our special day with you. Get ready for food, fun, and lots of dancing!",
+                rsvp: "RSVP Now"
+            },
+            ta: {
+                title: "எங்கள் திருமணத்திற்கு நல்வரவு!",
+                date: "டிசம்பர் 15, 2026",
+                message: "எங்கள் சிறப்பு நாளான திருமணத்தன்று உங்களுடன் கொண்டாட ஆவலுடன் காத்திருக்கிறோம்!",
+                rsvp: "பதிலளிக்க"
+            },
+            hi: {
+                title: "हमारी शादी में आपका स्वागत है!",
+                date: "15 दिसंबर, 2026",
+                message: "हम आपके साथ अपना विशेष दिन मनाने का इंतजार नहीं कर सकते।",
+                rsvp: "अभी RSVP करें"
+            }
+        };
+
+        // DOM MANIPULATION FUNCTION
+        function setLanguage(lang) {
+            // Find all elements with a data-i18n attribute
+            const elements = document.querySelectorAll('[data-i18n]');
+            
+            elements.forEach(element => {
+                // Get the translation key (e.g., 'title', 'date')
+                const key = element.getAttribute('data-i18n');
+                
+                // Update the text based on the selected language
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Set default language on load
+        setLanguage('en');
+    </script>
+</body>
+</html>
