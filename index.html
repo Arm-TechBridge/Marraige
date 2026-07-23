@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R & G | An Endless Journey</title>
+    <title>R & G | A Sacred Union</title>
     
-    <!-- Elegant Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Mukta+Malar:wght@400;700&family=Hind:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* COLOR PALETTE & TRADITION */
+        /* CORE VARIABLES */
         :root {
             --maroon: #4a0e17;
             --gold: #d4af37;
             --cream: #fff9e6;
-            --dark-gold: #b5952f;
         }
 
         body, html {
@@ -26,287 +24,280 @@
             scroll-behavior: smooth;
         }
 
-        /* SUBTLE KOLAM BACKGROUND */
+        /* DIGITAL KOLAM BACKGROUND */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(var(--gold) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.05;
-            z-index: -1;
+            background-size: 40px 40px;
+            opacity: 0.08;
+            z-index: -2;
+        }
+
+        /* FLOWER CANVAS */
+        #flowerCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; /* Lets clicks pass through */
+            z-index: 999;
+            display: none; /* Hidden until button click */
         }
 
         /* MULTILINGUAL TOGGLE */
         .lang-nav {
-            position: fixed;
-            top: 20px; right: 20px;
-            z-index: 100;
+            position: fixed; top: 20px; right: 20px; z-index: 100;
             display: flex; gap: 10px;
         }
         .lang-btn {
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: inherit;
-            transition: 0.3s;
+            background: transparent; border: 1px solid var(--gold);
+            color: var(--gold); padding: 8px 15px; border-radius: 20px;
+            cursor: pointer; font-family: inherit; transition: 0.3s;
         }
-        .lang-btn:hover, .lang-btn.active {
-            background: var(--gold);
-            color: var(--maroon);
-        }
+        .lang-btn.active { background: var(--gold); color: var(--maroon); }
 
-        /* 3D BOOK ENTRANCE */
+        /* THE 3D INVITATION (Muhurtha Patrikai) */
         #entrance {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1500px;
-            transition: opacity 1.5s ease, transform 1.5s ease;
+            height: 100vh; display: flex; justify-content: center; align-items: center;
+            perspective: 1500px; transition: opacity 1.5s ease;
         }
         .book {
-            width: 280px; height: 380px;
-            transform-style: preserve-3d;
-            transform: rotateY(-15deg);
-            transition: 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-            cursor: pointer;
+            width: 300px; height: 420px; transform-style: preserve-3d;
+            transform: rotateY(-10deg); transition: 1.5s ease; cursor: pointer;
         }
-        .book:hover { transform: rotateY(0deg); }
-        .book.open { transform: rotateY(-180deg) scale(1.5); opacity: 0; }
+        .book:hover { transform: rotateY(0deg) scale(1.02); }
+        .book.open { transform: rotateY(-180deg) scale(1.5); opacity: 0; pointer-events: none; }
         
         .cover {
             position: absolute; width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--maroon), #2a080d);
-            border: 2px solid var(--gold);
-            border-radius: 5px 15px 15px 5px;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.2), 10px 10px 30px rgba(0,0,0,0.5);
-            text-align: center; padding: 20px; box-sizing: border-box;
+            background: linear-gradient(135deg, #3a0b12, var(--maroon));
+            border: 3px solid var(--gold); border-radius: 5px 20px 20px 5px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.15), 15px 15px 40px rgba(0,0,0,0.6);
+            text-align: center;
         }
-        .om-symbol { font-size: 40px; color: var(--gold); margin-bottom: 20px; }
-        .initials { font-size: 48px; color: var(--gold); margin: 10px 0; font-weight: bold; }
-        .tap-text { font-size: 14px; margin-top: 40px; opacity: 0.7; letter-spacing: 2px; }
+        .kuthu-vilakku { font-size: 50px; margin-bottom: 15px; }
+        .initials { font-size: 54px; color: var(--gold); font-weight: bold; letter-spacing: 5px; }
 
-        /* THE JOURNEY TIMELINE */
+        /* THE MANDAPAM JOURNEY */
         #journey {
-            display: none; /* Hidden until book opens */
-            padding: 100px 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        /* The Golden Thread */
-        #journey::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 50%;
-            width: 2px; height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-            transform: translateX(-50%);
+            display: none; padding: 80px 20px; max-width: 900px; margin: 0 auto;
         }
 
-        .timeline-item {
-            display: flex;
-            justify-content: flex-end;
-            padding-right: 30px;
-            position: relative;
-            margin: 100px 0;
-            width: 50%;
-            opacity: 0;
-            transform: translateY(50px);
+        .ritual-card {
+            background: rgba(212, 175, 55, 0.03);
+            border-left: 4px solid var(--gold);
+            padding: 40px; margin: 60px 0;
+            border-radius: 0 15px 15px 0;
+            backdrop-filter: blur(5px);
+            opacity: 0; transform: translateX(-50px);
             transition: all 1s ease;
         }
-        .timeline-item:nth-child(even) {
-            align-self: flex-end;
-            justify-content: flex-start;
-            padding-left: 30px;
-            padding-right: 0;
-            margin-left: 50%;
-        }
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .ritual-card.visible { opacity: 1; transform: translateX(0); }
+        
+        .ritual-card h2 { color: var(--gold); font-size: 32px; margin-top: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 15px;}
+        .ritual-card p { line-height: 1.9; font-size: 18px; opacity: 0.95; }
 
-        /* Timeline Nodes (The Dots) */
-        .timeline-item::after {
-            content: '❖';
-            position: absolute;
-            right: -12px;
-            top: 0;
-            color: var(--gold);
-            font-size: 20px;
-            background: var(--maroon);
-            padding: 5px;
+        /* THE BLESSING BUTTON */
+        .blessing-container { text-align: center; margin: 120px 0; }
+        
+        .bless-btn {
+            background: linear-gradient(135deg, var(--gold), #b5952f);
+            color: var(--maroon); font-family: inherit;
+            font-size: 24px; font-weight: bold; padding: 20px 50px;
+            border: none; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease; position: relative; overflow: hidden;
         }
-        .timeline-item:nth-child(even)::after {
-            right: auto;
-            left: -12px;
-        }
+        .bless-btn:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6); }
+        .bless-btn:active { transform: translateY(2px); }
 
-        .content {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 30px;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
+        /* THANK YOU MESSAGE (Revealed after flowers) */
+        #blessing-msg {
+            display: none; color: var(--gold); font-size: 36px;
+            margin-top: 30px; animation: fadeIn 2s ease forwards;
         }
-        .content h2 { color: var(--gold); margin-top: 0; font-size: 28px; }
-        .content p { line-height: 1.8; font-size: 16px; opacity: 0.9; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .rsvp-btn {
-            display: block; width: 200px; margin: 80px auto;
-            padding: 15px; text-align: center;
-            background: var(--gold); color: var(--maroon);
-            text-decoration: none; font-size: 18px; font-weight: bold;
-            border-radius: 5px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-        }
     </style>
 </head>
 <body>
 
-    <!-- Language Toggle -->
+    <!-- HTML5 Canvas for Flower Physics -->
+    <canvas id="flowerCanvas"></canvas>
+
     <div class="lang-nav">
         <button class="lang-btn active" onclick="setLang('en')">EN</button>
         <button class="lang-btn" onclick="setLang('ta')">தமிழ்</button>
         <button class="lang-btn" onclick="setLang('hi')">हिंदी</button>
     </div>
 
-    <!-- 3D BOOK ENTRANCE -->
+    <!-- 3D INVITATION -->
     <div id="entrance">
         <div class="book" onclick="openJourney()">
             <div class="cover">
-                <div class="om-symbol">🪔</div>
+                <div class="kuthu-vilakku">🪔</div>
                 <div class="initials">R & G</div>
-                <div class="tap-text" data-i18n="bookTap">Tap to unveil our destiny</div>
+                <div style="color: var(--gold); font-size: 14px; margin-top: 40px; letter-spacing: 3px;" data-i18n="tap">ENTER THE MANDAPAM</div>
             </div>
         </div>
     </div>
 
-    <!-- THE GOLDEN THREAD TIMELINE -->
+    <!-- THE MANDAPAM JOURNEY -->
     <div id="journey">
-        <div style="text-align: center; margin-bottom: 100px;">
-            <h1 style="color: var(--gold); font-size: 40px;" data-i18n="welcome">Two Souls, One Path</h1>
-            <p style="font-style: italic; opacity: 0.8;" data-i18n="quote">A beautiful journey grounded in sacred tradition.</p>
+        
+        <div style="text-align: center; margin-bottom: 80px;">
+            <h1 style="color: var(--gold); font-size: 48px;" data-i18n="title">A Sacred Union</h1>
+            <p style="font-size: 20px; font-style: italic; opacity: 0.8;" data-i18n="subtitle">Honoring our roots, embracing our future.</p>
         </div>
 
-        <!-- Act 1: Engagement -->
-        <div class="timeline-item">
-            <div class="content">
-                <h2 data-i18n="engTitle">The Promise (Nitchayathartham)</h2>
-                <p data-i18n="engDesc">Our journey began with a promise. We exchanged rings formed from our own merged fingerprints—pure metal, no stones required. A perfect reflection of our true selves coming together.</p>
-            </div>
+        <div class="ritual-card">
+            <h2 data-i18n="r1Title">The Nitchayathartham (The Promise)</h2>
+            <p data-i18n="r1Desc">Before the Agni, there was a promise. We exchanged rings formed from our own merged fingerprints—pure metal, devoid of stones. A testament to two true, unadorned selves finding harmony.</p>
         </div>
 
-        <!-- Act 2: Wedding -->
-        <div class="timeline-item">
-            <div class="content">
-                <h2 data-i18n="wedTitle">The Sacred Union (Muhurtham)</h2>
-                <p data-i18n="wedDesc">Witness the tying of the sacred yellow thread in the holy presence of Agni. Join us as we take our seven steps into a shared life, surrounded by the blessings of our elders and the echoing sounds of the Nadaswaram.</p>
-                <p style="color: var(--gold); font-weight: bold; margin-top: 15px;">Date: [Insert Date Here]</p>
-            </div>
+        <div class="ritual-card">
+            <h2 data-i18n="r2Title">The Maangalyam (The Sacred Thread)</h2>
+            <p data-i18n="r2Desc">As the Getti Melam reaches its crescendo, we tie the sacred yellow thread. Three knots binding the mind, body, and soul. We invite you to witness this profound moment of union.</p>
         </div>
 
-        <!-- Act 3: The Future -->
-        <div class="timeline-item">
-            <div class="content">
-                <h2 data-i18n="futTitle">The Endless Journey</h2>
-                <p data-i18n="futDesc">Beyond the marriage day lies eternity. This is not the end of our story, but the beautiful, endless beginning of shared sunrises, quiet support, and a love that deepens with every passing moment.</p>
-            </div>
+        <div class="ritual-card">
+            <h2 data-i18n="r3Title">The Saptapadi (Seven Steps to Eternity)</h2>
+            <p data-i18n="r3Desc">With each of the seven steps around the sacred fire, we vow to nourish each other, grow in strength, prosper in wealth, share our joys, raise a noble family, live in harmony, and remain eternal friends. This is our endless journey.</p>
         </div>
 
-        <a href="#" class="rsvp-btn" data-i18n="rsvp">Bless Our Journey</a>
+        <!-- THE BLESSING INTERACTION -->
+        <div class="blessing-container">
+            <button class="bless-btn" onclick="showerBlessings()" data-i18n="blessBtn">Shower Your Blessings (ஆசிர்வாதம்)</button>
+            <div id="blessing-msg" data-i18n="thanks">Your blessings guide our path. 🙏</div>
+        </div>
+
     </div>
 
     <script>
-        // DICTIONARY FOR 3 LANGUAGES
+        // DICTIONARY
         const dict = {
             en: {
-                bookTap: "Tap to unveil our destiny",
-                welcome: "Two Souls, One Path",
-                quote: "A beautiful journey grounded in sacred tradition.",
-                engTitle: "The Promise (Nitchayathartham)",
-                engDesc: "Our journey began with a promise. We exchanged rings formed from our own merged fingerprints—pure metal, no stones required. A perfect reflection of our true selves coming together.",
-                wedTitle: "The Sacred Union (Muhurtham)",
-                wedDesc: "Witness the tying of the sacred yellow thread in the holy presence of Agni. Join us as we take our seven steps into a shared life, surrounded by the blessings of our elders and the echoing sounds of the Nadaswaram.",
-                futTitle: "The Endless Journey",
-                futDesc: "Beyond the marriage day lies eternity. This is not the end of our story, but the beautiful, endless beginning of shared sunrises, quiet support, and a love that deepens with every passing moment.",
-                rsvp: "Bless Our Journey (RSVP)"
+                tap: "ENTER THE MANDAPAM", title: "A Sacred Union", subtitle: "Honoring our roots, embracing our future.",
+                r1Title: "The Nitchayathartham (The Promise)",
+                r1Desc: "Before the Agni, there was a promise. We exchanged rings formed from our own merged fingerprints—pure metal, devoid of stones. A testament to two true, unadorned selves finding harmony.",
+                r2Title: "The Maangalyam (The Sacred Thread)",
+                r2Desc: "As the Getti Melam reaches its crescendo, we tie the sacred yellow thread. Three knots binding the mind, body, and soul. We invite you to witness this profound moment of union.",
+                r3Title: "The Saptapadi (Seven Steps to Eternity)",
+                r3Desc: "With each of the seven steps around the sacred fire, we vow to nourish each other, grow in strength, prosper in wealth, share our joys, raise a noble family, live in harmony, and remain eternal friends. This is our endless journey.",
+                blessBtn: "Shower Your Blessings", thanks: "Your blessings guide our path. 🙏"
             },
             ta: {
-                bookTap: "எங்கள் பயணத்தை தொடங்க தட்டவும்",
-                welcome: "இரு மனங்கள், ஒரு பயணம்",
-                quote: "புனிதமான பாரம்பரியத்தில் வேரூன்றிய ஒரு அழகான பயணம்.",
-                engTitle: "வாக்குறுதி (நிச்சயதார்த்தம்)",
-                engDesc: "எங்கள் பயணம் ஒரு வாக்குறுதியுடன் தொடங்கியது. ஆடம்பர கற்கள் இன்றி, எங்கள் இருவரின் கைரேகைகள் மட்டுமே பதித்த மோதிரங்களை மாற்றி, எங்கள் காதலை உறுதி செய்தோம்.",
-                wedTitle: "புனித இணைப்பு (முகூர்த்தம்)",
-                wedDesc: "அக்னி சாட்சியாக, நாதஸ்வர ஓசைகள் முழங்க, பெரியோர்களின் ஆசிகளுடன் மாங்கல்யம் சூடும் மங்களகரமான தருணம். நாங்கள் எடுத்து வைக்கும் ஏழு அடிகளில் நீங்களும் இணைய வாருங்கள்.",
-                futTitle: "முடிவில்லா பயணம்",
-                futDesc: "திருமண நாளைத் தாண்டி ஒரு நித்தியம் காத்திருக்கிறது. இது எங்கள் கதையின் முடிவல்ல; பரஸ்பர ஆதரவோடும், நாளுக்கு நாள் வளரும் அன்போடும் தொடரும் ஒரு அழகான, முடிவில்லா தொடக்கம்.",
-                rsvp: "எங்களை வாழ்த்துக (RSVP)"
+                tap: "மண்டபத்திற்குள் நுழைய", title: "புனிதமான திருமாங்கல்யம்", subtitle: "பாரம்பரியத்தை போற்றி, எதிர்காலத்தை அரவணைத்து.",
+                r1Title: "நிச்சயதார்த்தம்",
+                r1Desc: "அக்னி சாட்சிக்கு முன், ஒரு வாக்குறுதி இருந்தது. ஆடம்பர கற்கள் இன்றி, எங்கள் இருவரின் கைரேகைகள் மட்டுமே பதித்த தூய உலோக மோதிரங்களை மாற்றி, இரு மனங்கள் ஒன்றிணைவதை உறுதி செய்தோம்.",
+                r2Title: "மாங்கல்ய தாரணம்",
+                r2Desc: "கெட்டி மேளம் முழங்க, மனம், உடல், ஆன்மா ஆகியவற்றை இணைக்கும் மூன்று முடிச்சுகளுடன் புனிதமான மஞ்சள் கயிற்றை சூடும் மங்களகரமான தருணம். இந்த மாபெரும் நிகழ்வைக் காண உங்களை அழைக்கிறோம்.",
+                r3Title: "சப்தபதி (ஏழு அடிகள்)",
+                r3Desc: "புனித நெருப்பைச் சுற்றி எடுத்து வைக்கும் ஒவ்வொரு அடியிலும், ஒருவருக்கொருவர் ஆதரவாக இருக்கவும், பலத்தில் வளரவும், செல்வத்தில் செழிக்கவும், இன்பங்களை பகிர்ந்து கொள்ளவும், உன்னதமான குடும்பத்தை உருவாக்கவும், நல்லிணக்கத்துடன் வாழவும், நித்திய நண்பர்களாக இருக்கவும் உறுதியேற்கிறோம். இது எங்கள் முடிவில்லா பயணம்.",
+                blessBtn: "ஆசிர்வாதம் வழங்கவும்", thanks: "உங்கள் ஆசிகள் எங்கள் வழிகாட்டி. 🙏"
             },
             hi: {
-                bookTap: "हमारी नियति देखने के लिए टैप करें",
-                welcome: "दो आत्माएं, एक मार्ग",
-                quote: "पवित्र परंपरा पर आधारित एक खूबसूरत यात्रा।",
-                engTitle: "वादा (सगाई)",
-                engDesc: "हमारी यात्रा एक वादे के साथ शुरू हुई। बिना पत्थरों के, केवल हमारे फिंगरप्रिंट वाले कस्टम छल्ले बदलकर हमने अपनी प्रतिबद्धता पर मुहर लगाई।",
-                wedTitle: "पवित्र बंधन (मुहूर्तम)",
-                wedDesc: "अग्नि की उपस्थिति में पवित्र पीले धागे के बंधन के साक्षी बनें। नादस्वरम की गूँज और बड़ों के आशीर्वाद के बीच, हमारे साझा जीवन में सात कदम उठाने में हमारे साथ जुड़ें।",
-                futTitle: "अनंत यात्रा",
-                futDesc: "शादी के दिन से परे अनंत काल है। यह हमारी कहानी का अंत नहीं है, बल्कि साझा सूर्योदय, शांत समर्थन और हर पल के साथ गहरे होने वाले प्यार की एक सुंदर, अंतहीन शुरुआत है।",
-                rsvp: "हमें आशीर्वाद दें (RSVP)"
+                tap: "मंडप में प्रवेश करें", title: "एक पवित्र मिलन", subtitle: "अपनी जड़ों का सम्मान, भविष्य को गले लगाना।",
+                r1Title: "निश्चयथार्थम (वादा)",
+                r1Desc: "अग्नि से पहले, एक वादा था। हमने बिना पत्थरों के, केवल हमारे फिंगरप्रिंट वाले कस्टम छल्ले बदलकर अपनी प्रतिबद्धता पर मुहर लगाई।",
+                r2Title: "मंगलसूत्र (पवित्र धागा)",
+                r2Desc: "नादस्वरम की गूँज के बीच, हम मन, शरीर और आत्मा को बांधने वाली तीन गांठों के साथ पवित्र पीला धागा बांधते हैं। हम आपको इस पवित्र क्षण का गवाह बनने के लिए आमंत्रित करते हैं।",
+                r3Title: "सप्तपदी (सात कदम)",
+                r3Desc: "पवित्र अग्नि के चारों ओर सात कदमों के साथ, हम एक-दूसरे का पोषण करने, शक्ति में बढ़ने, सुख साझा करने और शाश्वत मित्र बने रहने की कसम खाते हैं। यह हमारी अनंत यात्रा है।",
+                blessBtn: "आशीर्वाद दें", thanks: "आपका आशीर्वाद हमारा मार्गदर्शन करता है। 🙏"
             }
         };
 
-        // LANGUAGE TRANSLATOR
         function setLang(lang) {
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if(dict[lang][key]) el.innerText = dict[lang][key];
             });
         }
 
-        // OPEN BOOK & REVEAL JOURNEY
         function openJourney() {
-            const entrance = document.getElementById('entrance');
-            const book = document.querySelector('.book');
-            const journey = document.getElementById('journey');
-
-            book.classList.add('open');
-            
+            document.querySelector('.book').classList.add('open');
             setTimeout(() => {
-                entrance.style.display = 'none';
-                journey.style.display = 'block';
-                // Trigger intersection observer for the first elements
+                document.getElementById('entrance').style.display = 'none';
+                document.getElementById('journey').style.display = 'block';
                 window.dispatchEvent(new Event('scroll'));
             }, 1000);
         }
 
-        // SCROLL ANIMATION (Fades items in as you scroll down)
+        // SCROLL REVEAL LOGIC
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.2 });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.3 });
+        setTimeout(() => { document.querySelectorAll('.ritual-card').forEach(item => observer.observe(item)); }, 100);
 
-        // Apply observer once elements are rendered
-        setTimeout(() => {
-            document.querySelectorAll('.timeline-item').forEach(item => {
-                observer.observe(item);
-            });
-        }, 100);
+        // --- FULL SCREEN FLOWER SHOWER PHYSICS (PUSHPANJALI) ---
+        function showerBlessings() {
+            const btn = document.querySelector('.bless-btn');
+            btn.style.display = 'none'; // Hide button
+            document.getElementById('blessing-msg').style.display = 'block'; // Show thanks
+
+            const canvas = document.getElementById('flowerCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.style.display = 'block';
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const flowers = [];
+            const colors = ['#FFD700', '#FFA500', '#FF8C00', '#FFF0F5']; // Marigold Gold, Orange, Jasmine White
+
+            // Create 150 petals
+            for (let i = 0; i < 150; i++) {
+                flowers.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * -canvas.height, // Start above screen
+                    size: Math.random() * 8 + 4,
+                    speed: Math.random() * 3 + 2,
+                    sway: Math.random() * 2 - 1, // Horizontal drift
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let allDone = true;
+
+                flowers.forEach(p => {
+                    if (p.y < canvas.height) allDone = false; // Still falling
+
+                    // Physics
+                    p.y += p.speed;
+                    p.x += Math.sin(p.y * 0.02) * p.sway * 2; // Fluttering effect
+                    p.rotation += p.sway * 5;
+
+                    // Draw Petal
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rotation * Math.PI / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    // Custom teardrop/petal shape
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(p.size, p.size, p.size, p.size * 2, 0, p.size * 2);
+                    ctx.bezierCurveTo(-p.size, p.size * 2, -p.size, p.size, 0, 0);
+                    ctx.fill();
+                    ctx.restore();
+                });
+
+                if (!allDone) {
+                    requestAnimationFrame(animate);
+                } else {
+                    // Fade out canvas when finished
+                    canvas.style.transition = 'opacity 2s';
+                    canvas.style.opacity = '0';
+                    setTimeout(() => canvas.style.display = 'none', 2000);
+                }
+            }
+            animate();
+        }
     </script>
 </body>
 </html>
