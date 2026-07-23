@@ -3,142 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding Celebration</title>
-    
-    <!-- Import playful, cartoon-friendly fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Mukta+Malar:wght@400;700&family=Hind:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title>R & G | Our Wedding</title>
     <style>
-        /* CARTOON UI STYLING */
-        :root {
-            --primary: #ff6b6b;
-            --background: #fff9e6;
-            --border-color: #2b2b2b;
+        /* BASE STYLES */
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #333;
+            overflow: hidden; /* Prevent scrolling while book is visible */
         }
 
-        body {
-            font-family: 'Fredoka One', 'Mukta Malar', 'Hind', sans-serif;
-            background-color: var(--background);
-            color: var(--border-color);
-            text-align: center;
-            margin: 0;
-            padding: 20px;
+        /* 3D BOOK CONTAINER */
+        #book-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            perspective: 1200px; /* Gives the 3D depth */
+            transition: opacity 1s ease;
         }
 
-        /* Cartoonish Container */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border: 4px solid var(--border-color);
-            border-radius: 20px;
-            box-shadow: 8px 8px 0px var(--border-color); /* Comic book drop shadow */
+        .book {
+            width: 300px;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(10deg) rotateY(-10deg); /* Slight angle for 3D feel */
+            transition: transform 1s ease;
         }
 
-        /* Language Toggle Buttons */
-        .lang-controls {
-            margin-bottom: 20px;
+        .book:hover {
+            transform: rotateX(10deg) rotateY(0deg);
         }
 
-        button {
-            background-color: #4ecdc4;
-            color: white;
-            border: 3px solid var(--border-color);
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: inherit;
-            box-shadow: 4px 4px 0px var(--border-color);
-            transition: all 0.1s ease;
-            margin: 0 5px;
-        }
-
-        button:active {
-            transform: translate(4px, 4px);
-            box-shadow: 0px 0px 0px var(--border-color);
-        }
-
-        .hero-img {
+        /* THE PAGES */
+        .page {
+            position: absolute;
             width: 100%;
-            max-width: 300px;
-            border: 3px solid var(--border-color);
-            border-radius: 15px;
-            margin: 20px 0;
+            height: 100%;
+            top: 0; left: 0;
+            transform-origin: left center;
+            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transform-style: preserve-3d;
+            background-color: #fff9e6;
+            border-radius: 5px 15px 15px 5px;
+            box-shadow: inset 0px 0px 10px rgba(0,0,0,0.1);
         }
 
-        /* Fake RSVP Button for demonstration */
-        .rsvp-btn {
-            background-color: var(--primary);
-            font-size: 24px;
+        /* FRONT COVER */
+        .cover {
+            background: linear-gradient(135deg, #d4af37, #aa7c11); /* Gold finish */
+            z-index: 2;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border: 2px solid #8c6200;
+        }
+
+        /* FINGERPRINT HEART STYLING */
+        .heart-motif {
+            font-size: 50px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .initials {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+
+        /* BACK OF THE COVER (INSIDE LEFT) */
+        .cover-back {
+            background-color: #fff9e6;
+            transform: rotateY(180deg) translateZ(1px); /* Flipped */
+        }
+
+        /* INSIDE PAGE (RIGHT SIDE) */
+        .inside-page {
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            background-image: url('data:image/svg+xml;utf8,<svg opacity="0.05" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="none"/></svg>');
+        }
+
+        /* ANIMATION CLASS */
+        .book.open .cover {
+            transform: rotateY(-140deg);
+        }
+
+        .enter-btn {
             margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            opacity: 0;
+            transition: opacity 1s ease 1s; /* Fades in after book opens */
+        }
+
+        .book.open .enter-btn {
+            opacity: 1;
+        }
+
+        /* MAIN WEBSITE CONTENT (HIDDEN INITIALLY) */
+        #main-site {
+            display: none;
+            background-color: #fff9e6;
+            min-height: 100vh;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Language Selection -->
-        <div class="lang-controls">
-            <button onclick="setLanguage('en')">English</button>
-            <button onclick="setLanguage('ta')">தமிழ்</button>
-            <button onclick="setLanguage('hi')">हिंदी</button>
+    <!-- 3D BOOK OPENING -->
+    <div id="book-container">
+        <div class="book" id="myBook">
+            <!-- INSIDE RIGHT PAGE -->
+            <div class="page inside-page">
+                <h2>Welcome to Our New Chapter</h2>
+                <p>We are thrilled to invite you to witness our union.</p>
+                <button class="enter-btn" onclick="enterWebsite()">Open Invitation</button>
+            </div>
+            
+            <!-- THE COVER (Front & Back) -->
+            <div class="page cover" onclick="openBook()">
+                <!-- Front Cover Content -->
+                <div class="heart-motif">🤍</div>
+                <div class="initials">R & G</div>
+                <p style="margin-top: 40px; font-size: 14px; opacity: 0.8;">Tap to Open</p>
+                
+                <!-- Back of Cover (Invisible until opened) -->
+                <div class="page cover-back"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN WEBSITE (Revealed after book) -->
+    <div id="main-site">
+        <h1>R & G are getting married!</h1>
+        
+        <div class="section" id="events">
+            <h2>The Celebrations</h2>
+            <p><strong>Muhurtham:</strong> Sunday, 9:00 AM - 10:30 AM</p>
+            <p><strong>Reception:</strong> Sunday, 7:00 PM Onwards</p>
         </div>
 
-        <!-- Content (Notice the data-i18n attributes) -->
-        <h1 data-i18n="title">Welcome to Our Wedding!</h1>
-        
-        <!-- Replace src with an external URL to your cartoon caricature -->
-        <img src="https://via.placeholder.com/300x300.png?text=Cartoon+Caricature+Here" alt="Cartoon Couple" class="hero-img">
+        <div class="section" id="venue">
+            <h2>The Venue</h2>
+            <p>Grand Palace Hall<br>123 Wedding Avenue, City</p>
+            <!-- You can embed a Google Map iFrame here -->
+        </div>
 
-        <h2 data-i18n="date">December 15, 2026</h2>
-        <p data-i18n="message">We can't wait to celebrate our special day with you. Get ready for food, fun, and lots of dancing!</p>
-        
-        <button class="rsvp-btn" data-i18n="rsvp">RSVP Now</button>
+        <div class="section" id="rsvp">
+            <h2>RSVP</h2>
+            <p>Please let us know if you will be joining us!</p>
+            <!-- You can embed a Google Form iFrame here -->
+        </div>
     </div>
 
     <script>
-        // MULTI-LANGUAGE DICTIONARY
-        const translations = {
-            en: {
-                title: "Welcome to Our Wedding!",
-                date: "December 15, 2026",
-                message: "We can't wait to celebrate our special day with you. Get ready for food, fun, and lots of dancing!",
-                rsvp: "RSVP Now"
-            },
-            ta: {
-                title: "எங்கள் திருமணத்திற்கு நல்வரவு!",
-                date: "டிசம்பர் 15, 2026",
-                message: "எங்கள் சிறப்பு நாளான திருமணத்தன்று உங்களுடன் கொண்டாட ஆவலுடன் காத்திருக்கிறோம்!",
-                rsvp: "பதிலளிக்க"
-            },
-            hi: {
-                title: "हमारी शादी में आपका स्वागत है!",
-                date: "15 दिसंबर, 2026",
-                message: "हम आपके साथ अपना विशेष दिन मनाने का इंतजार नहीं कर सकते।",
-                rsvp: "अभी RSVP करें"
-            }
-        };
-
-        // DOM MANIPULATION FUNCTION
-        function setLanguage(lang) {
-            // Find all elements with a data-i18n attribute
-            const elements = document.querySelectorAll('[data-i18n]');
-            
-            elements.forEach(element => {
-                // Get the translation key (e.g., 'title', 'date')
-                const key = element.getAttribute('data-i18n');
-                
-                // Update the text based on the selected language
-                if (translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
+        // FUNCTION TO OPEN THE BOOK
+        function openBook() {
+            document.getElementById('myBook').classList.add('open');
         }
 
-        // Set default language on load
-        setLanguage('en');
+        // FUNCTION TO ENTER THE MAIN SITE
+        function enterWebsite() {
+            const bookContainer = document.getElementById('book-container');
+            const mainSite = document.getElementById('main-site');
+
+            // Fade out the book
+            bookContainer.style.opacity = '0';
+
+            // Wait for fade out, then hide book and show main site
+            setTimeout(() => {
+                bookContainer.style.display = 'none';
+                mainSite.style.display = 'block';
+                document.body.style.overflow = 'auto'; // Re-enable scrolling
+                document.body.style.backgroundColor = '#fff9e6'; // Change background to match site
+            }, 1000); // 1000ms matches the CSS transition time
+        }
     </script>
+
 </body>
 </html>
