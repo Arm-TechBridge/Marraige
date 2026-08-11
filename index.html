@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Royal Union | Alagu Ragul</title>
+    <title>The Royal Temple Union | Alagu Ragul & Bride</title>
     
     <!-- Premium Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -12,48 +12,89 @@
         :root {
             --gold-foil: #D4AF37;
             --gold-light: #F9E596;
-            --text-ivory: #FDF5E6;
+            --gold-dark: #8B6327;
+            --temple-bg: #1A0707;
+            --temple-red: #3A0A0A;
         }
 
-        /* 1. RESET & MOBILE LOCK */
+        /* 1. RESET & STRICT MOBILE LOCK */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body, html {
             width: 100vw; overflow-x: hidden;
             font-family: 'Playfair Display', serif;
-            color: var(--text-ivory);
-            scroll-behavior: smooth;
-            background-color: #0A0303;
+            color: #FDF5E6; scroll-behavior: smooth;
+            background-color: var(--temple-bg);
+            /* Magical starry night gradient behind the temple */
+            background-image: radial-gradient(circle at top, var(--temple-red), var(--temple-bg) 80%);
         }
 
-        /* 2. TRANSPARENT TEMPLE BACKGROUND */
-        .temple-bg {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            /* High-Res South Indian Temple Vibe */
-            background-image: url('https://images.unsplash.com/photo-1590396486161-00030a2734f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80');
-            background-size: cover; background-position: center;
-            z-index: 0;
+        /* =========================================
+           2. REALISTIC 3D TEMPLE ARCHITECTURE 
+           ========================================= */
+        /* Left and Right Golden Pillars */
+        .pillar {
+            position: fixed; top: 0; bottom: 0; width: clamp(20px, 5vw, 40px);
+            background: linear-gradient(90deg, #2A1604 0%, var(--gold-dark) 20%, var(--gold-light) 50%, var(--gold-dark) 80%, #2A1604 100%);
+            z-index: 5; box-shadow: 0 0 20px rgba(0,0,0,0.9);
+        }
+        .pillar.left { left: 0; border-right: 2px solid rgba(255,255,255,0.2); }
+        .pillar.right { right: 0; border-left: 2px solid rgba(255,255,255,0.2); }
+
+        /* Temple Top Arch / Roof */
+        .temple-arch {
+            position: fixed; top: 0; left: 0; width: 100vw; height: clamp(40px, 8vw, 60px);
+            background: linear-gradient(180deg, var(--gold-dark), #4A2B0F);
+            z-index: 6; box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+            border-bottom: 3px solid var(--gold-foil);
+            display: flex; justify-content: space-around; align-items: flex-end;
+        }
+        
+        /* Magical Hanging Brass Lamps */
+        .lamp-container {
+            position: absolute; top: clamp(40px, 8vw, 60px); width: 30px; height: 120px;
+            z-index: 4; display: flex; flex-direction: column; align-items: center;
+        }
+        .lamp-container.left { left: clamp(30px, 10vw, 80px); }
+        .lamp-container.right { right: clamp(30px, 10vw, 80px); }
+        
+        .lamp-chain { width: 4px; height: 60px; background: linear-gradient(90deg, #553, var(--gold-foil), #553); }
+        .lamp-base { 
+            width: 24px; height: 30px; 
+            background: radial-gradient(circle, var(--gold-light), var(--gold-dark)); 
+            border-radius: 50% 50% 10% 10%; 
+        }
+        .lamp-flame {
+            width: 10px; height: 15px; background: #FF9900;
+            border-radius: 50% 50% 20% 20%; margin-top: -5px;
+            box-shadow: 0 0 20px 10px rgba(255, 150, 0, 0.6);
+            animation: flicker 2s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 15px 5px rgba(255, 150, 0, 0.5); }
+            100% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 25px 12px rgba(255, 150, 0, 0.8); }
         }
 
-        /* Dark Glass Overlay to make text readable while keeping temple visible */
-        .temple-overlay {
+        /* Continuous Magical Floating Orbs */
+        .ambient-magic {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(180deg, rgba(20, 5, 5, 0.85) 0%, rgba(10, 0, 0, 0.95) 100%);
-            z-index: 1;
+            pointer-events: none; z-index: 1; opacity: 0.5;
+            background-image: radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                              radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
         }
 
         /* 3. LAYOUT CONTAINER */
         .container {
             position: relative; z-index: 10;
             width: 100%; max-width: 600px; margin: 0 auto;
-            padding: 50px 20px;
+            /* Extra padding on sides to avoid pillars */
+            padding: clamp(80px, 15vw, 100px) clamp(35px, 8vw, 60px) 60px clamp(35px, 8vw, 60px);
             display: flex; flex-direction: column; align-items: center;
         }
 
         .scroll-reveal {
             opacity: 0; transform: translateY(30px);
-            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
-            width: 100%;
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); width: 100%;
         }
         .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -63,99 +104,92 @@
             filter: drop-shadow(0 2px 10px rgba(212, 175, 55, 0.8));
         }
 
-        .header-sub {
-            text-align: center; font-family: 'Cinzel Decorative', cursive;
-            font-size: clamp(0.9rem, 3vw, 1.2rem); color: var(--gold-light);
-            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;
-        }
-
         .couple-names {
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(3.5rem, 12vw, 5rem); line-height: 1.1;
+            font-size: clamp(3rem, 10vw, 5rem); line-height: 1.1;
             text-align: center; margin: 10px 0;
             background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
             -webkit-background-clip: text; color: transparent;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
 
         .ampersand {
             font-family: 'Playfair Display', serif; font-style: italic;
-            font-size: clamp(1.8rem, 6vw, 2.5rem); color: var(--gold-foil);
+            font-size: clamp(1.5rem, 6vw, 2.5rem); color: var(--gold-foil);
             display: block; margin: 5px 0;
         }
 
-        /* 5. LOVE QUOTE SECTION (Unique Idea) */
+        /* 5. LOVE QUOTE SECTION */
         .quote-box {
-            text-align: center; padding: 30px 10px; margin: 20px 0 40px 0;
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center; padding: 25px 5px; margin: 10px 0 30px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.3); border-bottom: 1px solid rgba(212, 175, 55, 0.3);
         }
         .quote-text {
-            font-size: clamp(1.1rem, 4vw, 1.4rem); font-style: italic;
-            color: #EEDDCC; line-height: 1.6; margin-bottom: 15px;
+            font-size: clamp(1rem, 4vw, 1.3rem); font-style: italic;
+            color: #EEDDCC; line-height: 1.6; margin-bottom: 10px;
         }
         .quote-author {
-            font-family: 'Cinzel Decorative', cursive; font-size: clamp(0.8rem, 3vw, 1rem);
+            font-family: 'Cinzel Decorative', cursive; font-size: clamp(0.75rem, 3vw, 1rem);
             color: var(--gold-foil); letter-spacing: 2px;
         }
 
-        /* 6. TRANSLUCENT TEMPLE GLASS CARDS */
+        /* 6. FLAWLESS INVITATION CARDS */
         .glass-card {
-            background: rgba(30, 10, 10, 0.4); /* Highly transparent */
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 12px; padding: 40px 25px;
-            margin-bottom: 40px; text-align: center; position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 30px rgba(212,175,55,0.05);
+            background: rgba(15, 3, 3, 0.7);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 12px; margin-bottom: 40px; text-align: center; position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.9), inset 0 0 20px rgba(212,175,55,0.05);
             width: 100%;
+            /* Highly optimized padding to prevent text overflow */
+            padding: clamp(30px, 6vw, 40px) clamp(15px, 4vw, 30px);
+            overflow-wrap: break-word; word-wrap: break-word; hyphens: auto;
         }
 
-        /* Thin inner gold border */
         .glass-card::before {
-            content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; pointer-events: none;
+            content: ''; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 6px; pointer-events: none;
         }
 
         .event-title {
             font-family: 'Cinzel Decorative', cursive;
-            font-size: clamp(1.8rem, 7vw, 2.5rem); color: var(--gold-foil);
-            margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            /* Specifically sized so "Nitchayadhartham" never overflows */
+            font-size: clamp(1.4rem, 6.5vw, 2.2rem); 
+            color: var(--gold-foil); margin-bottom: 5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            line-height: 1.2;
         }
         
         .event-type {
-            font-size: clamp(0.9rem, 4vw, 1.1rem); color: var(--gold-light);
+            font-size: clamp(0.85rem, 4vw, 1.1rem); color: var(--gold-light);
             font-style: italic; margin-bottom: 20px;
         }
 
-        .divider {
-            width: 50px; height: 2px; margin: 0 auto 20px auto;
-            background: var(--gold-foil);
-        }
+        .divider { width: 50px; height: 2px; margin: 0 auto 20px auto; background: var(--gold-foil); }
 
-        .details p { font-size: clamp(1.1rem, 4.5vw, 1.3rem); margin-bottom: 15px; line-height: 1.5; color: #FFF; }
+        .details p { font-size: clamp(1rem, 4.5vw, 1.2rem); margin-bottom: 15px; line-height: 1.5; color: #FFF; }
         .details strong {
             display: block; font-family: 'Cinzel Decorative', cursive;
-            font-size: 0.85rem; color: var(--gold-foil); letter-spacing: 2px;
+            font-size: 0.8rem; color: var(--gold-foil); letter-spacing: 2px;
             margin-bottom: 3px; text-transform: uppercase;
         }
 
-        /* Ring Story Text */
         .story-text {
-            font-size: clamp(0.95rem, 4vw, 1.1rem); color: #CCC;
+            font-size: clamp(0.9rem, 4vw, 1.1rem); color: #CCC;
             font-style: italic; margin-top: 25px; line-height: 1.6;
             padding-top: 20px; border-top: 1px dashed rgba(212,175,55,0.3);
         }
 
         /* 7. BLESSING BUTTON */
         .bless-btn {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.8), rgba(170, 119, 28, 0.8));
-            backdrop-filter: blur(5px);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.9), rgba(139, 99, 39, 0.9));
             color: #1A0101; font-family: 'Cinzel Decorative', cursive;
-            font-size: clamp(1.1rem, 5vw, 1.3rem); font-weight: 700;
-            padding: 18px 40px; border: 1px solid var(--gold-light); border-radius: 50px;
-            cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            font-size: clamp(1rem, 5vw, 1.3rem); font-weight: 700;
+            padding: clamp(15px, 4vw, 18px) clamp(30px, 8vw, 40px);
+            border: 1px solid var(--gold-light); border-radius: 50px;
+            cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.8);
             transition: transform 0.2s; margin-top: 20px; text-transform: uppercase;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent; width: 100%; max-width: 300px;
         }
         .bless-btn:active { transform: scale(0.95); }
 
@@ -164,37 +198,47 @@
 </head>
 <body>
 
-    <!-- Transparent Temple Background -->
-    <div class="temple-bg"></div>
-    <div class="temple-overlay"></div>
+    <!-- 1. The Physical 3D Temple Architecture -->
+    <div class="temple-arch"></div>
+    <div class="pillar left"></div>
+    <div class="pillar right"></div>
+    
+    <div class="lamp-container left">
+        <div class="lamp-chain"></div>
+        <div class="lamp-base"></div>
+        <div class="lamp-flame"></div>
+    </div>
+    <div class="lamp-container right">
+        <div class="lamp-chain"></div>
+        <div class="lamp-base"></div>
+        <div class="lamp-flame"></div>
+    </div>
 
+    <div class="ambient-magic"></div>
     <canvas id="magic-canvas"></canvas>
 
     <div class="container">
         
         <!-- HERO SECTION -->
         <div class="scroll-reveal visible">
-            <!-- Om Symbol -->
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Aum_Om_red.svg/120px-Aum_Om_red.svg.png" alt="Om" class="om-logo">
-            
-            <p class="header-sub">With the blessings of the divine</p>
-            
+            <p class="quote-author" style="text-align: center; margin-bottom: 15px; color: #CCC;">With the blessings of the divine</p>
             <h1 class="couple-names">Alagu Ragul<span class="ampersand">&</span>Bride's Name</h1>
-            
-            <p class="header-sub" style="margin-top: 20px;">Invite you to their sacred union</p>
+            <p class="quote-author" style="text-align: center; margin-top: 20px;">Invite you to their sacred union</p>
         </div>
 
-        <!-- NEW: LOVE QUOTE SECTION -->
+        <!-- LOVE QUOTE SECTION -->
         <div class="quote-box scroll-reveal">
             <p class="quote-text">"Anbum aranum udaithaayin ilvaazhkkai <br> panbum payanum adhu."</p>
             <p class="quote-author">Thirukkural 45</p>
-            <p class="quote-text" style="font-size: 0.95rem; color: #AAA; margin-top: 15px; margin-bottom: 0;">
+            <p class="quote-text" style="font-size: 0.9rem; color: #AAA; margin-top: 15px; margin-bottom: 0;">
                 If love and virtue flourish in family life,<br>that is its grace and its crown.
             </p>
         </div>
 
-        <!-- ENGAGEMENT INVITATION (With the custom Ring Story) -->
+        <!-- ENGAGEMENT INVITATION -->
         <div class="glass-card scroll-reveal">
+            <!-- Carefully scaled font and dynamic padding ensures this never overflows -->
             <h2 class="event-title">Nitchayadhartham</h2>
             <p class="event-type">The Ring Ceremony</p>
             
@@ -206,7 +250,7 @@
                 <p><strong>Venue</strong> Grand Residency Hall<br>Tenkasi, Tamil Nadu</p>
             </div>
 
-            <!-- Personalized Idea: The Ring Vows -->
+            <!-- Personalized Story -->
             <p class="story-text">
                 During this ceremony, we will seal our promise. We have designed pure, stoneless metal bands, deeply engraved with our heartbeat lifelines and initials. When joined, they reveal a perfect heart woven from our fingerprints—two lives, truly becoming one.
             </p>
@@ -231,9 +275,9 @@
         </div>
 
         <!-- BLESSING BUTTON -->
-        <div class="scroll-reveal" style="text-align: center; margin-bottom: 50px; width: 100%;">
-            <h2 class="event-title" style="margin-bottom: 15px; font-size: clamp(2rem, 8vw, 3rem);">Shower Blessings</h2>
-            <p style="font-size: clamp(1rem, 4.5vw, 1.2rem); color: #DDD; margin-bottom: 25px; padding: 0 10px;">
+        <div class="scroll-reveal" style="text-align: center; margin-bottom: 20px; width: 100%;">
+            <h2 class="event-title" style="margin-bottom: 15px; font-size: clamp(1.8rem, 7vw, 2.8rem);">Shower Blessings</h2>
+            <p style="font-size: clamp(0.95rem, 4vw, 1.1rem); color: #DDD; margin-bottom: 25px;">
                 Your presence is our biggest blessing. Tap below to shower us with virtual jasmine and gold.
             </p>
             <button class="bless-btn" id="blessBtn" onclick="triggerMagic()">Bless the Couple</button>
@@ -242,7 +286,7 @@
     </div>
 
     <script>
-        // 1. Smooth Scroll Reveal
+        // 1. Smooth Scroll Reveal 
         const observerOptions = { root: null, rootMargin: "0px", threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -252,10 +296,36 @@
                 }
             });
         }, observerOptions);
-
         document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
-        // 2. Jasmine & Gold Sparks Particle Engine
+        // 2. Magical Ambient Fireflies Background
+        function createFirefly() {
+            const firefly = document.createElement('div');
+            firefly.style.position = 'fixed';
+            firefly.style.bottom = '-10px';
+            firefly.style.left = Math.random() * 100 + 'vw';
+            firefly.style.width = Math.random() * 3 + 1 + 'px';
+            firefly.style.height = firefly.style.width;
+            firefly.style.backgroundColor = '#D4AF37';
+            firefly.style.borderRadius = '50%';
+            firefly.style.boxShadow = '0 0 10px 2px rgba(212,175,55,0.6)';
+            firefly.style.pointerEvents = 'none';
+            firefly.style.zIndex = '2';
+            firefly.style.transition = 'transform 10s linear, opacity 10s ease-out';
+            firefly.style.opacity = Math.random() * 0.5 + 0.3;
+            
+            document.body.appendChild(firefly);
+            
+            setTimeout(() => {
+                firefly.style.transform = `translateY(-120vh) translateX(${(Math.random() - 0.5) * 200}px)`;
+                firefly.style.opacity = '0';
+            }, 50);
+            
+            setTimeout(() => firefly.remove(), 10050);
+        }
+        setInterval(createFirefly, 800);
+
+        // 3. Jasmine & Gold Sparks Particle Engine (Blessing Button)
         const canvas = document.getElementById('magic-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -273,8 +343,6 @@
             constructor() {
                 this.x = Math.random() * canvasW;
                 this.y = -20 - Math.random() * 50;
-                
-                // Mix of Gold Sparks and White Jasmine petals
                 this.type = Math.random() > 0.4 ? 'spark' : 'petal';
                 this.size = this.type === 'spark' ? (Math.random() * 3 + 1) : (Math.random() * 5 + 3);
                 this.speedY = Math.random() * 2 + 1.5;
@@ -300,7 +368,6 @@
                     ctx.shadowColor = '#FFA500';
                     ctx.fill();
                 } else {
-                    // Draw a simple Jasmine petal shape
                     ctx.beginPath();
                     ctx.ellipse(0, 0, this.size, this.size/2, 0, 0, Math.PI * 2);
                     ctx.fillStyle = '#FFF8E7';
@@ -308,7 +375,6 @@
                     ctx.shadowColor = '#FFFFFF';
                     ctx.fill();
                 }
-                
                 ctx.restore();
             }
         }
@@ -319,11 +385,7 @@
             btn.style.background = "rgba(212, 175, 55, 0.2)";
             btn.style.color = "#D4AF37";
 
-            // Create 150 particles
-            for (let i = 0; i < 150; i++) {
-                particles.push(new Particle());
-            }
-
+            for (let i = 0; i < 150; i++) { particles.push(new Particle()); }
             if (!animationId) animate();
         }
 
@@ -348,4 +410,3 @@
     </script>
 </body>
 </html>
-
