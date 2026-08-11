@@ -4,197 +4,210 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Royal Union | Alagu Ragul & Bride</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Premium Fonts: Cinzel for headings, Noto Sans Tamil for local text, Cormorant for elegant English -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+Tamil:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #D4AF37;
             --gold-light: #F3E5AB;
-            --maroon: #5C001E;
-            --emerald: #06402B;
+            --wood-dark: #2C1104;
+            --wood-medium: #4A1C06;
             --bg-color: #FAF8F2;
+            --text-main: #333;
         }
 
-        body, html { margin: 0; padding: 0; font-family: 'Cormorant Garamond', serif; background-color: var(--bg-color); color: #333; overflow-x: hidden; scroll-behavior: smooth; }
+        body, html { margin: 0; padding: 0; font-family: 'Cormorant Garamond', serif; background-color: var(--bg-color); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; }
         
-        /* Typography */
         h1, h2, h3 { font-family: 'Cinzel Decorative', cursive; color: var(--gold); margin: 0; text-align: center; }
-        h1 { font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(212, 175, 55, 0.3); }
-        h2 { font-size: 2.5rem; letter-spacing: 2px; }
         p { font-size: 1.2rem; line-height: 1.6; text-align: center; }
 
-        /* 1. 3D Royal Temple Doors */
+        /* =========================================
+           1. HYPER-REALISTIC CHETTINAD TEMPLE DOORS 
+           ========================================= */
         #door-wrapper {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 100;
-            perspective: 1200px; /* Gives the 3D depth */
-            display: flex; pointer-events: none;
+            perspective: 1500px; display: flex; pointer-events: none; background: #000;
+            transition: background 1.5s ease;
         }
         .door-panel {
-            width: 50%; height: 100%; background: linear-gradient(to bottom, #8B0000, #4A0010);
-            position: relative; transform-style: preserve-3d;
-            transition: transform 3s cubic-bezier(0.77, 0, 0.175, 1);
-            border-inline: 4px solid var(--gold);
-            display: flex; align-items: center; justify-content: center;
+            width: 50%; height: 100%; position: relative; transform-style: preserve-3d;
+            transition: transform 3s cubic-bezier(0.65, 0, 0.05, 1);
+            /* Creating the wooden plank texture purely with CSS */
+            background-color: var(--wood-medium);
+            background-image: 
+                linear-gradient(90deg, rgba(0,0,0,0.5) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.5) 100%),
+                repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,0,0,0.2) 42px, rgba(0,0,0,0.2) 45px);
+            border: 15px solid var(--wood-dark);
+            box-shadow: inset 0 0 50px #000;
+            display: flex; align-items: center;
         }
-        .door-panel.left { transform-origin: left center; }
-        .door-panel.right { transform-origin: right center; }
         
-        .door-panel.open-left { transform: rotateY(-105deg); }
-        .door-panel.open-right { transform: rotateY(105deg); }
-
-        /* Door Mandalas */
-        .door-mandala {
-            width: 250px; height: 250px;
-            background: radial-gradient(circle, transparent 20%, var(--gold) 21%, transparent 22%), 
-                        radial-gradient(circle, transparent 40%, var(--gold) 41%, transparent 42%);
-            border: 2px solid var(--gold); border-radius: 50%; position: absolute; opacity: 0.7;
+        /* Golden Brass Studs (Grid Pattern) */
+        .door-panel::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle at center, var(--gold) 0%, var(--gold) 4px, transparent 5px);
+            background-size: 80px 80px; opacity: 0.6; z-index: 1;
         }
-        .door-panel.left .door-mandala { right: -125px; clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); }
-        .door-panel.right .door-mandala { left: -125px; clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%); }
+
+        .door-panel.left { transform-origin: left center; border-right: 3px solid var(--gold); justify-content: flex-end; }
+        .door-panel.right { transform-origin: right center; border-left: 3px solid var(--gold); justify-content: flex-start; }
+        
+        /* The Door Opening Physics */
+        .door-panel.open-left { transform: rotateY(-110deg); }
+        .door-panel.open-right { transform: rotateY(110deg); }
+        #door-wrapper.doors-opened { background: transparent; pointer-events: none; }
+
+        /* The Golden Center Handle (Splits in half) */
+        .center-lock {
+            width: 150px; height: 300px; background: var(--gold); position: absolute; z-index: 2;
+            background: linear-gradient(135deg, #FFDF73, #B8860B);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.8);
+        }
+        .left .center-lock { right: -3px; border-radius: 150px 0 0 150px; border-right: 2px solid #555; }
+        .right .center-lock { left: -3px; border-radius: 0 150px 150px 0; border-left: 2px solid #fff; }
+
+        /* =========================================
+           2. SLOGANS & THIRUKKURAL SECTION
+           ========================================= */
+        .kural-section { margin-top: 20px; padding: 40px 20px; background: rgba(212, 175, 55, 0.05); border-radius: 10px; border-left: 4px solid var(--gold); border-right: 4px solid var(--gold); }
+        .tamil-text { font-family: 'Noto Sans Tamil', sans-serif; font-size: 1.4rem; color: #8B0000; font-weight: 600; margin-bottom: 10px; }
+        .english-translation { font-style: italic; color: #555; font-size: 1.1rem; }
+        .slogan { font-size: 2rem; font-family: 'Cinzel Decorative', cursive; color: var(--gold); margin: 30px 0; letter-spacing: 2px; }
 
         /* Layout & Scrolling */
-        .section-container {
-            min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 50px 20px; position: relative; z-index: 10;
-        }
-        .fade-in { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .section-container { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; position: relative; z-index: 10; }
+        .fade-in { opacity: 0; transform: translateY(50px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-        /* 2. Hero Section */
-        .logo-box { width: 150px; height: 150px; margin-bottom: 20px; }
-        .logo-box img { width: 100%; height: 100%; object-fit: contain; }
-        .avatar-box { 
-            width: 220px; height: 220px; border-radius: 50%; margin: 30px 0;
-            border: 5px solid var(--gold); box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
-            overflow: hidden; background: #fff;
-        }
-        .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+        /* Custom Couple Avatar */
+        .avatar-box { width: 250px; height: 250px; border-radius: 50%; margin: 30px 0; border: 4px dashed var(--gold); padding: 10px; background: #fff; box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2); }
+        .avatar-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
-        /* 3. Premium Glassmorphism Invitation Cards */
+        /* =========================================
+           3. FLOATING GLASS INVITATION CARDS
+           ========================================= */
         .invite-wrapper { perspective: 1000px; margin-bottom: 50px; width: 100%; max-width: 600px; }
         .invite-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-radius: 20px; padding: 60px 40px; position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.4);
-            transition: transform 0.1s ease; /* For JS Tilt */
-        }
-        /* Glowing Foil Borders */
-        .invite-card::before {
-            content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
-            z-index: -1; border-radius: 22px;
-            background: linear-gradient(45deg, var(--gold), transparent, var(--gold-light), transparent);
-            background-size: 400%; animation: foilShimmer 6s linear infinite;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15); border: 1px solid rgba(212, 175, 55, 0.5);
+            transition: transform 0.1s ease;
         }
         
-        .invite-card.engagement .event-title { color: var(--emerald); }
-        .invite-card.wedding .event-title { color: var(--maroon); }
-
-        .details-grid {
-            display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 30px;
-            border-top: 1px solid var(--gold); padding-top: 20px;
+        /* Inner decorative border */
+        .invite-card::after {
+            content: ''; position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px solid var(--gold); border-radius: 10px; pointer-events: none; opacity: 0.5;
         }
-        .detail-item { font-size: 1.3rem; }
-        .detail-item span { font-weight: 600; color: var(--gold); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; display: block; }
 
-        /* 4. The Interactive Blessing Button */
-        .bless-btn-container { position: relative; margin-top: 40px; }
+        .event-title { font-size: 2.8rem; margin-bottom: 5px; }
+        .invite-card.engagement .event-title { color: #06402B; }
+        .invite-card.wedding .event-title { color: #8B0000; }
+
+        .details-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 30px; position: relative; z-index: 2; }
+        .detail-item { font-size: 1.4rem; color: #222; }
+        .detail-item span { font-weight: 600; color: var(--gold); text-transform: uppercase; font-size: 1rem; letter-spacing: 3px; display: block; margin-bottom: 5px; }
+
+        /* =========================================
+           4. UNIQUE BLESSING BUTTON & CANVAS
+           ========================================= */
         .bless-btn {
-            background: transparent; color: var(--maroon); font-family: 'Cinzel Decorative', cursive;
-            font-size: 1.5rem; padding: 20px 50px; border: 2px solid var(--gold);
-            border-radius: 50px; cursor: pointer; position: relative; overflow: hidden;
-            transition: all 0.4s ease; box-shadow: 0 0 20px rgba(212,175,55,0.2);
+            background: linear-gradient(135deg, var(--gold), #B8860B); color: #fff;
+            font-family: 'Cinzel Decorative', cursive; font-size: 1.6rem; padding: 20px 60px;
+            border: none; border-radius: 50px; cursor: pointer; position: relative;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4); text-transform: uppercase; letter-spacing: 2px;
         }
-        .bless-btn::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%;
-            background: var(--gold); transition: all 0.4s ease; z-index: -1;
-        }
-        .bless-btn:hover { color: #fff; box-shadow: 0 0 40px rgba(212,175,55,0.6); transform: scale(1.05); }
-        .bless-btn:hover::before { width: 100%; }
-
-        @keyframes foilShimmer { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-        /* Fullscreen Canvas for Flowers */
+        .bless-btn:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 20px 40px rgba(212,175,55,0.6); }
         #petal-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; }
     </style>
 </head>
 <body>
 
-    <!-- Canvas for Advanced Petal Physics Engine -->
+    <!-- Canvas for Advanced Petal Physics -->
     <canvas id="petal-canvas"></canvas>
 
-    <!-- 1. The Royal Doors -->
+    <!-- 1. The Heavy Chettinad Doors -->
     <div id="door-wrapper">
         <div class="door-panel left" id="left-door">
-            <div class="door-mandala"></div>
+            <div class="center-lock"></div>
         </div>
         <div class="door-panel right" id="right-door">
-            <div class="door-mandala"></div>
+            <div class="center-lock"></div>
         </div>
     </div>
 
-    <!-- 2. Hero Section -->
+    <!-- 2. Hero Section & Slogans -->
     <section class="section-container fade-in">
-        <div class="logo-box">
-            <img src="assets/your-royal-logo.png" alt="AR Logo">
-        </div>
-        <p style="text-transform: uppercase; letter-spacing: 4px; color: var(--gold);">Together with their families</p>
-        <h1>Alagu Ragul <br> <span style="font-size: 1.5rem; font-family: 'Cormorant Garamond', serif; color:#333;">&</span> <br> Bride's Name</h1>
+        <h3 class="slogan">"Two Souls, One Destiny."</h3>
         
         <div class="avatar-box">
-            <!-- Ensure this is a highly detailed, realistic 3D character render or beautiful illustration -->
-            <img src="assets/realistic-couple-avatar.png" alt="The Couple">
+            <!-- Place your highly realistic cartoon couple image here -->
+            <img src="assets/realistic-couple-avatar.png" alt="Alagu Ragul & Bride">
         </div>
-        <p>Invite you to share in the joy of their new beginning</p>
+
+        <p style="text-transform: uppercase; letter-spacing: 5px; color: var(--gold); font-weight: bold;">We Are Tying The Knot</p>
+        <h1 style="font-size: 4rem; margin: 20px 0;">Alagu Ragul <br> <span style="font-size: 2rem; color: #8B0000;">&</span> <br> [Bride's Name]</h1>
+        
+        <!-- The Thirukkural Section -->
+        <div class="kural-section">
+            <div class="tamil-text">அன்பும் அறனும் உடைத்தாயின் இல்வாழ்க்கை<br>பண்பும் பயனும் அது.</div>
+            <div class="english-translation">"If love and virtue flourish in family life,<br>that is its grace and its crown."<br>- Thirukkural (45)</div>
+        </div>
     </section>
 
-    <!-- 3. Engagement (Nitchayadhartham) -->
+    <!-- 3. Nitchayadhartham (Engagement) -->
     <section class="section-container fade-in">
         <div class="invite-wrapper">
             <div class="invite-card engagement tilt-card">
                 <h2 class="event-title">Nitchayadhartham</h2>
-                <p>The Ring Ceremony</p>
+                <p style="font-style: italic; color: #555;">The Auspicious Beginning</p>
                 <div class="details-grid">
-                    <div class="detail-item"><span>When</span> 15th September 2026<br>6:00 PM Onwards</div>
-                    <div class="detail-item"><span>Where</span> Grand Residency Hall<br>Tenkasi, Tamil Nadu</div>
+                    <div class="detail-item"><span>Date</span> 15th September 2026</div>
+                    <div class="detail-item"><span>Time</span> 6:00 PM Onwards</div>
+                    <div class="detail-item"><span>Venue</span> Grand Residency Hall<br>Tenkasi, Tamil Nadu</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. Wedding (Muhurtham) -->
+    <!-- 4. Muhurtham (Marriage) -->
     <section class="section-container fade-in">
         <div class="invite-wrapper">
             <div class="invite-card wedding tilt-card">
                 <h2 class="event-title">Muhurtham</h2>
-                <p>The Sacred Union</p>
+                <p style="font-style: italic; color: #555;">The Sacred Union</p>
                 <div class="details-grid">
-                    <div class="detail-item"><span>When</span> 16th September 2026<br>9:00 AM - 10:30 AM</div>
-                    <div class="detail-item"><span>Where</span> Grand Residency Hall<br>Tenkasi, Tamil Nadu</div>
+                    <div class="detail-item"><span>Date</span> 16th September 2026</div>
+                    <div class="detail-item"><span>Time</span> 9:00 AM - 10:30 AM</div>
+                    <div class="detail-item"><span>Venue</span> Grand Residency Hall<br>Tenkasi, Tamil Nadu</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 5. The Blessing Interaction -->
-    <section class="section-container fade-in">
-        <h2>Shower Your Blessings</h2>
-        <p>Your love and wishes are the greatest gifts we could receive.</p>
-        <div class="bless-btn-container">
-            <button class="bless-btn" onclick="triggerFlowerShower()">Bless the Couple</button>
-        </div>
+    <!-- 5. Interactive Blessing Section -->
+    <section class="section-container fade-in" style="min-height: 60vh;">
+        <h2 style="font-size: 3rem; color: var(--wood-dark);">Shower Your Blessings</h2>
+        <p style="margin: 20px 0 40px 0;">As we begin this beautiful journey together,<br>your love and blessings mean the world to us.</p>
+        <button class="bless-btn" onclick="triggerFlowerShower()">Bless the Couple</button>
     </section>
 
     <script>
-        // 1. Cinematic Door Opening Sequence
+        // 1. Heavy Door Cinematic Reveal
         window.onload = () => {
             setTimeout(() => {
                 document.getElementById('left-door').classList.add('open-left');
                 document.getElementById('right-door').classList.add('open-right');
-            }, 1000); // 1 second dramatic pause before opening
+                
+                // Fade out the black background behind the doors to reveal the site
+                setTimeout(() => {
+                    document.getElementById('door-wrapper').classList.add('doors-opened');
+                }, 800);
+            }, 1200); // 1.2s pause before opening gives a dramatic effect
         };
 
-        // 2. High-Performance Intersection Observer for Fade-Ins
+        // 2. Scroll Fade-Ins
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -204,17 +217,15 @@
         }, { threshold: 0.15 });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // 3. Custom 3D Tilt Effect for Invitation Cards (No external libraries needed)
+        // 3. Realistic 3D Tilt for Cards
         const tiltCards = document.querySelectorAll('.tilt-card');
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x position within the element
-                const y = e.clientY - rect.top;  // y position within the element
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -10; // Max tilt 10deg
-                const rotateY = ((x - centerX) / centerX) * 10;
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+                const rotateX = ((y - (rect.height / 2)) / (rect.height / 2)) * -8;
+                const rotateY = ((x - (rect.width / 2)) / (rect.width / 2)) * 8;
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
             });
             card.addEventListener('mouseleave', () => {
@@ -222,7 +233,7 @@
             });
         });
 
-        // 4. Custom Advanced HTML5 Canvas Particle Engine (Marigold & Rose Petals)
+        // 4. Custom Advanced Flower Physics (Rose & Marigold Petals)
         const canvas = document.getElementById('petal-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -241,33 +252,31 @@
         class Petal {
             constructor() {
                 this.x = Math.random() * width;
-                this.y = -50 - Math.random() * 200; // Start above screen
-                this.w = 10 + Math.random() * 15; // Width of petal
-                this.h = 10 + Math.random() * 20; // Height of petal
-                this.speed = 2 + Math.random() * 4; // Falling speed
-                this.angle = Math.random() * 360; // Initial rotation
-                this.spin = (Math.random() - 0.5) * 0.2; // 3D tumbling speed
-                this.sway = (Math.random() - 0.5) * 2; // Wind sway
-                // Colors: Deep Red (Rose) or Gold/Orange (Marigold)
-                const isMarigold = Math.random() > 0.4;
-                this.color = isMarigold ? `rgba(255, ${140 + Math.random()*70}, 0, 0.9)` : `rgba(${180 + Math.random()*75}, 0, 30, 0.9)`;
+                this.y = -50 - Math.random() * 200;
+                this.w = 12 + Math.random() * 15; 
+                this.h = 15 + Math.random() * 20; 
+                this.speed = 3 + Math.random() * 5; 
+                this.angle = Math.random() * 360; 
+                this.spin = (Math.random() - 0.5) * 0.15; 
+                this.sway = (Math.random() - 0.5) * 2.5; 
+                
+                // Deep Rose Red (#B22222) and Marigold Orange (#FFA500)
+                const isMarigold = Math.random() > 0.5;
+                this.color = isMarigold ? `rgba(255, ${120 + Math.random()*80}, 0, 0.95)` : `rgba(${170 + Math.random()*60}, 10, 30, 0.95)`;
             }
 
             update() {
                 this.y += this.speed;
-                this.x += Math.sin(this.y * 0.01) * this.sway; // Gentle wind effect
+                this.x += Math.sin(this.y * 0.01) * this.sway; 
                 this.angle += this.spin;
 
-                // Draw realistic curved petal shape
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.angle);
-                // Simulate 3D tumbling by scaling the Y axis over time
-                ctx.scale(1, Math.abs(Math.sin(this.angle))); 
+                ctx.scale(1, Math.abs(Math.sin(this.angle))); // Realistic 3D flipping
                 
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
-                // Draw a tear-drop / curved petal shape rather than a square
                 ctx.moveTo(0, 0);
                 ctx.bezierCurveTo(this.w/2, -this.h/2, this.w, this.h/3, 0, this.h);
                 ctx.bezierCurveTo(-this.w, this.h/3, -this.w/2, -this.h/2, 0, 0);
@@ -277,29 +286,21 @@
         }
 
         function triggerFlowerShower() {
-            // Generate 150 petals instantly
-            for (let i = 0; i < 150; i++) {
+            for (let i = 0; i < 200; i++) {
                 particles.push(new Petal());
             }
-
-            // Start animation loop if not running
-            if (!animationFrame) {
-                renderPetals();
-            }
+            if (!animationFrame) renderPetals();
         }
 
         function renderPetals() {
             ctx.clearRect(0, 0, width, height);
-            
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
-                // Remove petals that fall off screen
                 if (particles[i].y > height + 50) {
                     particles.splice(i, 1);
                     i--;
                 }
             }
-
             if (particles.length > 0) {
                 animationFrame = requestAnimationFrame(renderPetals);
             } else {
