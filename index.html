@@ -3,205 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Royal Union | Alagu Ragul</title>
+    <title>Alagu Ragul & Bride | Tamil Wedding</title>
     
-    <!-- Premium Luxury Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Premium Serif and Traditional Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --gold: #D4AF37;
-            --gold-light: #FBF5D6;
-            --dark-overlay: rgba(15, 5, 5, 0.75);
-            --glass-bg: rgba(25, 10, 10, 0.65);
+            /* Traditional Tamil Color Palette */
+            --manjal: #F3C300; /* Turmeric Yellow */
+            --kumkum: #D92121; /* Vermilion Red */
+            --zari-gold: #D4AF37; /* Pure Gold */
+            --zari-dark: #B8860B; /* Deep Gold */
+            --pattu-red: #7A0A15; /* Kanchipuram Maroon */
+            --text-dark: #332211;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body, html {
-            width: 100%; height: 100%;
-            font-family: 'Lato', sans-serif;
-            background-color: #0F0505; color: #FFF;
-            overflow-x: hidden; scroll-behavior: smooth;
+            width: 100%;
+            background-color: #1A0D0D;
+            /* Subtle dark wall texture behind everything */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            font-family: 'Lora', serif;
+            color: #FFF;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; }
-        .script { font-family: 'Great Vibes', cursive; color: var(--gold); }
-
-        /* =========================================
-           1. AMBIENT GOLD DUST (Adds realistic depth)
-           ========================================= */
-        #dust-canvas {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 5; opacity: 0.6;
+        /* Responsive Mobile Container */
+        .mobile-container {
+            width: 100%; max-width: 500px; /* Locks to phone width even on PC */
+            margin: 0 auto; position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            background-color: #241111;
+            min-height: 100dvh;
+            overflow: hidden;
         }
 
-        /* =========================================
-           2. CINEMATIC PARALLAX BACKGROUNDS
-           ========================================= */
-        .parallax-section {
-            position: relative; min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            padding: 80px 20px; z-index: 10;
+        /* 1. THORANAM (Mango Leaf Top Border) */
+        .thoranam-header {
+            position: absolute; top: 0; left: 0; width: 100%; height: 40px; z-index: 50;
+            background-image: 
+                radial-gradient(circle at 10px 0, #0A4A35 15px, transparent 16px),
+                radial-gradient(circle at 30px 0, #0A4A35 15px, transparent 16px);
+            background-size: 40px 40px;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+        }
+        .thoranam-header::after {
+            content: ''; position: absolute; top: 10px; left: 0; width: 100%; height: 10px;
+            background-image: radial-gradient(circle at 20px 0, #F3C300 5px, transparent 6px);
+            background-size: 40px 20px;
         }
 
-        /* The Dark Overlay to make text pop */
-        .parallax-section::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--dark-overlay); z-index: 0;
-        }
-
-        /* High-Res Photographic Placeholders */
-        #hero { background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
-        #engagement-sec { background-image: url('https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
-        #wedding-sec { background-image: url('https://images.unsplash.com/photo-1610174092476-fa6cb1d0335e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
-
-        .content-container { position: relative; z-index: 10; text-align: center; width: 100%; max-width: 800px; }
-
-        /* =========================================
-           3. HERO SECTION STYLING
-           ========================================= */
-        .hero-logo { width: 120px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(212,175,55,0.5)); }
-        
-        .hero-names { font-size: 5rem; line-height: 1.1; margin: 20px 0; letter-spacing: 2px; }
-        .hero-names span { font-size: 3rem; font-style: italic; color: var(--gold); }
-        
-        .hero-sub { font-size: 1.2rem; letter-spacing: 5px; text-transform: uppercase; color: var(--gold-light); }
-
-        .avatar-container {
-            width: 250px; height: 250px; margin: 30px auto; border-radius: 50%;
-            border: 2px solid var(--gold); padding: 10px;
-            /* A realistic glass glow around your photo */
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.2);
-        }
-        .avatar-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-
-        /* =========================================
-           4. LUXURY GLASSMORPHISM CARDS
-           ========================================= */
-        .glass-card {
-            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 4px; /* Sharp, modern edges */
-            padding: 60px 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-            position: relative;
-        }
-
-        /* Elegant inner border */
-        .glass-card::after {
-            content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.2); pointer-events: none;
-        }
-
-        .event-title { font-size: 3.5rem; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px; }
-        .event-sub { font-size: 1.2rem; color: #CCC; font-style: italic; margin-bottom: 30px; letter-spacing: 1px; }
-
-        .details-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 30px; }
-        .detail-item { font-size: 1.3rem; color: #FFF; font-weight: 300; }
-        .detail-item span { display: block; font-size: 0.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 4px; font-weight: 700; margin-bottom: 5px; }
-
-        /* =========================================
-           5. REALISTIC BLESSING BUTTON
-           ========================================= */
-        .bless-section { background-color: #0A0303; border-top: 1px solid rgba(212,175,55,0.2); }
-        
-        .bless-btn {
-            background: linear-gradient(135deg, #D4AF37 0%, #AA8222 100%);
-            color: #111; font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700;
-            padding: 20px 50px; border: none; border-radius: 2px;
-            cursor: pointer; position: relative; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); transition: all 0.4s ease;
-            text-transform: uppercase; letter-spacing: 3px; margin-top: 30px;
-        }
-        .bless-btn:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6); }
-
-        /* Smooth reveal animations */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        /* Scroll Reveal Utility */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        @media (max-width: 768px) {
-            .hero-names { font-size: 3.5rem; }
-            .hero-names span { font-size: 2rem; }
-            .event-title { font-size: 2.5rem; }
-            .parallax-section { background-attachment: scroll; } /* Fixes iOS mobile parallax bug */
+        /* 2. HERO SECTION */
+        .hero-section {
+            padding: 80px 20px 40px 20px; text-align: center;
+            background: radial-gradient(circle at center, #3A1C1C, #1A0D0D);
+            position: relative; border-bottom: 2px solid var(--zari-dark);
         }
+
+        .om-symbol { width: 50px; margin-bottom: 15px; filter: drop-shadow(0 0 8px var(--zari-gold)); }
+
+        .avatar-frame {
+            width: 160px; height: 160px; margin: 20px auto; border-radius: 50%;
+            background: #FFF; position: relative;
+            /* Realistic thick gold frame */
+            box-shadow: 
+                0 0 0 6px var(--pattu-red),
+                0 0 0 10px var(--zari-gold),
+                0 15px 25px rgba(0,0,0,0.6);
+        }
+        .avatar-frame img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+        .names { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: var(--manjal); line-height: 1.1; margin: 20px 0 10px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .names span { font-family: 'Lora', serif; font-size: 1.5rem; font-style: italic; color: #FFF; }
+
+        /* 3. REALISTIC INVITATION CARDS */
+        .section-pad { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
+
+        /* A. The Manjal Patrikai (Turmeric Engagement Card) */
+        .manjal-card {
+            width: 100%; background-color: var(--manjal);
+            /* Realistic handmade paper texture */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+            color: var(--text-dark);
+            padding: 40px 25px; border-radius: 8px; position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4), inset 0 0 20px rgba(200, 100, 0, 0.2);
+            text-align: center; border: 1px solid rgba(0,0,0,0.1);
+        }
+        /* Kumkum (Red) Dots on 4 corners */
+        .manjal-card::before, .manjal-card::after {
+            content: ''; position: absolute; width: 12px; height: 12px;
+            background: var(--kumkum); border-radius: 50%;
+            box-shadow: 0 0 4px rgba(0,0,0,0.3);
+        }
+        .manjal-card::before { top: 15px; left: 15px; box-shadow: calc(100vw - 110px) 0 0 var(--kumkum); }
+        .manjal-card::after { bottom: 15px; left: 15px; box-shadow: calc(100vw - 110px) 0 0 var(--kumkum); }
+
+        .card-title-red { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--kumkum); font-weight: 700; margin-bottom: 5px; }
+
+        /* B. The Kanchipuram Silk (Marriage Card) */
+        .pattu-card {
+            width: 100%; background-color: var(--pattu-red);
+            /* Silk fabric texture */
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            color: #FFF; padding: 40px 25px; border-radius: 4px; position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6); text-align: center;
+            /* Zari Gold Border */
+            border: 6px double var(--zari-gold);
+        }
+
+        .card-title-gold {
+            font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--zari-gold);
+            margin-bottom: 5px;
+            /* Realistic embossed gold text effect */
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.3), -1px -1px 0px rgba(0,0,0,0.6);
+        }
+
+        .card-sub { font-style: italic; font-size: 1.1rem; margin-bottom: 20px; opacity: 0.9; }
+        
+        .grid-info { margin-top: 25px; }
+        .grid-info p { margin-bottom: 15px; font-size: 1.1rem; line-height: 1.4; }
+        .grid-info strong { display: block; font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; }
+        
+        .manjal-card .grid-info strong { color: var(--kumkum); }
+        .pattu-card .grid-info strong { color: var(--zari-gold); }
+
+        /* 4. REALISTIC BLESSING BUTTON */
+        .bless-section { text-align: center; padding: 40px 20px 80px 20px; }
+        
+        .bless-btn {
+            background: linear-gradient(to bottom, #E8B923, #B58500);
+            border: 2px solid #FFF; border-radius: 50px;
+            color: #332211; font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700;
+            padding: 18px 40px; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4), inset 0 2px 5px rgba(255,255,255,0.5);
+            transition: transform 0.2s; -webkit-tap-highlight-color: transparent;
+        }
+        .bless-btn:active { transform: scale(0.95); box-shadow: 0 5px 10px rgba(0,0,0,0.5); }
+
+        /* Canvas for Flower Drops */
+        #flower-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; }
     </style>
 </head>
 <body>
 
-    <!-- Ambient Floating Gold Dust -->
-    <canvas id="dust-canvas"></canvas>
+    <div class="mobile-container">
+        
+        <!-- Interactive Flower Drop Layer -->
+        <canvas id="flower-canvas"></canvas>
 
-    <!-- 1. HERO SECTION (With Photographic Temple/Floral Background) -->
-    <section id="hero" class="parallax-section">
-        <div class="content-container reveal">
-            <!-- Place your high-res PNG logo here -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Aum_Om_red.svg/200px-Aum_Om_red.svg.png" alt="Om" class="hero-logo" style="width: 60px;">
+        <!-- Traditional Mango Leaf Top -->
+        <div class="thoranam-header"></div>
+
+        <!-- HERO SECTION -->
+        <div class="hero-section">
+            <!-- Om / Pillaiyar Suzhi (Traditional Start) -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Aum_Om_red.svg/200px-Aum_Om_red.svg.png" alt="Om" class="om-symbol reveal">
             
-            <p class="hero-sub">The Beginning of Forever</p>
+            <p class="reveal" style="letter-spacing: 2px; font-size: 0.9rem; text-transform: uppercase; color: var(--zari-gold);">With the blessings of elders</p>
             
-            <div class="avatar-container">
-                <!-- Drop your custom designed hyper-realistic cartoon image here -->
-                <img src="https://images.unsplash.com/photo-1621865243460-2640242279c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="The Couple">
+            <div class="avatar-frame reveal">
+                <!-- Replace with your realistic Avatar -->
+                <img src="assets/realistic-couple.png" alt="Couple" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%237A0A15\'/%3E%3Ccircle cx=\'50\' cy=\'40\' r=\'20\' fill=\'%23D4AF37\'/%3E%3Cpath d=\'M20 100 Q50 60 80 100\' fill=\'%23D4AF37\'/%3E%3C/svg%3E'">
             </div>
 
-            <h1 class="hero-names">Alagu Ragul<br><span>and</span><br>Bride's Name</h1>
-            <p class="script" style="font-size: 2.5rem; margin-top: 10px;">Are getting married</p>
+            <h1 class="names reveal">Alagu Ragul<br><span>&</span><br>Bride's Name</h1>
+            <p class="reveal" style="font-size: 1.1rem; margin-top: 5px;">Joyfully invite you to their wedding</p>
         </div>
-    </section>
 
-    <!-- 2. ENGAGEMENT SECTION (With Rich Silk/Jewelry Background) -->
-    <section id="engagement-sec" class="parallax-section">
-        <div class="content-container reveal">
-            <div class="glass-card">
-                <h2 class="event-title">Nitchayadhartham</h2>
-                <p class="event-sub">The Formal Betrothal & Ring Exchange</p>
+        <!-- ENGAGEMENT (The Manjal Patrikai) -->
+        <div class="section-pad">
+            <div class="manjal-card reveal">
+                <h2 class="card-title-red">Nitchayadhartham</h2>
+                <p class="card-sub" style="color: #664422;">The Formal Engagement</p>
                 
-                <hr style="border: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 20px 0;">
+                <!-- Realistic Divider -->
+                <hr style="border: 0; height: 1px; background: rgba(217, 33, 33, 0.3); margin: 15px 0;">
 
-                <div class="details-grid">
-                    <div class="detail-item"><span>The Date</span> 15th September 2026</div>
-                    <div class="detail-item"><span>The Time</span> 6:00 PM Onwards</div>
-                    <div class="detail-item"><span>The Venue</span> Grand Residency Hall<br>Tenkasi, Tamil Nadu</div>
+                <div class="grid-info">
+                    <p><strong>Date</strong> 15th September 2026</p>
+                    <p><strong>Auspicious Time</strong> 6:00 PM Onwards</p>
+                    <p><strong>Venue</strong> Grand Residency Hall<br>Tenkasi, Tamil Nadu</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- 3. WEDDING SECTION (With Auspicious Fire/Marigold Background) -->
-    <section id="wedding-sec" class="parallax-section">
-        <div class="content-container reveal">
-            <div class="glass-card">
-                <h2 class="event-title">Muhurtham</h2>
-                <p class="event-sub">The Sacred Tying of the Thali</p>
+        <!-- MARRIAGE (The Kanchipuram Silk Card) -->
+        <div class="section-pad">
+            <div class="pattu-card reveal">
+                <h2 class="card-title-gold">Muhurtham</h2>
+                <p class="card-sub" style="color: var(--zari-gold);">The Sacred Tying of the Thali</p>
                 
-                <hr style="border: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 20px 0;">
+                <hr style="border: 0; height: 2px; background: var(--zari-gold); opacity: 0.5; margin: 15px 0;">
 
-                <div class="details-grid">
-                    <div class="detail-item"><span>The Date</span> 16th September 2026</div>
-                    <div class="detail-item"><span>The Time</span> 9:00 AM - 10:30 AM</div>
-                    <div class="detail-item"><span>The Venue</span> Grand Residency Hall<br>Tenkasi, Tamil Nadu</div>
+                <div class="grid-info">
+                    <p><strong>Date</strong> 16th September 2026</p>
+                    <p><strong>Auspicious Time</strong> 9:00 AM - 10:30 AM</p>
+                    <p><strong>Venue</strong> Grand Residency Hall<br>Tenkasi, Tamil Nadu</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- 4. BLESSING SECTION -->
-    <section class="parallax-section bless-section">
-        <div class="content-container reveal">
-            <h2 class="event-title" style="font-size: 3rem;">Shower Your Blessings</h2>
-            <p style="font-size: 1.2rem; color: #AAA; max-width: 500px; margin: 20px auto; line-height: 1.8;">
-                As we step into this beautiful new chapter of our lives, your love, presence, and blessings are the most precious gifts we could receive.
+        <!-- BLESSING BUTTON -->
+        <div class="bless-section reveal">
+            <h2 style="font-family: 'Cinzel', serif; color: var(--zari-gold); font-size: 2rem; margin-bottom: 15px;">Shower Blessings</h2>
+            <p style="font-size: 1rem; color: #CCC; margin-bottom: 30px; line-height: 1.6;">
+                Your presence is our biggest blessing. Tap below to shower the couple with flowers.
             </p>
-            <button class="bless-btn" id="bless-trigger">Tap to Bless</button>
+            <button class="bless-btn" id="blessBtn" onclick="dropFlowers()">Bless the Couple</button>
         </div>
-    </section>
+
+    </div>
 
     <script>
-        // --- High-Performance Scroll Reveal ---
+        // 1. Mobile-Optimized Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -209,85 +233,111 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- Ambient Gold Dust Physics (Makes it look alive) ---
-        const canvas = document.getElementById('dust-canvas');
+        // 2. Realistic Malligai (Jasmine) & Samandhi (Marigold) Physics
+        const canvas = document.getElementById('flower-canvas');
         const ctx = canvas.getContext('2d');
-        let dustParticles = [];
-        
+        let flowers = [];
+        let w, h;
+        let animationFrame;
+
         function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            // Lock canvas to the mobile container size
+            const container = document.querySelector('.mobile-container');
+            w = canvas.width = container.offsetWidth;
+            h = canvas.height = container.offsetHeight;
         }
         window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        // Initial setup
+        setTimeout(resizeCanvas, 100);
 
-        for(let i=0; i<100; i++) {
-            dustParticles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2,
-                speedY: Math.random() * 0.5 + 0.1,
-                speedX: (Math.random() - 0.5) * 0.3,
-                opacity: Math.random() * 0.5 + 0.2
-            });
-        }
-
-        function drawDust() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#D4AF37';
-            
-            dustParticles.forEach(p => {
-                p.y -= p.speedY; // Float upwards
-                p.x += p.speedX;
-                if(p.y < 0) p.y = canvas.height;
+        class Flower {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = -20 - Math.random() * 100;
                 
-                ctx.globalAlpha = p.opacity;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            requestAnimationFrame(drawDust);
-        }
-        drawDust();
-
-        // --- Realistic Falling Elements (Blessing Button) ---
-        // Instead of drawing fake shapes, we create actual DOM elements using high-quality emojis 
-        // which act like real image graphics falling down the screen.
-        document.getElementById('bless-trigger').addEventListener('click', function() {
-            this.innerText = "Thank You!";
-            this.style.background = "linear-gradient(135deg, #FFF 0%, #DDD 100%)";
-            
-            const elements = ['🌸', '✨', '🌼', '🎉', '💖'];
-            
-            for(let i = 0; i < 75; i++) {
-                setTimeout(() => {
-                    const drop = document.createElement('div');
-                    drop.innerText = elements[Math.floor(Math.random() * elements.length)];
-                    drop.style.position = 'fixed';
-                    drop.style.left = Math.random() * 100 + 'vw';
-                    drop.style.top = '-50px';
-                    drop.style.fontSize = (Math.random() * 20 + 20) + 'px';
-                    drop.style.zIndex = '9999';
-                    drop.style.pointerEvents = 'none';
-                    drop.style.transition = 'transform 3s linear, top 3s cubic-bezier(0.4, 0, 1, 1)';
-                    
-                    document.body.appendChild(drop);
-                    
-                    // Trigger reflow
-                    void drop.offsetWidth;
-                    
-                    const randomX = (Math.random() - 0.5) * 200;
-                    drop.style.top = '120vh';
-                    drop.style.transform = `translateX(${randomX}px) rotate(${Math.random() * 360}deg)`;
-                    
-                    // Cleanup DOM
-                    setTimeout(() => drop.remove(), 3000);
-                }, i * 30); // Stagger the drops
+                // 50% Marigold (Orange/Yellow), 50% Jasmine (White/Cream)
+                this.type = Math.random() > 0.5 ? 'marigold' : 'jasmine';
+                this.size = this.type === 'marigold' ? (Math.random() * 8 + 8) : (Math.random() * 5 + 4);
+                
+                this.speedY = Math.random() * 3 + 2; // Falling speed
+                this.speedX = (Math.random() - 0.5) * 2; // Wind drift
+                this.angle = Math.random() * Math.PI * 2;
+                this.spin = (Math.random() - 0.5) * 0.2;
             }
-        });
+
+            draw() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.y * 0.05) * 1.5; // Natural swaying
+                this.angle += this.spin;
+
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+
+                if (this.type === 'marigold') {
+                    // Draw Marigold (layered fluffy circle)
+                    ctx.fillStyle = '#FFA500';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#FF4500';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size * 0.6, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    // Draw Jasmine (Malligai - small star/cross shape)
+                    ctx.fillStyle = '#FFFFF0'; // Ivory white
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, this.size, this.size/2, 0, 0, Math.PI * 2);
+                    ctx.ellipse(0, 0, this.size/2, this.size, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        function dropFlowers() {
+            const btn = document.getElementById('blessBtn');
+            btn.innerText = "Nandri (Thank You)!";
+            btn.style.background = "linear-gradient(to bottom, #0A4A35, #052D20)";
+            btn.style.color = "#FFF";
+            btn.style.border = "2px solid #D4AF37";
+
+            // Spawn 100 flowers at the top of the container
+            for (let i = 0; i < 100; i++) {
+                flowers.push(new Flower());
+            }
+
+            if (!animationFrame) {
+                animate();
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            let active = false;
+
+            for (let i = 0; i < flowers.length; i++) {
+                flowers[i].draw();
+                // Check if still visible in container
+                if (flowers[i].y < h + 20) {
+                    active = true;
+                }
+            }
+
+            if (active) {
+                animationFrame = requestAnimationFrame(animate);
+            } else {
+                flowers = [];
+                cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+                ctx.clearRect(0, 0, w, h);
+            }
+        }
     </script>
 </body>
 </html>
