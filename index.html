@@ -3,348 +3,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Alagu Ragul & Bride - Wedding Celebration</title>
+    <title>The Royal Union | Alagu Ragul</title>
     
-    <!-- Elegant Fonts optimized for readability and tradition -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lato:wght@300;400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Premium Cinematic Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Montserrat:wght@300;400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary-gold: #D4AF37;
-            --dark-red: #7A1712;
-            --emerald: #0A4A35;
-            --bg-ivory: #FDFBF7;
-            --text-dark: #2C2C2C;
+            --gold-light: #FFDF73;
+            --gold-main: #D4AF37;
+            --gold-dark: #997A00;
+            --bg-deep: #2A0808; /* Deep royal maroon/brown */
+            --bg-silk: #4A0E0E;
+            --text-light: #FFF8E7;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body, html {
             width: 100%;
-            font-family: 'Lato', sans-serif;
-            background-color: var(--bg-ivory);
-            color: var(--text-dark);
+            background-color: var(--bg-deep);
+            background-image: radial-gradient(circle at top, var(--bg-silk), var(--bg-deep));
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        h1, h2, h3 { font-family: 'Cinzel', serif; color: var(--primary-gold); text-align: center; }
-        
-        /* =========================================
-           1. MOBILE-PERFECT OPENING DOORS & KOLAM
-           ========================================= */
-        #door-overlay {
+        /* 1. CINEMATIC TEMPLE DOORS */
+        #grand-doors {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 9999; display: flex; pointer-events: none; overflow: hidden;
+            z-index: 9999; display: flex; perspective: 2000px;
+            background: #000; transition: background 1.5s ease 1s;
         }
-        
-        .door {
+
+        .door-panel {
             width: 50%; height: 100%; position: relative;
-            background: linear-gradient(135deg, #8B1C15 0%, #5E100D 100%);
-            border-inline: 2px solid var(--primary-gold);
-            transition: transform 2s cubic-bezier(0.77, 0, 0.175, 1);
-            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(to right, #3A0A0A, #1A0202);
+            border: 10px solid var(--gold-dark);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+            transform-style: preserve-3d;
+            transition: transform 2.5s cubic-bezier(0.86, 0, 0.07, 1);
         }
 
-        .door.left { transform-origin: left; border-right: 3px solid var(--primary-gold); justify-content: flex-end; }
-        .door.right { transform-origin: right; border-left: 3px solid var(--primary-gold); justify-content: flex-start; }
-
-        .door.open-left { transform: translateX(-100%); }
-        .door.open-right { transform: translateX(100%); }
-
-        /* SVG Kolam that splits in half */
-        .kolam-lock {
-            width: 160px; height: 160px; position: absolute;
-            fill: none; stroke: var(--primary-gold); stroke-width: 2;
-        }
-        .door.left .kolam-lock { right: -80px; }
-        .door.right .kolam-lock { left: -80px; }
-
-        /* =========================================
-           2. CONTENT SECTIONS & SCROLL ANIMATIONS
-           ========================================= */
-        .section-wrapper {
-            min-height: 100vh; display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 60px 20px; position: relative;
+        .door-panel::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(0,0,0,0.3) 50px);
         }
 
-        .fade-up {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
-        }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .left-door { transform-origin: left; border-right: 4px solid var(--gold-light); }
+        .right-door { transform-origin: right; border-left: 4px solid var(--gold-light); }
 
-        /* Logo & Realistic Cartoon Setup */
-        .brand-logo { width: 100px; height: auto; margin-bottom: 20px; }
+        .doors-open .left-door { transform: rotateY(-110deg); }
+        .doors-open .right-door { transform: rotateY(110deg); }
+        .doors-hidden { pointer-events: none; background: transparent !important; }
+
+        /* The Glowing Center Lock */
+        .kolam-seal {
+            position: absolute; top: 50%; width: 180px; height: 180px;
+            transform: translateY(-50%); z-index: 10;
+            filter: drop-shadow(0 0 20px var(--gold-main));
+            transition: all 1s ease;
+        }
+        .left-door .kolam-seal { right: -90px; }
+        .right-door .kolam-seal { left: -90px; }
         
-        .cartoon-avatar {
-            width: 220px; height: 220px; border-radius: 50%;
-            object-fit: cover; border: 4px solid var(--primary-gold);
-            padding: 5px; background: #fff;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
-            margin: 20px 0;
+        .doors-open .kolam-seal { opacity: 0; transform: translateY(-50%) scale(1.5) rotate(90deg); }
+
+        /* Swinging Temple Bells */
+        .bell {
+            position: absolute; top: 10%; width: 60px; height: 120px;
+            transform-origin: top center;
+            animation: swing 3s ease-in-out infinite alternate;
+            z-index: 5; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+        }
+        .left-door .bell { right: 20%; }
+        .right-door .bell { left: 20%; animation-delay: 0.5s; }
+
+        @keyframes swing {
+            0% { transform: rotate(15deg); }
+            100% { transform: rotate(-15deg); }
         }
 
-        .script-name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem; color: var(--dark-red);
-            line-height: 1.2; margin: 15px 0; text-align: center;
+        /* 2. AMBIENT BACKGROUND & PARTICLES */
+        .ambient-light {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 0;
         }
 
-        /* =========================================
-           3. ELEGANT INVITATION CARDS
-           ========================================= */
-        .card {
-            background: #fff; width: 100%; max-width: 450px;
-            border-radius: 16px; padding: 40px 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            position: relative; overflow: hidden;
-            text-align: center;
+        /* 3. HERO SECTION */
+        .section-box {
+            position: relative; z-index: 10; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 80px 20px;
         }
 
-        /* Faint Kolam Watermark inside cards */
-        .card::before {
-            content: ''; position: absolute; top: -50px; right: -50px;
-            width: 150px; height: 150px; opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' stroke='%23D4AF37' stroke-width='2' fill='none'/%3E%3Cpath d='M50 10 L50 90 M10 50 L90 50 M22 22 L78 78 M22 78 L78 22' stroke='%23D4AF37' stroke-width='2'/%3E%3C/svg%3E");
-            background-size: contain; pointer-events: none;
+        .reveal-element {
+            opacity: 0; transform: translateY(60px) scale(0.95);
+            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-element.active { opacity: 1; transform: translateY(0) scale(1); }
+
+        .logo-glow { width: 120px; filter: drop-shadow(0 0 15px var(--gold-main)); margin-bottom: 20px; }
+
+        .royal-frame {
+            position: relative; padding: 15px; margin: 30px 0;
+            background: linear-gradient(45deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+            border-radius: 50%; box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+        .avatar-img { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 4px solid var(--bg-deep); }
+
+        .names {
+            font-family: 'Pinyon Script', cursive; font-size: 5rem;
+            line-height: 1.1; text-align: center; margin: 20px 0;
+            background: linear-gradient(to right, #FFDF73, #fff, #FFDF73);
+            -webkit-background-clip: text; color: transparent;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
         }
 
-        .card.engagement { border-top: 6px solid var(--emerald); }
-        .card.wedding { border-top: 6px solid var(--dark-red); }
+        .sub-text { font-size: 1.2rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-light); }
 
-        .card h2 { font-size: 2rem; margin-bottom: 5px; color: var(--text-dark); }
-        .subtitle { font-style: italic; color: #666; margin-bottom: 20px; font-size: 1rem; }
-        
-        .details p { margin: 12px 0; font-size: 1.1rem; line-height: 1.5; }
-        .details strong { color: var(--primary-gold); display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 2px; }
+        /* 4. PREMIUM GLASS CARDS */
+        .invite-card {
+            background: rgba(20, 2, 2, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 20px;
+            padding: 50px 30px; max-width: 500px; width: 95%;
+            text-align: center; position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(212, 175, 55, 0.05);
+        }
 
-        /* =========================================
-           4. BLESSING BUTTON & PARTY EFFECTS
-           ========================================= */
-        .blessing-btn {
-            background: var(--dark-red); color: #fff;
-            font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700;
-            padding: 18px 40px; border: 2px solid var(--primary-gold);
-            border-radius: 50px; cursor: pointer;
-            box-shadow: 0 10px 20px rgba(122, 23, 18, 0.2);
-            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px;
+        /* Ornate Gold Corners */
+        .corner { position: absolute; width: 40px; height: 40px; }
+        .corner-tl { top: 15px; left: 15px; border-top: 2px solid var(--gold-main); border-left: 2px solid var(--gold-main); border-top-left-radius: 10px; }
+        .corner-tr { top: 15px; right: 15px; border-top: 2px solid var(--gold-main); border-right: 2px solid var(--gold-main); border-top-right-radius: 10px; }
+        .corner-bl { bottom: 15px; left: 15px; border-bottom: 2px solid var(--gold-main); border-left: 2px solid var(--gold-main); border-bottom-left-radius: 10px; }
+        .corner-br { bottom: 15px; right: 15px; border-bottom: 2px solid var(--gold-main); border-right: 2px solid var(--gold-main); border-bottom-right-radius: 10px; }
+
+        .event-title { font-family: 'Cinzel Decorative', cursive; font-size: 2.5rem; color: var(--gold-light); margin-bottom: 10px; }
+        .event-sub { font-family: 'Pinyon Script', cursive; font-size: 2rem; color: #fff; margin-bottom: 30px; }
+
+        .details p { font-size: 1.2rem; margin: 15px 0; font-weight: 300; }
+        .details strong { display: block; color: var(--gold-main); font-size: 0.9rem; letter-spacing: 3px; margin-bottom: 5px; text-transform: uppercase; font-weight: 600; }
+
+        /* 5. MAGICAL BLESSING BUTTON */
+        .bless-btn {
+            background: transparent; color: var(--gold-light);
+            font-family: 'Cinzel Decorative', cursive; font-size: 1.5rem;
+            padding: 20px 50px; border: 2px solid var(--gold-main);
+            border-radius: 50px; cursor: pointer; position: relative;
+            overflow: hidden; transition: all 0.5s ease;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
             -webkit-tap-highlight-color: transparent;
         }
-        
-        .blessing-btn:active { transform: scale(0.95); }
-        
-        #flower-canvas {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 10000;
+
+        .bless-btn::before {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 300px; height: 300px; background: var(--gold-main);
+            border-radius: 50%; transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1); z-index: -1;
         }
 
-        /* Mobile specific adjustments */
-        @media (max-width: 480px) {
-            .script-name { font-size: 2.8rem; }
-            .section-wrapper { padding: 50px 15px; }
-            .card { padding: 35px 20px; }
+        .bless-btn:active::before, .bless-btn.clicked::before { transform: translate(-50%, -50%) scale(1); }
+        .bless-btn:active, .bless-btn.clicked { color: var(--bg-deep); font-weight: bold; box-shadow: 0 0 50px rgba(212, 175, 55, 0.8); }
+
+        #fx-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 10000; }
+
+        /* Mobile specific fluid typography */
+        @media (max-width: 600px) {
+            .names { font-size: 4rem; }
+            .event-title { font-size: 2rem; }
+            .event-sub { font-size: 1.5rem; }
+            .bless-btn { font-size: 1.2rem; padding: 15px 35px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Canvas for Flowers and Celebration Confetti -->
-    <canvas id="flower-canvas"></canvas>
+    <div class="ambient-light"></div>
+    <canvas id="fx-canvas"></canvas>
 
-    <!-- 1. The Opening Doors -->
-    <div id="door-overlay">
-        <div class="door left" id="door-left">
-            <!-- Inline SVG Kolam -->
-            <svg class="kolam-lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="45" stroke-dasharray="4 4" />
-                <circle cx="50" cy="50" r="35" />
-                <path d="M50 15 L60 40 L85 50 L60 60 L50 85 L40 60 L15 50 L40 40 Z" fill="rgba(212, 175, 55, 0.2)"/>
-                <circle cx="50" cy="50" r="10" fill="#D4AF37"/>
+    <!-- 1. The Cinematic Doors -->
+    <div id="grand-doors">
+        <div class="door-panel left-door">
+            <!-- Hanging Bell SVG -->
+            <svg class="bell" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 C60 10, 70 30, 75 60 C80 90, 20 90, 25 60 C30 30, 40 10, 50 10 Z" fill="url(#gold-grad)"/>
+                <circle cx="50" cy="85" r="8" fill="#FFDF73"/>
+                <defs><linearGradient id="gold-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFDF73"/><stop offset="50%" stop-color="#D4AF37"/><stop offset="100%" stop-color="#997A00"/></linearGradient></defs>
+            </svg>
+            <!-- Half Kolam Lock -->
+            <svg class="kolam-seal" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#D4AF37" stroke-width="2"/>
+                <path d="M50 5 L65 35 L95 50 L65 65 L50 95 L35 65 L5 50 L35 35 Z" fill="rgba(212,175,55,0.4)" stroke="#FFDF73" stroke-width="1"/>
+                <circle cx="50" cy="50" r="15" fill="#D4AF37"/>
             </svg>
         </div>
-        <div class="door right" id="door-right">
-            <svg class="kolam-lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="45" stroke-dasharray="4 4" />
-                <circle cx="50" cy="50" r="35" />
-                <path d="M50 15 L60 40 L85 50 L60 60 L50 85 L40 60 L15 50 L40 40 Z" fill="rgba(212, 175, 55, 0.2)"/>
-                <circle cx="50" cy="50" r="10" fill="#D4AF37"/>
+        <div class="door-panel right-door">
+            <svg class="bell" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 C60 10, 70 30, 75 60 C80 90, 20 90, 25 60 C30 30, 40 10, 50 10 Z" fill="url(#gold-grad)"/>
+                <circle cx="50" cy="85" r="8" fill="#FFDF73"/>
+            </svg>
+            <!-- Half Kolam Lock -->
+            <svg class="kolam-seal" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#D4AF37" stroke-width="2"/>
+                <path d="M50 5 L65 35 L95 50 L65 65 L50 95 L35 65 L5 50 L35 35 Z" fill="rgba(212,175,55,0.4)" stroke="#FFDF73" stroke-width="1"/>
+                <circle cx="50" cy="50" r="15" fill="#D4AF37"/>
             </svg>
         </div>
     </div>
 
-    <!-- 2. Hero Section (Logo, Avatar, Names) -->
-    <section class="section-wrapper fade-up">
-        <!-- REPLACE WITH YOUR LOGO -->
-        <img src="your-logo.png" alt="Couple Logo" class="brand-logo" onerror="this.style.display='none'">
+    <!-- 2. Hero Header -->
+    <div class="section-box">
+        <img src="assets/logo.png" alt="Logo" class="logo-glow reveal-element" onerror="this.style.display='none'">
+        <p class="sub-text reveal-element">Two Souls, One Destiny</p>
         
-        <h3 style="font-size: 1rem; letter-spacing: 3px; color: #666; text-transform: uppercase;">Together With Their Families</h3>
-        
-        <!-- REPLACE WITH YOUR REALISTIC CARTOON IMAGE -->
-        <img src="realistic-cartoon.png" alt="Alagu Ragul and Bride" class="cartoon-avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'40\' fill=\'%23eee\'/%3E%3Ctext x=\'50\' y=\'55\' font-size=\'10\' text-anchor=\'middle\' fill=\'%23999\'%3EPlace Cartoon Here%3C/text%3E%3C/svg%3E'">
+        <div class="royal-frame reveal-element">
+            <img src="assets/realistic-couple.png" alt="Couple" class="avatar-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%23D4AF37\'/%3E%3C/svg%3E'">
+        </div>
 
-        <div class="script-name">Alagu Ragul<br><span style="font-family: 'Lato', sans-serif; font-size: 1.5rem; color: var(--primary-gold);">&</span><br>[Bride's Name]</div>
-        <p style="margin-top: 10px; font-size: 1.1rem;">Invite you to celebrate their union</p>
-    </section>
+        <h1 class="names reveal-element">Alagu Ragul<br><span style="font-size: 2.5rem; font-family: 'Montserrat'; color: var(--gold-main);">&</span><br>Bride's Name</h1>
+    </div>
 
-    <!-- 3. Engagement Invitation -->
-    <section class="section-wrapper fade-up">
-        <div class="card engagement">
-            <h2 style="color: var(--emerald);">Nitchayadhartham</h2>
-            <p class="subtitle">The Ring Ceremony</p>
+    <!-- 3. Engagement -->
+    <div class="section-box">
+        <div class="invite-card reveal-element">
+            <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+            
+            <h2 class="event-title">Nitchayadhartham</h2>
+            <p class="event-sub">The Ring Ceremony</p>
             
             <div class="details">
                 <p><strong>Date</strong> 15th September 2026</p>
                 <p><strong>Time</strong> 6:00 PM Onwards</p>
-                <p><strong>Venue</strong> Grand Residency Hall<br>Tenkasi, Tamil Nadu</p>
+                <p><strong>Venue</strong> Grand Residency Hall, Tenkasi</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- 4. Marriage Invitation -->
-    <section class="section-wrapper fade-up">
-        <div class="card wedding">
-            <h2 style="color: var(--dark-red);">Muhurtham</h2>
-            <p class="subtitle">The Sacred Union</p>
+    <!-- 4. Wedding -->
+    <div class="section-box">
+        <div class="invite-card reveal-element">
+            <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+            
+            <h2 class="event-title">Muhurtham</h2>
+            <p class="event-sub">The Sacred Union</p>
             
             <div class="details">
                 <p><strong>Date</strong> 16th September 2026</p>
-                <p><strong>Time</strong> 9:00 AM to 10:30 AM</p>
-                <p><strong>Venue</strong> Grand Residency Hall<br>Tenkasi, Tamil Nadu</p>
+                <p><strong>Time</strong> 9:00 AM - 10:30 AM</p>
+                <p><strong>Venue</strong> Grand Residency Hall, Tenkasi</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- 5. Blessing Button Section -->
-    <section class="section-wrapper fade-up" style="min-height: 70vh;">
-        <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Shower Your Blessings</h2>
-        <p style="text-align: center; max-width: 400px; margin-bottom: 30px; color: #555;">
-            Your presence, love, and wishes are the greatest gifts we could ask for on our special day.
+    <!-- 5. Blessing Action -->
+    <div class="section-box">
+        <h2 class="event-title reveal-element" style="font-size: 3rem; margin-bottom: 20px;">Shower Blessings</h2>
+        <p class="reveal-element" style="max-width: 400px; text-align: center; margin-bottom: 40px; font-size: 1.2rem; line-height: 1.6; color: var(--gold-light);">
+            Your presence is our biggest blessing. Tap below to send us your love.
         </p>
-        <button class="blessing-btn" id="bless-btn" onclick="showerBlessings()">Bless the Couple</button>
-    </section>
+        <button class="bless-btn reveal-element" id="blessBtn" onclick="triggerMagic()">Bless the Couple</button>
+    </div>
 
-    <!-- JavaScript Engine -->
     <script>
-        // 1. Mobile-friendly door opening logic
+        // 1. Cinematic Door Reveal
         window.addEventListener('load', () => {
-            // Small delay to ensure styles are painted
             setTimeout(() => {
-                document.getElementById('door-left').classList.add('open-left');
-                document.getElementById('door-right').classList.add('open-right');
+                const doors = document.getElementById('grand-doors');
+                doors.classList.add('doors-open');
                 
-                // Remove overlay from DOM after animation to prevent touch issues
+                // Remove pointer events so users can scroll and click underneath
                 setTimeout(() => {
-                    document.getElementById('door-overlay').style.display = 'none';
-                }, 2000);
-            }, 800);
+                    doors.classList.add('doors-hidden');
+                }, 2500); 
+            }, 1000); // 1-second suspense delay
         });
 
-        // 2. Scroll Animation Observer (Optimized for mobile scrolling)
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
-
-        const observer = new IntersectionObserver((entries, obs) => {
+        // 2. High-Performance Scroll Reveal (Intersection Observer)
+        const revealElements = document.querySelectorAll('.reveal-element');
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    obs.unobserve(entry.target); // Stop observing once visible for performance
+                    // Slight stagger effect for elements appearing together
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, 150);
+                    observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.2 });
 
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        revealElements.forEach(el => observer.observe(el));
 
-        // 3. High-Performance Canvas Confetti & Flowers Engine
-        const canvas = document.getElementById('flower-canvas');
+        // 3. Ultra-Realistic Petal Physics Engine
+        const canvas = document.getElementById('fx-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let w, h;
-        let animationId;
+        let canvasW, canvasH;
+        let isRaining = false;
 
-        function resizeCanvas() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
+        function resize() {
+            canvasW = canvas.width = window.innerWidth;
+            canvasH = canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        window.addEventListener('resize', resize);
+        resize();
 
-        function createParticle() {
-            const isFlower = Math.random() > 0.5;
-            return {
-                x: Math.random() * w,
-                y: -50 - Math.random() * 100,
-                size: Math.random() * 8 + 6,
-                speedY: Math.random() * 3 + 2,
-                speedX: (Math.random() - 0.5) * 2,
-                angle: Math.random() * 360,
-                spin: (Math.random() - 0.5) * 5,
-                type: isFlower ? 'flower' : 'confetti',
-                // Party colors + Traditional colors (Gold, Red, Green, Blue, Pink)
-                color: `hsl(${Math.random() * 360}, 80%, 50%)` 
-            };
+        class RealisticPetal {
+            constructor() {
+                this.x = Math.random() * canvasW;
+                this.y = -50 - Math.random() * 200;
+                this.size = Math.random() * 15 + 10;
+                
+                // Realistic falling speeds
+                this.speedY = Math.random() * 3 + 2;
+                this.speedX = (Math.random() - 0.5) * 2;
+                
+                // 3D Tumble and spin variables
+                this.angle = Math.random() * 360;
+                this.spin = (Math.random() - 0.5) * 0.2;
+                this.flip = 0;
+                this.flipSpeed = Math.random() * 0.1 + 0.05;
+                
+                // Colors: Deep Rose Red, Marigold Orange, and Gold Foil
+                const colors = ['#C41E3A', '#FF7F00', '#FFDF73', '#D4AF37'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            draw() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.y * 0.02); // Wind sway
+                this.angle += this.spin;
+                this.flip += this.flipSpeed;
+
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                // The math for a 3D tumbling effect
+                ctx.scale(1, Math.abs(Math.cos(this.flip))); 
+                
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                // Draw a beautiful curved teardrop petal shape
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(this.size, -this.size/2, this.size, this.size, 0, this.size);
+                ctx.bezierCurveTo(-this.size, this.size, -this.size, -this.size/2, 0, 0);
+                ctx.fill();
+                ctx.restore();
+            }
         }
 
-        function showerBlessings() {
-            // Change button text to indicate action
-            const btn = document.getElementById('bless-btn');
+        function triggerMagic() {
+            const btn = document.getElementById('blessBtn');
+            btn.classList.add('clicked');
             btn.innerText = "Thank You!";
-            btn.style.backgroundColor = "var(--emerald)";
-            btn.style.borderColor = "var(--emerald)";
 
-            // Generate particles
-            for (let i = 0; i < 150; i++) {
-                particles.push(createParticle());
+            // Generate 200 petals instantly
+            for(let i=0; i<200; i++) {
+                particles.push(new RealisticPetal());
             }
 
-            if (!animationId) {
-                animateParticles();
+            if (!isRaining) {
+                isRaining = true;
+                animatePetals();
             }
         }
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, w, h);
-            
-            let allFallen = true;
+        function animatePetals() {
+            ctx.clearRect(0, 0, canvasW, canvasH);
+            let active = false;
 
-            for (let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.y += p.speedY;
-                p.x += p.speedX;
-                p.angle += p.spin;
-
-                if (p.y < h + 50) {
-                    allFallen = false;
-                    ctx.save();
-                    ctx.translate(p.x, p.y);
-                    ctx.rotate(p.angle * Math.PI / 180);
-                    
-                    if (p.type === 'flower') {
-                        // Draw simple flower petal (Marigold/Rose style)
-                        ctx.fillStyle = p.color;
-                        ctx.beginPath();
-                        ctx.ellipse(0, 0, p.size, p.size / 2, 0, 0, Math.PI * 2);
-                        ctx.fill();
-                    } else {
-                        // Draw party confetti square
-                        ctx.fillStyle = p.color;
-                        ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
-                    }
-                    ctx.restore();
+            for(let i=0; i<particles.length; i++) {
+                particles[i].draw();
+                if(particles[i].y < canvasH + 50) {
+                    active = true;
                 }
             }
 
-            if (!allFallen) {
-                animationId = requestAnimationFrame(animateParticles);
+            if(active) {
+                requestAnimationFrame(animatePetals);
             } else {
                 particles = [];
-                cancelAnimationFrame(animationId);
-                animationId = null;
+                isRaining = false;
+                ctx.clearRect(0, 0, canvasW, canvasH); // Final clear
             }
         }
     </script>
