@@ -3,202 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alagu Ragul & [Bride's Name] - Wedding Celebration</title>
-    <!-- Elegant Modern & Traditional Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
-    <!-- Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <title>The Royal Union | Alagu Ragul & Bride</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        /* Base Modern Styling */
-        body { 
-            margin: 0; 
-            font-family: 'Montserrat', sans-serif; 
-            background-color: #FAFAFA; /* Soft modern off-white */
-            color: #333; 
-            text-align: center; 
-            overflow-x: hidden; 
-        }
-        h1, h2, h3 { font-family: 'Cinzel', serif; margin: 10px 0; }
-        .script-font { font-family: 'Great Vibes', cursive; color: #D4AF37; font-size: 3.5rem; }
-
-        /* 1. Modernized Ivory & Gold Doors */
-        #door-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; display: flex; pointer-events: none; }
-        .door { 
-            width: 50%; height: 100%; 
-            background: linear-gradient(135deg, #FFFDF7 0%, #E8E5D7 100%);
-            position: relative;
-            transition: transform 2.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-            display: flex; justify-content: center; align-items: center;
-            border-left: 2px solid #D4AF37; /* Gold accent in the middle */
-            border-right: 2px solid #D4AF37;
-        }
-        /* Subtle modern mandala/kolam hint via CSS radial gradients */
-        .door::before {
-            content: ''; position: absolute; width: 300px; height: 300px;
-            border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 50%;
-        }
-        .door.open-left { transform: translateX(-100%); }
-        .door.open-right { transform: translateX(100%); }
-
-        /* Scroll Animation Setup */
-        section { 
-            min-height: 100vh; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; padding: 40px 20px; 
-            opacity: 0; transform: translateY(60px); transition: all 1.2s ease-out; 
-        }
-        section.visible { opacity: 1; transform: translateY(0); }
-
-        /* 2. Logo & Avatar Styling */
-        .logo-container img { width: 120px; height: auto; margin-bottom: 20px; }
-        .avatar-container {
-            width: 180px; height: 180px; border-radius: 50%;
-            border: 4px solid #D4AF37; padding: 5px;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
-            object-fit: cover; margin-top: 20px;
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F3E5AB;
+            --maroon: #5C001E;
+            --emerald: #06402B;
+            --bg-color: #FAF8F2;
         }
 
-        /* 3. Unique Invitation Cards */
+        body, html { margin: 0; padding: 0; font-family: 'Cormorant Garamond', serif; background-color: var(--bg-color); color: #333; overflow-x: hidden; scroll-behavior: smooth; }
+        
+        /* Typography */
+        h1, h2, h3 { font-family: 'Cinzel Decorative', cursive; color: var(--gold); margin: 0; text-align: center; }
+        h1 { font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(212, 175, 55, 0.3); }
+        h2 { font-size: 2.5rem; letter-spacing: 2px; }
+        p { font-size: 1.2rem; line-height: 1.6; text-align: center; }
+
+        /* 1. 3D Royal Temple Doors */
+        #door-wrapper {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 100;
+            perspective: 1200px; /* Gives the 3D depth */
+            display: flex; pointer-events: none;
+        }
+        .door-panel {
+            width: 50%; height: 100%; background: linear-gradient(to bottom, #8B0000, #4A0010);
+            position: relative; transform-style: preserve-3d;
+            transition: transform 3s cubic-bezier(0.77, 0, 0.175, 1);
+            border-inline: 4px solid var(--gold);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .door-panel.left { transform-origin: left center; }
+        .door-panel.right { transform-origin: right center; }
+        
+        .door-panel.open-left { transform: rotateY(-105deg); }
+        .door-panel.open-right { transform: rotateY(105deg); }
+
+        /* Door Mandalas */
+        .door-mandala {
+            width: 250px; height: 250px;
+            background: radial-gradient(circle, transparent 20%, var(--gold) 21%, transparent 22%), 
+                        radial-gradient(circle, transparent 40%, var(--gold) 41%, transparent 42%);
+            border: 2px solid var(--gold); border-radius: 50%; position: absolute; opacity: 0.7;
+        }
+        .door-panel.left .door-mandala { right: -125px; clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); }
+        .door-panel.right .door-mandala { left: -125px; clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%); }
+
+        /* Layout & Scrolling */
+        .section-container {
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 50px 20px; position: relative; z-index: 10;
+        }
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* 2. Hero Section */
+        .logo-box { width: 150px; height: 150px; margin-bottom: 20px; }
+        .logo-box img { width: 100%; height: 100%; object-fit: contain; }
+        .avatar-box { 
+            width: 220px; height: 220px; border-radius: 50%; margin: 30px 0;
+            border: 5px solid var(--gold); box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+            overflow: hidden; background: #fff;
+        }
+        .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 3. Premium Glassmorphism Invitation Cards */
+        .invite-wrapper { perspective: 1000px; margin-bottom: 50px; width: 100%; max-width: 600px; }
         .invite-card {
-            background: #fff; border-radius: 16px; padding: 50px 30px;
-            max-width: 500px; width: 90%; position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px; padding: 60px 40px; position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.4);
+            transition: transform 0.1s ease; /* For JS Tilt */
         }
-        /* Card corner accents */
-        .invite-card::before, .invite-card::after {
-            content: '✿'; position: absolute; font-size: 24px; color: #D4AF37; opacity: 0.5;
+        /* Glowing Foil Borders */
+        .invite-card::before {
+            content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+            z-index: -1; border-radius: 22px;
+            background: linear-gradient(45deg, var(--gold), transparent, var(--gold-light), transparent);
+            background-size: 400%; animation: foilShimmer 6s linear infinite;
         }
-        .invite-card::before { top: 15px; left: 15px; }
-        .invite-card::after { bottom: 15px; right: 15px; }
         
-        .invite-card.engagement { border-top: 5px solid #0F4C3A; /* Elegant Emerald */ }
-        .invite-card.wedding { border-top: 5px solid #8B0000; /* Traditional Maroon */ }
-        
-        .event-title { font-size: 2rem; letter-spacing: 2px; color: #333; }
-        .event-details { font-size: 1.1rem; line-height: 1.8; margin-top: 20px; color: #555; }
-        .event-details strong { color: #222; font-weight: 600; }
+        .invite-card.engagement .event-title { color: var(--emerald); }
+        .invite-card.wedding .event-title { color: var(--maroon); }
 
-        /* 4. Elegant Blessing Button */
-        #bless-btn { 
-            background: linear-gradient(45deg, #D4AF37, #F3E5AB, #D4AF37);
-            background-size: 200% 200%;
-            color: #5C001E; border: none; padding: 18px 40px; 
-            font-size: 1.2rem; font-family: 'Montserrat', sans-serif; font-weight: 600;
-            border-radius: 50px; cursor: pointer; transition: 0.5s; 
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-            text-transform: uppercase; letter-spacing: 1.5px;
+        .details-grid {
+            display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 30px;
+            border-top: 1px solid var(--gold); padding-top: 20px;
         }
-        #bless-btn:hover { 
-            transform: translateY(-5px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.5);
-            background-position: right center;
+        .detail-item { font-size: 1.3rem; }
+        .detail-item span { font-weight: 600; color: var(--gold); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; display: block; }
+
+        /* 4. The Interactive Blessing Button */
+        .bless-btn-container { position: relative; margin-top: 40px; }
+        .bless-btn {
+            background: transparent; color: var(--maroon); font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.5rem; padding: 20px 50px; border: 2px solid var(--gold);
+            border-radius: 50px; cursor: pointer; position: relative; overflow: hidden;
+            transition: all 0.4s ease; box-shadow: 0 0 20px rgba(212,175,55,0.2);
         }
+        .bless-btn::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%;
+            background: var(--gold); transition: all 0.4s ease; z-index: -1;
+        }
+        .bless-btn:hover { color: #fff; box-shadow: 0 0 40px rgba(212,175,55,0.6); transform: scale(1.05); }
+        .bless-btn:hover::before { width: 100%; }
+
+        @keyframes foilShimmer { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* Fullscreen Canvas for Flowers */
+        #petal-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; }
     </style>
 </head>
 <body>
 
-    <!-- 1. Modern Ivory & Gold Doors -->
-    <div id="door-container">
-        <div class="door" id="left-door"></div>
-        <div class="door" id="right-door"></div>
+    <!-- Canvas for Advanced Petal Physics Engine -->
+    <canvas id="petal-canvas"></canvas>
+
+    <!-- 1. The Royal Doors -->
+    <div id="door-wrapper">
+        <div class="door-panel left" id="left-door">
+            <div class="door-mandala"></div>
+        </div>
+        <div class="door-panel right" id="right-door">
+            <div class="door-mandala"></div>
+        </div>
     </div>
 
-    <!-- 2. Logo & Realistic Avatar -->
-    <section id="hero" class="scroll-element">
-        <div class="logo-container">
-            <!-- Update the src attribute with your actual logo image file name -->
-            <img src="assets/your-logo.png" alt="Couple Logo"> 
+    <!-- 2. Hero Section -->
+    <section class="section-container fade-in">
+        <div class="logo-box">
+            <img src="assets/your-royal-logo.png" alt="AR Logo">
         </div>
+        <p style="text-transform: uppercase; letter-spacing: 4px; color: var(--gold);">Together with their families</p>
+        <h1>Alagu Ragul <br> <span style="font-size: 1.5rem; font-family: 'Cormorant Garamond', serif; color:#333;">&</span> <br> Bride's Name</h1>
         
-        <h1 class="script-font">Alagu Ragul & [Bride's Name]</h1>
-        <p style="letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem;">Are tying the knot</p>
-
-        <!-- Update the src attribute with your realistic cartoon avatar image file name -->
-        <img src="assets/realistic-couple-avatar.png" alt="Couple Cartoon" class="avatar-container">
+        <div class="avatar-box">
+            <!-- Ensure this is a highly detailed, realistic 3D character render or beautiful illustration -->
+            <img src="assets/realistic-couple-avatar.png" alt="The Couple">
+        </div>
+        <p>Invite you to share in the joy of their new beginning</p>
     </section>
 
-    <!-- 3. Engagement Invitation Card -->
-    <section id="engagement" class="scroll-element">
-        <div class="invite-card engagement">
-            <h2 class="event-title">Nitchayadhartham</h2>
-            <p style="color: #0F4C3A; font-style: italic;">The Ring Ceremony</p>
-            <hr style="width: 50px; border: 1px solid #D4AF37; margin: 20px auto;">
-            <div class="event-details">
-                <p><strong>Date:</strong> 15th September 2026</p>
-                <p><strong>Time:</strong> 6:00 PM Onwards</p>
-                <p><strong>Venue:</strong> Grand Residency Hall, Tenkasi</p>
+    <!-- 3. Engagement (Nitchayadhartham) -->
+    <section class="section-container fade-in">
+        <div class="invite-wrapper">
+            <div class="invite-card engagement tilt-card">
+                <h2 class="event-title">Nitchayadhartham</h2>
+                <p>The Ring Ceremony</p>
+                <div class="details-grid">
+                    <div class="detail-item"><span>When</span> 15th September 2026<br>6:00 PM Onwards</div>
+                    <div class="detail-item"><span>Where</span> Grand Residency Hall<br>Tenkasi, Tamil Nadu</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. Marriage Invitation Card -->
-    <section id="wedding" class="scroll-element">
-        <div class="invite-card wedding">
-            <h2 class="event-title">Muhurtham</h2>
-            <p style="color: #8B0000; font-style: italic;">The Sacred Union</p>
-            <hr style="width: 50px; border: 1px solid #D4AF37; margin: 20px auto;">
-            <div class="event-details">
-                <p><strong>Date:</strong> 16th September 2026</p>
-                <p><strong>Time:</strong> 9:00 AM - 10:30 AM</p>
-                <p><strong>Venue:</strong> Grand Residency Hall, Tenkasi</p>
+    <!-- 4. Wedding (Muhurtham) -->
+    <section class="section-container fade-in">
+        <div class="invite-wrapper">
+            <div class="invite-card wedding tilt-card">
+                <h2 class="event-title">Muhurtham</h2>
+                <p>The Sacred Union</p>
+                <div class="details-grid">
+                    <div class="detail-item"><span>When</span> 16th September 2026<br>9:00 AM - 10:30 AM</div>
+                    <div class="detail-item"><span>Where</span> Grand Residency Hall<br>Tenkasi, Tamil Nadu</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 5. Modern Blessing Button -->
-    <section id="blessings" class="scroll-element">
-        <h2 style="font-size: 2.5rem; color: #333;">Shower Your Blessings</h2>
-        <p style="margin-bottom: 40px; color: #666;">Your presence and wishes mean the world to us.</p>
-        <button id="bless-btn" onclick="flowerShower()">Bless the Couple</button>
+    <!-- 5. The Blessing Interaction -->
+    <section class="section-container fade-in">
+        <h2>Shower Your Blessings</h2>
+        <p>Your love and wishes are the greatest gifts we could receive.</p>
+        <div class="bless-btn-container">
+            <button class="bless-btn" onclick="triggerFlowerShower()">Bless the Couple</button>
+        </div>
     </section>
 
     <script>
-        // Trigger elegant door opening animation
+        // 1. Cinematic Door Opening Sequence
         window.onload = () => {
             setTimeout(() => {
                 document.getElementById('left-door').classList.add('open-left');
                 document.getElementById('right-door').classList.add('open-right');
-            }, 800);
+            }, 1000); // 1 second dramatic pause before opening
         };
 
-        // Smooth scroll fade-in observation
+        // 2. High-Performance Intersection Observer for Fade-Ins
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        document.querySelectorAll('.scroll-element').forEach((el) => observer.observe(el));
+        // 3. Custom 3D Tilt Effect for Invitation Cards (No external libraries needed)
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element
+                const y = e.clientY - rect.top;  // y position within the element
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -10; // Max tilt 10deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
 
-        // Unique Flower Petal Blessing Animation
-        function flowerShower() {
-            const duration = 4000;
-            const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+        // 4. Custom Advanced HTML5 Canvas Particle Engine (Marigold & Rose Petals)
+        const canvas = document.getElementById('petal-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        let animationFrame;
 
-            function randomInRange(min, max) {
-                return Math.random() * (max - min) + min;
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Petal {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = -50 - Math.random() * 200; // Start above screen
+                this.w = 10 + Math.random() * 15; // Width of petal
+                this.h = 10 + Math.random() * 20; // Height of petal
+                this.speed = 2 + Math.random() * 4; // Falling speed
+                this.angle = Math.random() * 360; // Initial rotation
+                this.spin = (Math.random() - 0.5) * 0.2; // 3D tumbling speed
+                this.sway = (Math.random() - 0.5) * 2; // Wind sway
+                // Colors: Deep Red (Rose) or Gold/Orange (Marigold)
+                const isMarigold = Math.random() > 0.4;
+                this.color = isMarigold ? `rgba(255, ${140 + Math.random()*70}, 0, 0.9)` : `rgba(${180 + Math.random()*75}, 0, 30, 0.9)`;
             }
 
-            const interval = setInterval(function() {
-                const timeLeft = animationEnd - Date.now();
+            update() {
+                this.y += this.speed;
+                this.x += Math.sin(this.y * 0.01) * this.sway; // Gentle wind effect
+                this.angle += this.spin;
 
-                if (timeLeft <= 0) {
-                    return clearInterval(interval);
-                }
-
-                const particleCount = 50 * (timeLeft / duration);
+                // Draw realistic curved petal shape
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                // Simulate 3D tumbling by scaling the Y axis over time
+                ctx.scale(1, Math.abs(Math.sin(this.angle))); 
                 
-                // Simulating Marigold (Orange/Yellow) and Rose (Red/Pink) petals using circular shapes
-                confetti(Object.assign({}, defaults, { 
-                    particleCount, 
-                    shapes: ['circle'], 
-                    colors: ['#FFA500', '#FFD700', '#FF1493', '#DC143C', '#FFF8DC'],
-                    origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 } 
-                }));
-            }, 250);
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                // Draw a tear-drop / curved petal shape rather than a square
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(this.w/2, -this.h/2, this.w, this.h/3, 0, this.h);
+                ctx.bezierCurveTo(-this.w, this.h/3, -this.w/2, -this.h/2, 0, 0);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function triggerFlowerShower() {
+            // Generate 150 petals instantly
+            for (let i = 0; i < 150; i++) {
+                particles.push(new Petal());
+            }
+
+            // Start animation loop if not running
+            if (!animationFrame) {
+                renderPetals();
+            }
+        }
+
+        function renderPetals() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                // Remove petals that fall off screen
+                if (particles[i].y > height + 50) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+
+            if (particles.length > 0) {
+                animationFrame = requestAnimationFrame(renderPetals);
+            } else {
+                cancelAnimationFrame(animationFrame);
+                animationFrame = null;
+            }
         }
     </script>
 </body>
