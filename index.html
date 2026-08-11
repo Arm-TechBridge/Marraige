@@ -3,123 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alagu Ragul & [Bride's Name] - Wedding Invitation</title>
-    <!-- Importing a nice traditional font -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital@0;1&display=swap" rel="stylesheet">
-    <!-- Confetti Library for the Blessing Button -->
+    <title>Alagu Ragul & [Bride's Name] - Wedding Celebration</title>
+    <!-- Elegant Modern & Traditional Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        /* Basic Styling & Typography */
-        body { margin: 0; font-family: 'Lora', serif; background-color: #FFFDF7; color: #5C001E; text-align: center; overflow-x: hidden; }
-        h1, h2 { font-family: 'Great Vibes', cursive; color: #D4AF37; } /* Gold color for names */
-        
-        /* 1. The Opening Doors */
+        /* Base Modern Styling */
+        body { 
+            margin: 0; 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #FAFAFA; /* Soft modern off-white */
+            color: #333; 
+            text-align: center; 
+            overflow-x: hidden; 
+        }
+        h1, h2, h3 { font-family: 'Cinzel', serif; margin: 10px 0; }
+        .script-font { font-family: 'Great Vibes', cursive; color: #D4AF37; font-size: 3.5rem; }
+
+        /* 1. Modernized Ivory & Gold Doors */
         #door-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; display: flex; pointer-events: none; }
-        .door { width: 50%; height: 100%; background-color: #8B0000; /* Traditional Maroon */ transition: transform 2.5s ease-in-out; }
+        .door { 
+            width: 50%; height: 100%; 
+            background: linear-gradient(135deg, #FFFDF7 0%, #E8E5D7 100%);
+            position: relative;
+            transition: transform 2.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            display: flex; justify-content: center; align-items: center;
+            border-left: 2px solid #D4AF37; /* Gold accent in the middle */
+            border-right: 2px solid #D4AF37;
+        }
+        /* Subtle modern mandala/kolam hint via CSS radial gradients */
+        .door::before {
+            content: ''; position: absolute; width: 300px; height: 300px;
+            border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 50%;
+        }
         .door.open-left { transform: translateX(-100%); }
         .door.open-right { transform: translateX(100%); }
 
-        /* Sections & Scroll Formatting */
-        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; opacity: 0; transform: translateY(50px); transition: all 1s ease-out; }
+        /* Scroll Animation Setup */
+        section { 
+            min-height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; padding: 40px 20px; 
+            opacity: 0; transform: translateY(60px); transition: all 1.2s ease-out; 
+        }
         section.visible { opacity: 1; transform: translateY(0); }
 
-        /* The Blessing Button */
-        #bless-btn { background-color: #D4AF37; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 50px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        #bless-btn:hover { background-color: #B5952F; transform: scale(1.05); }
+        /* 2. Logo & Avatar Styling */
+        .logo-container img { width: 120px; height: auto; margin-bottom: 20px; }
+        .avatar-container {
+            width: 180px; height: 180px; border-radius: 50%;
+            border: 4px solid #D4AF37; padding: 5px;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+            object-fit: cover; margin-top: 20px;
+        }
+
+        /* 3. Unique Invitation Cards */
+        .invite-card {
+            background: #fff; border-radius: 16px; padding: 50px 30px;
+            max-width: 500px; width: 90%; position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            overflow: hidden;
+        }
+        /* Card corner accents */
+        .invite-card::before, .invite-card::after {
+            content: '✿'; position: absolute; font-size: 24px; color: #D4AF37; opacity: 0.5;
+        }
+        .invite-card::before { top: 15px; left: 15px; }
+        .invite-card::after { bottom: 15px; right: 15px; }
+        
+        .invite-card.engagement { border-top: 5px solid #0F4C3A; /* Elegant Emerald */ }
+        .invite-card.wedding { border-top: 5px solid #8B0000; /* Traditional Maroon */ }
+        
+        .event-title { font-size: 2rem; letter-spacing: 2px; color: #333; }
+        .event-details { font-size: 1.1rem; line-height: 1.8; margin-top: 20px; color: #555; }
+        .event-details strong { color: #222; font-weight: 600; }
+
+        /* 4. Elegant Blessing Button */
+        #bless-btn { 
+            background: linear-gradient(45deg, #D4AF37, #F3E5AB, #D4AF37);
+            background-size: 200% 200%;
+            color: #5C001E; border: none; padding: 18px 40px; 
+            font-size: 1.2rem; font-family: 'Montserrat', sans-serif; font-weight: 600;
+            border-radius: 50px; cursor: pointer; transition: 0.5s; 
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            text-transform: uppercase; letter-spacing: 1.5px;
+        }
+        #bless-btn:hover { 
+            transform: translateY(-5px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.5);
+            background-position: right center;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. Opening Doors -->
+    <!-- 1. Modern Ivory & Gold Doors -->
     <div id="door-container">
         <div class="door" id="left-door"></div>
         <div class="door" id="right-door"></div>
     </div>
 
-    <!-- 2. Logo & Cartoon Emoji -->
+    <!-- 2. Logo & Realistic Avatar -->
     <section id="hero" class="scroll-element">
-        <img src="your-logo.png" alt="AR Logo" style="width: 150px; margin-bottom: 20px;">
-        <!-- Replace with your actual cartoon emoji image -->
-        <div style="font-size: 100px;">🎎</div> 
+        <div class="logo-container">
+            <!-- Update the src attribute with your actual logo image file name -->
+            <img src="assets/your-logo.png" alt="Couple Logo"> 
+        </div>
+        
+        <h1 class="script-font">Alagu Ragul & [Bride's Name]</h1>
+        <p style="letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem;">Are tying the knot</p>
+
+        <!-- Update the src attribute with your realistic cartoon avatar image file name -->
+        <img src="assets/realistic-couple-avatar.png" alt="Couple Cartoon" class="avatar-container">
     </section>
 
-    <!-- 3. Groom & Bride Names -->
-    <section id="names" class="scroll-element">
-        <h2>We are getting married!</h2>
-        <h1 style="font-size: 4rem;">Alagu Ragul <br>&<br> [Bride's Name]</h1>
-    </section>
-
-    <!-- 4. Engagement Invitation -->
+    <!-- 3. Engagement Invitation Card -->
     <section id="engagement" class="scroll-element">
-        <h2 style="font-size: 3rem;">Nitchayadhartham</h2>
-        <p>Join us to celebrate our engagement.</p>
-        <p><strong>Date:</strong> [Engagement Date]</p>
-        <p><strong>Time:</strong> [Engagement Time]</p>
-        <p><strong>Venue:</strong> [Venue Name], Tamil Nadu</p>
+        <div class="invite-card engagement">
+            <h2 class="event-title">Nitchayadhartham</h2>
+            <p style="color: #0F4C3A; font-style: italic;">The Ring Ceremony</p>
+            <hr style="width: 50px; border: 1px solid #D4AF37; margin: 20px auto;">
+            <div class="event-details">
+                <p><strong>Date:</strong> 15th September 2026</p>
+                <p><strong>Time:</strong> 6:00 PM Onwards</p>
+                <p><strong>Venue:</strong> Grand Residency Hall, Tenkasi</p>
+            </div>
+        </div>
     </section>
 
-    <!-- 5. Marriage Invitation -->
+    <!-- 4. Marriage Invitation Card -->
     <section id="wedding" class="scroll-element">
-        <h2 style="font-size: 3rem;">Muhurtham</h2>
-        <p>We request the honor of your presence at our wedding.</p>
-        <p><strong>Date:</strong> [Wedding Date]</p>
-        <p><strong>Time:</strong> [Wedding Time]</p>
-        <p><strong>Venue:</strong> [Venue Name], Tamil Nadu</p>
+        <div class="invite-card wedding">
+            <h2 class="event-title">Muhurtham</h2>
+            <p style="color: #8B0000; font-style: italic;">The Sacred Union</p>
+            <hr style="width: 50px; border: 1px solid #D4AF37; margin: 20px auto;">
+            <div class="event-details">
+                <p><strong>Date:</strong> 16th September 2026</p>
+                <p><strong>Time:</strong> 9:00 AM - 10:30 AM</p>
+                <p><strong>Venue:</strong> Grand Residency Hall, Tenkasi</p>
+            </div>
+        </div>
     </section>
 
-    <!-- 6. Blessing Button -->
+    <!-- 5. Modern Blessing Button -->
     <section id="blessings" class="scroll-element">
-        <h2>Shower Your Blessings</h2>
-        <p>Send your love and wishes to the couple!</p>
-        <button id="bless-btn" onclick="showerBlessings()">Click to Bless</button>
+        <h2 style="font-size: 2.5rem; color: #333;">Shower Your Blessings</h2>
+        <p style="margin-bottom: 40px; color: #666;">Your presence and wishes mean the world to us.</p>
+        <button id="bless-btn" onclick="flowerShower()">Bless the Couple</button>
     </section>
 
     <script>
-        // Trigger Door Opening Animation when the page loads
+        // Trigger elegant door opening animation
         window.onload = () => {
             setTimeout(() => {
                 document.getElementById('left-door').classList.add('open-left');
                 document.getElementById('right-door').classList.add('open-right');
-            }, 500); // Waits half a second before opening
+            }, 800);
         };
 
-        // Scroll Animation Logic (Intersection Observer)
+        // Smooth scroll fade-in observation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.3 }); // Triggers when 30% of the section is visible
+        }, { threshold: 0.2 });
 
         document.querySelectorAll('.scroll-element').forEach((el) => observer.observe(el));
 
-        // Blessing Button Confetti/Flower Logic
-        function showerBlessings() {
-            var duration = 3 * 1000;
-            var end = Date.now() + duration;
+        // Unique Flower Petal Blessing Animation
+        function flowerShower() {
+            const duration = 4000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
-            (function frame() {
-                // Using red, yellow, and gold to simulate traditional flowers/marigolds
-                confetti({
-                    particleCount: 5,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#FFD700', '#FF4500', '#FF8C00'] 
-                });
-                confetti({
-                    particleCount: 5,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#FFD700', '#FF4500', '#FF8C00']
-                });
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
 
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
                 }
-            }());
+
+                const particleCount = 50 * (timeLeft / duration);
+                
+                // Simulating Marigold (Orange/Yellow) and Rose (Red/Pink) petals using circular shapes
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    shapes: ['circle'], 
+                    colors: ['#FFA500', '#FFD700', '#FF1493', '#DC143C', '#FFF8DC'],
+                    origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 } 
+                }));
+            }, 250);
         }
     </script>
 </body>
